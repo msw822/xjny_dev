@@ -151,7 +151,7 @@ FROM
         FROM
             ods.ods_usr_gxsj_T_TS_JHSHU
         WHERE
-            czlx = 'WJ'
+            czlx = 'WJ' AND dt>='2014-01-01'  AND dt<='2015-01-01'
     ) a
 LEFT JOIN (
     SELECT
