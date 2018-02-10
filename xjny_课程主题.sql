@@ -120,43 +120,40 @@ LEFT JOIN (
 
 
 --  DESCRIPTION: ods->fdm 排课信息表(edu_fdm_kc_pk)
+--排课信息暂不需要
 
 
-
---  DESCRIPTION: ods->fdm 选课信息表(fdm_kc_xsxkxx)                      
+--  DESCRIPTION: ods->fdm 选课信息表(fdm_kc_xsxkxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-10
+-- 选课信息 暂不需要                    
 INSERT OVERWRITE TABLE fdm.fdm_kc_xsxkxx PARTITION (dt = '2999-12-31') SELECT
-    kch,
-    NULL,
-    jxbh,
-    b.KKXN,
-    c.zdlszgh,
-    xh,
+    B.kcdm,
     NULL,
     NULL,
-    b.KKXQ,
+    B.KKXN,
+    B.jszgh,
+    A.xh,
+    NULL,
+    NULL,
+    B.KKXQ,
     NULL
 FROM
     (
         SELECT
-            kch,
-            jxbh,
             xh,
-            wid
+            jxbh
         FROM
             ods.ods_usr_gxsj_t_bzks_xsxk
     ) A
 LEFT JOIN (
     SELECT
-        wid,
+        kcdm,
+        jxbh,
         kkxn,
-        KKXQ
+        KKXQ,
+        jszgh  
     FROM
         ods.ods_usr_gxsj_T_JX_KCAP
-) B ON A.wid = B.wid
-LEFT JOIN (
-    SELECT
-        wid,
-        zdlszgh
-    FROM
-        ods.ods_usr_gxsj_T_BZKS_PKXX_BST
-) c ON A.wid = c.wid
+) B ON A.jxbh = B.jxbh
+
+
+
