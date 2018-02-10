@@ -17,33 +17,45 @@ SET mapred.output.compression.codec = org.apache.hadoop.io.compress.SnappyCodec;
 SET mapred.output.compression.type = block;
 
 --  DESCRIPTION: ods->fdm 课程基本信息表(fdm_kc_jbxx)
-INSERT OVERWRITE TABLE fdm.fdm_kc_jbxx PARTITION ( dt = '2999-12-31' ) 
-SELECT
-A.KCDM,
-A.KCMC,
-A.KCYWMC,
-A.XF,
-A.ZHXS,
-A.XS,
-NULL,
-B.SYXS,
-A.KCJJ,
-NULL,
-NULL,
-NULL,
-A.KCKSDWH,
-NULL,
-NULL
-from 
-(select KCDM,
-KCMC,
-KCYWMC,
-XF,
-ZHXS,
-XS,
-KCJJ,
-KCKSDWH FROM ODS.ods_usr_gxsj_t_bzks_kc )A
-LEFT JOIN ( SELECT SYXS,KCDM FROM ods.ods_usr_gxsj_T_BZKS_JXJH  ) B ON A.KCDM = B.KCDM; 
+INSERT OVERWRITE TABLE fdm.fdm_kc_jbxx PARTITION (dt = '2999-12-31') SELECT
+    A.KCDM,
+    A.KCMC,
+    A.KCYWMC,
+    A.XF,
+    A.ZHXS,
+    A.XS,
+    NULL,
+    B.SYXS,
+    A.KCJJ,
+    NULL,
+    NULL,
+    NULL,
+    A.KCKSDWH,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            KCDM,
+            KCMC,
+            KCYWMC,
+            XF,
+            ZHXS,
+            XS,
+            KCJJ,
+            KCKSDWH
+        FROM
+            ODS.ods_usr_gxsj_t_bzks_kc
+    ) A
+LEFT JOIN (
+    SELECT
+        SYXS,
+        KCDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_JXJH
+) B ON A.KCDM = B.KCDM;
+
+
 
 --  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-10                  
 INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (dt = '2999-12-31') SELECT
@@ -112,20 +124,39 @@ LEFT JOIN (
 
 
 --  DESCRIPTION: ods->fdm 选课信息表(fdm_kc_xsxkxx)                      
-INSERT OVERWRITE TABLE fdm.fdm_kc_xsxkxx PARTITION ( dt = '2999-12-31' ) 
-select 
-kch,
-null,
-jxbh,
-b.KKXN,
-c.zdlszgh,
-xh,
-null,
-null,
-b.KKXQ,
-null
-from 
-( 
-SELECT kch,jxbh,xh,wid from ods.ods_usr_gxsj_t_bzks_xsxk  ) A
-LEFT JOIN ( SELECT wid,kkxn,KKXQ FROM ods.ods_usr_gxsj_T_JX_KCAP  ) B ON A.wid = B.wid
-LEFT JOIN ( SELECT wid,zdlszgh FROM ods.ods_usr_gxsj_T_BZKS_PKXX_BST  ) c ON A.wid = c.wid
+INSERT OVERWRITE TABLE fdm.fdm_kc_xsxkxx PARTITION (dt = '2999-12-31') SELECT
+    kch,
+    NULL,
+    jxbh,
+    b.KKXN,
+    c.zdlszgh,
+    xh,
+    NULL,
+    NULL,
+    b.KKXQ,
+    NULL
+FROM
+    (
+        SELECT
+            kch,
+            jxbh,
+            xh,
+            wid
+        FROM
+            ods.ods_usr_gxsj_t_bzks_xsxk
+    ) A
+LEFT JOIN (
+    SELECT
+        wid,
+        kkxn,
+        KKXQ
+    FROM
+        ods.ods_usr_gxsj_T_JX_KCAP
+) B ON A.wid = B.wid
+LEFT JOIN (
+    SELECT
+        wid,
+        zdlszgh
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_PKXX_BST
+) c ON A.wid = c.wid
