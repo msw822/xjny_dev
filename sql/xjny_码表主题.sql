@@ -80,19 +80,24 @@ NULL
 from
 ods.ods_usr_xg_new_T_ZXBZ_XX;
 
---  DESCRIPTION: ods->dim   来源地区码(hb_xzqh)
-INSERT OVERWRITE TABLE DIM.hb_xzqh
-SELECT
-XZQHDM,
-XZQHMC,
-NULL,
-NULL,
-NULL,
-NULL,
-NULL,
-NULL
-from
-ods.ods_usr_xg_new_T_ZXBZ_XZQH;
+--  DESCRIPTION: ods->dim   来源地区码(hb_xzqh)  麻少威修改 2018-02-11 改用自带码表导入数据
+/*     INSERT OVERWRITE TABLE DIM.hb_xzqh
+    SELECT
+    XZQHDM,
+    XZQHMC,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+    from
+    ods.ods_usr_xg_new_T_ZXBZ_XZQH; */
+    
+LOAD DATA LOCAL INPATH '/opt/h3c/hive/v1/data_export/dim.db/hb_xzqh/part-m-00000' OVERWRITE INTO TABLE DIM.hb_xzqh;
+
+
+
 
 --  DESCRIPTION: ods->dim   国家地区表(hb_gjdq)
 INSERT OVERWRITE TABLE DIM.hb_gjdq
@@ -103,6 +108,7 @@ NULL,
 NULL
 from
 ods.ods_usr_xg_new_T_ZXBZ_GJDQ;
+
 --  DESCRIPTION: ods->dim   学生类别表(hb_xslb)
 INSERT OVERWRITE TABLE DIM.hb_xslb
 SELECT
