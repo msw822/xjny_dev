@@ -120,8 +120,3 @@ hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
 print(hiveShell)
 os.system(hiveShell)
 print('finish--')
-
-# 疑问1、在考勤的sql文件中出现了签到的insert语句
-# 疑问2、学生一卡通消费中没有insert插入语句
-# 疑问3、insert前的set需要加入sql吗
-# 疑问4、分区问题
