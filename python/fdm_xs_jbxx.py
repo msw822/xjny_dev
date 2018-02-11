@@ -62,7 +62,7 @@ unix_timestamp(),
 'yyyy-MM-dd'
 )
 FROM
-ods.ods_usr_gxsj_t_bzks;
+ods.ods_usr_gxsj_t_bzks WHERE dt = '"""+data_day_str+"""';
 
 
 
@@ -91,7 +91,7 @@ unix_timestamp(),
 'yyyy-MM-dd'
 )
 FROM
-ods.ods_usr_gxsj_t_bzks;
+ods.ods_usr_gxsj_t_bzks WHERE dt = '"""+data_day_str+"""';
 
 
 
@@ -111,7 +111,7 @@ NULL,
 NULL,
 NULL
 FROM
-ods.ods_usr_gxsj_t_bzks_gk;
+ods.ods_usr_gxsj_t_bzks_gk WHERE dt = '"""+data_day_str+"""';
 
 
 """

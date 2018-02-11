@@ -1,8 +1,7 @@
 # -*-coding:utf-8-*-
-
+import datetime
 import os
 import sys
-import datetime
 
 #获取外部日期参数，如果传参则data_day_str为传递的参数，如果未传参data_day_str为昨天的日期
 if(len(sys.argv)>1):
@@ -23,80 +22,36 @@ else:
 # 运行的时候将分区字段替换成  dt = '"""+data_day_str+"""' #
 ###########################################################
 
-
 sql = """
 set mapred.output.compress=true; 
 set hive.exec.compress.output=true; 
 set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
 set mapred.output.compression.type=block;
 
-
-
---  DESCRIPTION: ods->fdm 读者信息表(fdm_ts_dz)
-INSERT OVERWRITE TABLE fdm.fdm_ts_dzxx PARTITION (dt = '"""+data_day_str+"""') 
+INSERT OVERWRITE TABLE fdm.fdm_bks_mj PARTITION (dt = '"""+data_day_str+"""') 
 SELECT
-sfrzh,
-dztm,
-sfrzh,
-zjhm,
-NULL,
-NULL,
-NULL,
-bzrq,
-NULL,
-NULL,
-NULL,
-qkje,
-NULL,
-NULL,
-ljcc,
-NULL,
-NULL,
-NULL,
-NULL
-FROM
-ods.ods_usr_gxsj_t_ts_dz WHERE dt = '"""+data_day_str+"""';
+   a.num,
+   b.xm,
+   NULL,
+   b.bh,
+   a.inoutdate,
+   NULL,
+   (case when a.direction=='入' or a.direction=='无入'  or a.direction=='反入' then '1' else '2' end),
+   NULL,
+   NULL,a.dt FROM (
+      SELECT
+        num,
+        inoutdate,
+        direction,
+        dt
+      FROM ods.ods_usr_gxsj_t_xscrxx WHERE dt = '"""+data_day_str+"""'
+   ) a
+LEFT JOIN (SELECT xh, xm,bh FROM ods.ods_usr_gxsj_t_bzks) b ON a.num = b.xh;
 
-
-
---  DESCRIPTION: ods->fdm 图书信息表(fdm_ts_tsxx)
-INSERT OVERWRITE TABLE fdm.fdm_ts_tsxx PARTITION (dt = '"""+data_day_str+"""') 
-SELECT
-dlh,
-tstm,
-tm,
-NULL,
-NULL,
-NULL,
-NULL,
-NULL,
-NULL,
-jg,
-NULL,
-NULL,
-ztflh,
-NULL,
-NULL,
-NULL,
-NULL,
-NULL,
-NULL,
-NULL,
-NULL,
-cbz,
-NULL,
-cbd,
-NULL,
-NULL,
-NULL,
-NULL
-FROM
-ods.ods_usr_gxsj_t_ts_tsxx WHERE dt = '"""+data_day_str+"""';
 
 """
-
 #hiveShell = 'hive -e "' + sql + '"'
-
-hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""print(hiveShell)
+hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
+print(hiveShell)
 os.system(hiveShell)
 print('finish--')
