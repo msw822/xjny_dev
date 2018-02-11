@@ -33,7 +33,7 @@ set mapred.output.compression.type=block;
 
 
 --  DESCRIPTION: ods->fdm 读者信息表(fdm_ts_dz)
-INSERT OVERWRITE TABLE fdm.fdm_ts_dzxx PARTITION (dt = '2999-12-31') 
+INSERT OVERWRITE TABLE fdm.fdm_ts_dzxx PARTITION (dt = '"""+data_day_str+"""') 
 SELECT
 sfrzh,
 dztm,
@@ -60,7 +60,7 @@ ods.ods_usr_gxsj_t_ts_dz;
 
 
 --  DESCRIPTION: ods->fdm 图书信息表(fdm_ts_tsxx)
-INSERT OVERWRITE TABLE fdm.fdm_ts_tsxx PARTITION (dt = '2999-12-31') 
+INSERT OVERWRITE TABLE fdm.fdm_ts_tsxx PARTITION (dt = '"""+data_day_str+"""') 
 SELECT
 dlh,
 tstm,

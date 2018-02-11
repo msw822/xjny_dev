@@ -32,7 +32,7 @@ set mapred.output.compression.type=block;
 
 
 ----  DESCRIPTION: ods->fdm 学生基本信息表(edu_fdm_xs_jbxx)
-INSERT OVERWRITE TABLE fdm.fdm_xs_jbxx PARTITION (dt = '2999-12-31') SELECT
+INSERT OVERWRITE TABLE fdm.fdm_xs_jbxx PARTITION (dt = '"""+data_day_str+"""') SELECT
 xh,
 xm,
 xmpy,
@@ -67,7 +67,7 @@ ods.ods_usr_gxsj_t_bzks;
 
 
 --  DESCRIPTION: ods->fdm 学籍信息表(edu_fdm_xs_xjxx)
-INSERT OVERWRITE TABLE fdm.fdm_xs_xjxx PARTITION (dt = '2999-12-31') SELECT
+INSERT OVERWRITE TABLE fdm.fdm_xs_xjxx PARTITION (dt = '"""+data_day_str+"""') SELECT
 xh,
 rxny,
 xslbdm,
@@ -96,7 +96,7 @@ ods.ods_usr_gxsj_t_bzks;
 
 
 --  DESCRIPTION: ods->fdm 学生来源信息表(edu_fdm_xs_lyxx)
-INSERT OVERWRITE TABLE fdm.fdm_xs_lyxx PARTITION (dt = '2999-12-31') 
+INSERT OVERWRITE TABLE fdm.fdm_xs_lyxx PARTITION (dt = '"""+data_day_str+"""') 
 SELECT
 xh,
 byzx,

@@ -29,7 +29,7 @@ set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 set mapred.output.compression.type=block;
 
 --  DESCRIPTION: ods->fdm 图书借阅记录表(fdm_ts_jyjl)
-INSERT OVERWRITE TABLE fdm.fdm_ts_jyjl PARTITION (dt = '2017-02-02') 
+INSERT OVERWRITE TABLE fdm.fdm_ts_jyjl PARTITION (dt = '"""+data_day_str+"""') 
 SELECT
   a.tstm,
   b.tm,
@@ -50,7 +50,7 @@ FROM
       czlx,
       rq
     FROM
-      ods.ods_usr_gxsj_T_TS_JHSHU WHERE dt='2017-02-02' AND
+      ods.ods_usr_gxsj_T_TS_JHSHU WHERE dt = '"""+data_day_str+"""' AND
     czlx = 'WJ'
   ) a
 LEFT JOIN (SELECT tstm, tm FROM ods.ods_usr_gxsj_T_TS_TSXX) b ON a.TSTM = b.TSTM
