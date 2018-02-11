@@ -1,7 +1,8 @@
 # -*-coding:utf-8-*-
-import datetime
+
 import os
 import sys
+import datetime
 
 #获取外部日期参数，如果传参则data_day_str为传递的参数，如果未传参data_day_str为昨天的日期
 if(len(sys.argv)>1):
@@ -23,42 +24,64 @@ else:
 ###########################################################
 
 sql = """
-set mapred.output.compress=true; 
-set hive.exec.compress.output=true; 
-set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
-set mapred.output.compression.type=block;
+SET mapred.output.compress = true;
+SET hive.exec.compress.output = true;
+SET mapred.output.compression.codec = org.apache.hadoop.io.compress.SnappyCodec;
+SET mapred.output.compression.type = block;
 
---  DESCRIPTION: ods->fdm 图书借阅记录表(fdm_ts_jyjl)
-INSERT OVERWRITE TABLE fdm.fdm_ts_jyjl PARTITION (dt = '"""+data_day_str+"""') 
+--  DESCRIPTION: ods->fdm 一卡通账户信息表(fdm_ykt_xx)
+INSERT OVERWRITE TABLE fdm.fdm_ykt_xx PARTITION ( dt = '"""+data_day_str+"""' ) 
 SELECT
-  a.tstm,
-  b.tm,
-  a.sfrzh,
-  a.sfrzh,
-  a.rq,
-  NULL,
-  c.dzxm,
-  a.rq,
-  NULL,
-  NULL,
-  NULL
+kh,
+NULL,
+NULL,
+NULL,
+NULL,
+xm,
+NULL,
+sfrzh,
+NULL,
+NULL,
+NULL,
+zhye,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+sfrzh,
+NULL,
+xh,
+NULL,
+zcrq,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+kpzt 
 FROM
-  (
-    SELECT
-      sfrzh,
-      tstm,
-      czlx,
-      rq
-    FROM
-      ods.ods_usr_gxsj_T_TS_JHSHU WHERE dt = '"""+data_day_str+"""' AND
-    czlx = 'WJ'
-  ) a
-LEFT JOIN (SELECT tstm, tm FROM ods.ods_usr_gxsj_T_TS_TSXX) b ON a.TSTM = b.TSTM
-LEFT JOIN ods.ods_usr_gxsj_t_ts_dz c ON a.sfrzh = c.sfrzh;
+ods.ods_usr_gxsj_t_ykt_kh WHERE dt = '"""+data_day_str+"""';
 
-
-
-
+--  DESCRIPTION: ods->fdm 一卡通商户信息表(fdm_ykt_shxx)
+INSERT OVERWRITE TABLE fdm.fdm_ykt_shxx PARTITION (dt = '"""+data_day_str+"""') 
+SELECT
+shid,
+shmc,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL 
+FROM
+ods.ods_usr_gxsj_t_ykt_shxx WHERE dt = '"""+data_day_str+"""';
 
 """
 #hiveShell = 'hive -e "' + sql + '"'

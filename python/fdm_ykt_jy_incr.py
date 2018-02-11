@@ -28,36 +28,29 @@ set hive.exec.compress.output=true;
 set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
 set mapred.output.compression.type=block;
 
---  DESCRIPTION: ods->fdm 图书借阅记录表(fdm_ts_jyjl)
-INSERT OVERWRITE TABLE fdm.fdm_ts_jyjl PARTITION (dt = '"""+data_day_str+"""') 
+INSERT OVERWRITE TABLE fdm.fdm_ykt_jy PARTITION (dt = '"""+data_day_str+"""') 
 SELECT
-  a.tstm,
-  b.tm,
-  a.sfrzh,
-  a.sfrzh,
-  a.rq,
-  NULL,
-  c.dzxm,
-  a.rq,
-  NULL,
-  NULL,
-  NULL
+a.kh,
+NULL,
+b.xh,
+NULL,
+A.XFJE,
+NULL,
+A.XFRQ,
+a.xfrqsj,
+C.SHMC,
+c.shid,
+c.shmc,
+a.xfsbbh,
+NULL,
+a.xfye 
 FROM
-  (
-    SELECT
-      sfrzh,
-      tstm,
-      czlx,
-      rq
-    FROM
-      ods.ods_usr_gxsj_T_TS_JHSHU WHERE dt = '"""+data_day_str+"""' AND
-    czlx = 'WJ'
-  ) a
-LEFT JOIN (SELECT tstm, tm FROM ods.ods_usr_gxsj_T_TS_TSXX) b ON a.TSTM = b.TSTM
-LEFT JOIN ods.ods_usr_gxsj_t_ts_dz c ON a.sfrzh = c.sfrzh;
-
-
-
+( SELECT kh,xfje,xfrq,xfrqsj,xfsbbh,xfye,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfjl  WHERE dt = '"""+data_day_str+"""' ) A
+LEFT JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH  ) B ON A.KH = B.kh
+LEFT JOIN ( SELECT shmc,shid,xfsbid,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfsbbh ) c ON (
+CAST ( CAST ( C.xfsbid AS int ) AS string )) = a.xfsbbh 
+AND (
+CAST ( CAST ( c.xfdwid AS int ) AS string )) = a.xfdwid;
 
 
 """
