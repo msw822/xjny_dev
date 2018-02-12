@@ -97,6 +97,7 @@ ods.ods_usr_gxsj_t_ts_tsxx WHERE dt = '"""+data_day_str+"""';
 
 #hiveShell = 'hive -e "' + sql + '"'
 
-hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""print(hiveShell)
+hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
+print(hiveShell)
 os.system(hiveShell)
 print('finish--')
