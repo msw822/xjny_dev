@@ -1,7 +1,8 @@
 # -*-coding:utf-8-*-
-import datetime
+
 import os
 import sys
+import datetime
 
 #获取外部日期参数，如果传参则data_day_str为传递的参数，如果未传参data_day_str为昨天的日期
 if(len(sys.argv)>1):
@@ -23,35 +24,64 @@ else:
 ###########################################################
 
 sql = """
-set mapred.output.compress=true; 
-set hive.exec.compress.output=true; 
-set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
-set mapred.output.compression.type=block;
+SET mapred.output.compress = true;
+SET hive.exec.compress.output = true;
+SET mapred.output.compression.codec = org.apache.hadoop.io.compress.SnappyCodec;
+SET mapred.output.compression.type = block;
 
-INSERT OVERWRITE TABLE fdm.fdm_ykt_jy PARTITION (dt = '"""+data_day_str+"""') 
+--  DESCRIPTION: ods->fdm 一卡通账户信息表(fdm_ykt_xx)
+INSERT OVERWRITE TABLE fdm.fdm_ykt_xx PARTITION ( dt = '"""+data_day_str+"""' ) 
 SELECT
-a.kh,
+kh,
 NULL,
-b.xh,
 NULL,
-A.XFJE,
 NULL,
-A.XFRQ,
-a.xfrqsj,
-C.SHMC,
-c.shid,
-c.shmc,
-a.xfsbbh,
 NULL,
-a.xfye 
+xm,
+NULL,
+sfrzh,
+NULL,
+NULL,
+NULL,
+zhye,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+sfrzh,
+NULL,
+xh,
+NULL,
+zcrq,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+kpzt 
 FROM
-( SELECT kh,xfje,xfrq,xfrqsj,xfsbbh,xfye,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfjl  WHERE dt = '"""+data_day_str+"""' ) A
-LEFT JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH WHERE dt = '2999-12-31'  ) B ON A.KH = B.kh
-LEFT JOIN ( SELECT shmc,shid,xfsbid,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfsbbh WHERE dt = '2999-12-31') c ON (
-CAST ( CAST ( C.xfsbid AS int ) AS string )) = a.xfsbbh 
-AND (
-CAST ( CAST ( c.xfdwid AS int ) AS string )) = a.xfdwid;
+ods.ods_usr_gxsj_t_ykt_kh WHERE dt = '"""+data_day_str+"""';
 
+--  DESCRIPTION: ods->fdm 一卡通商户信息表(fdm_ykt_shxx)
+INSERT OVERWRITE TABLE fdm.fdm_ykt_shxx PARTITION (dt = '"""+data_day_str+"""') 
+SELECT
+shid,
+shmc,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL,
+NULL 
+FROM
+ods.ods_usr_gxsj_t_ykt_shxx WHERE dt = '"""+data_day_str+"""';
 
 """
 #hiveShell = 'hive -e "' + sql + '"'
