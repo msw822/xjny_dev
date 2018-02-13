@@ -94,7 +94,7 @@ SELECT
    NULL,
    (case when a.direction=='入' or a.direction=='无入'  or a.direction=='反入' then '1' else '2' end),
    NULL,
-   NULL,a.dt FROM (
+   NULL FROM (
       SELECT
         num,
         inoutdate,
