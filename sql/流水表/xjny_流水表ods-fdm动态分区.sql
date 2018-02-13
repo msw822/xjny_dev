@@ -47,14 +47,14 @@ FROM
             xfdwid,
             dt
         FROM
-            ods.ods_usr_gxsj_t_ykt_xfjl
+            ods.ods_usr_gxsj_t_ykt_xfjl WHERE dt>='2017-06-01'  AND dt<='2018-03-01'
     ) A
 LEFT JOIN (
     SELECT
         kh,
         xh
     FROM
-        ods.ods_usr_gxsj_t_ykt_KH
+        ods.ods_usr_gxsj_t_ykt_KH WHERE dt = '2999-12-31' 
 ) B ON A.KH = B.kh
 LEFT JOIN (
     SELECT
@@ -63,7 +63,7 @@ LEFT JOIN (
         xfsbid,
         xfdwid
     FROM
-        ods.ods_usr_gxsj_t_ykt_xfsbbh
+        ods.ods_usr_gxsj_t_ykt_xfsbbh WHERE dt = '2999-12-31' 
 ) c ON (
     CAST(
         CAST(C.xfsbid AS INT) AS string
@@ -109,7 +109,7 @@ FROM
             direction,
             dt
         FROM
-            ods.ods_usr_gxsj_t_xscrxx
+            ods.ods_usr_gxsj_t_xscrxx  WHERE dt>='2017-06-01'  AND dt<='2018-03-01'
     ) a
 LEFT JOIN (
     SELECT
@@ -117,7 +117,7 @@ LEFT JOIN (
         xm,
         bh
     FROM
-        ods.ods_usr_gxsj_t_bzks
+        ods.ods_usr_gxsj_t_bzks WHERE dt = '2999-12-31' 
 ) b ON a.num = b.xh
 
 
@@ -151,7 +151,7 @@ FROM
         FROM
             ods.ods_usr_gxsj_T_TS_JHSHU
         WHERE
-            czlx = 'WJ' AND dt>='2014-01-01'  AND dt<='2015-01-01'
+            czlx = 'WJ' AND dt>='2017-06-01'  AND dt<='2018-03-01'
     ) a
 LEFT JOIN (
     SELECT
@@ -160,4 +160,4 @@ LEFT JOIN (
     FROM
         ods.ods_usr_gxsj_T_TS_TSXX
 ) b ON a.TSTM = b.TSTM
-LEFT JOIN ods.ods_usr_gxsj_t_ts_dz c ON a.sfrzh = c.sfrzh
+LEFT JOIN (SELECT sfrzh,dzxm FROM ods.ods_usr_gxsj_t_ts_dz WHERE dt = '2999-12-31')  c ON a.sfrzh = c.sfrzh
