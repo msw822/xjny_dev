@@ -79,8 +79,8 @@ FROM
       ods.ods_usr_gxsj_T_TS_JHSHU WHERE dt = '"""+data_day_str+"""' AND
     czlx = 'WJ'
   ) a
-LEFT JOIN (SELECT tstm, tm FROM ods.ods_usr_gxsj_T_TS_TSXX) b ON a.TSTM = b.TSTM
-LEFT JOIN ods.ods_usr_gxsj_t_ts_dz c ON a.sfrzh = c.sfrzh;
+LEFT JOIN (SELECT tstm, tm FROM ods.ods_usr_gxsj_T_TS_TSXX WHERE dt = '2999-12-31') b ON a.TSTM = b.TSTM
+LEFT JOIN (SELECT sfrzh,dzxm FROM ods.ods_usr_gxsj_t_ts_dz WHERE dt = '2999-12-31')  c ON a.sfrzh = c.sfrzh;
 
 
 --  DESCRIPTION: ods->fdm 门禁记录表(fdm_bks_mj)
@@ -102,7 +102,7 @@ SELECT
         dt
       FROM ods.ods_usr_gxsj_t_xscrxx WHERE dt = '"""+data_day_str+"""'
    ) a
-LEFT JOIN (SELECT xh, xm,bh FROM ods.ods_usr_gxsj_t_bzks) b ON a.num = b.xh;
+LEFT JOIN (SELECT xh, xm,bh FROM ods.ods_usr_gxsj_t_bzks WHERE dt = '2999-12-31') b ON a.num = b.xh;
 
 """
 #hiveShell = 'hive -e "' + sql + '"'
