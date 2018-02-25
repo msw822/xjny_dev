@@ -119,8 +119,41 @@ LEFT JOIN (
 
 
 
---  DESCRIPTION: ods->fdm 排课信息表(edu_fdm_kc_pk)
---排课信息暂不需要
+--  DESCRIPTION: ods->fdm 课程安排信息表(edu_fdm_kc_pk)
+--教务课程安排信息
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap PARTITION (dt = '2999-12-31') 
+SELECT
+    A.KKXN,
+    A.KKXQ,
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KSLBDM,
+    A.KSXZDM
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            KKYXDM,
+            XF,
+            XS,
+            KSLBDM,
+            KSXZDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC
+) B ON A.KCDM = B.KCDM
 
 
 --  DESCRIPTION: ods->fdm 选课信息表(fdm_kc_xsxkxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-10

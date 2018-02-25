@@ -130,8 +130,40 @@ LEFT JOIN (
         ods.ods_usr_gxsj_T_BZKS WHERE dt = '"""+data_day_str+"""'
 ) B ON A.xh = B.xh;
 
-
-
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap PARTITION (dt = '"""+data_day_str+"""') 
+SELECT
+    A.KKXN,
+    A.KKXQ,
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KSLBDM,
+    A.KSXZDM
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            KKYXDM,
+            XF,
+            XS,
+            KSLBDM,
+            KSXZDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE dt = '"""+data_day_str+"""'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '"""+data_day_str+"""'
+) B ON A.KCDM = B.KCDM;
 
 --  DESCRIPTION: ods->fdm 选课信息表(fdm_kc_xsxkxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-10
 -- 选课信息 暂不需要                    
