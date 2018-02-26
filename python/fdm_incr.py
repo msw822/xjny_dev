@@ -28,8 +28,8 @@ set hive.exec.compress.output=true;
 set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
 set mapred.output.compression.type=block;
 
---  DESCRIPTION: ods->fdm 一卡通交易记录表(fdm_ykt_jy)
-INSERT OVERWRITE TABLE fdm.fdm_ykt_jy PARTITION (dt = '"""+data_day_str+"""') 
+--  DESCRIPTION: ods->fdm 一卡通交易记录表(fdm_ykt_jy_log)
+INSERT OVERWRITE TABLE fdm.fdm_ykt_jy_log PARTITION (dt = '"""+data_day_str+"""') 
 SELECT
 a.kh,
 NULL,

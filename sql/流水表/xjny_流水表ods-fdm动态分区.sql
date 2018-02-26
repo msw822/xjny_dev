@@ -18,8 +18,8 @@ SET mapred.output.compression.type = block;
 
 set hive.exec.dynamic.partition.mode=nonstrict;
 
---  DESCRIPTION: ods->fdm 一卡通交易信息表(fdm_ykt_jy) 动态分区     
-INSERT OVERWRITE TABLE fdm.fdm_ykt_jy PARTITION (dt) SELECT
+--  DESCRIPTION: ods->fdm 一卡通交易信息表(fdm_ykt_jy_log) 动态分区     
+INSERT OVERWRITE TABLE fdm.fdm_ykt_jy_log PARTITION (dt) SELECT
     a.kh,
     NULL,
     b.xh,

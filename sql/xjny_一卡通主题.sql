@@ -69,8 +69,8 @@ NULL
 FROM
 ods.ods_usr_gxsj_t_ykt_shxx;
 
---  DESCRIPTION: ods->fdm 一卡通交易信息表(fdm_ykt_jy)			
-INSERT OVERWRITE TABLE fdm.fdm_ykt_jy PARTITION ( dt = '2018-01-01' ) 
+--  DESCRIPTION: ods->fdm 一卡通交易信息表(fdm_ykt_jy_log)			
+INSERT OVERWRITE TABLE fdm.fdm_ykt_jy_log PARTITION ( dt = '2018-01-01' ) 
 SELECT
 a.kh,
 NULL,
