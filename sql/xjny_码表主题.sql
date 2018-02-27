@@ -15,15 +15,15 @@ SET hive.exec.compress.output = true;
 SET mapred.output.compression.codec = org.apache.hadoop.io.compress.SnappyCodec;
 SET mapred.output.compression.type = block;
 
---  DESCRIPTION: ods->DIM 性别表（hb_xb)	
-INSERT OVERWRITE TABLE DIM.hb_xb				
+--  DESCRIPTION: ods->DIM 性别表（hb_xb)    
+INSERT OVERWRITE TABLE DIM.hb_xb                
 SELECT
 xbDM,
 xbMC
 FROM
 ods.ods_usr_xg_new_t_zxbz_xb;
 --  DESCRIPTION: ods->dim 民族表(hb_mz)
-INSERT OVERWRITE TABLE DIM.hb_mz				
+INSERT OVERWRITE TABLE DIM.hb_mz                
 SELECT
 MZDM,
 MZMC,
@@ -31,7 +31,7 @@ NULL
 FROM 
 ods.ods_usr_xg_new_t_zxbz_mz;
 --  DESCRIPTION: ods->dim 身份证件类型表（hb_sfzjlx)
-INSERT OVERWRITE TABLE DIM.hb_sfzjlx				
+INSERT OVERWRITE TABLE DIM.hb_sfzjlx                
 SELECT
 SFZJLXDM,
 SFZJLXMC
@@ -128,7 +128,7 @@ from
 ods.ods_usr_gxsj_t_bzks_zy;
 
 --  DESCRIPTION: ods->dim  单位表(dim_dw)
-INSERT OVERWRITE TABLE DIM.dim_dw	
+INSERT OVERWRITE TABLE DIM.dim_dw   
 SELECT
 dwdm,
 dwmc,
@@ -150,3 +150,49 @@ NULL,
 NULL
 from
 ods.ods_usr_gxsj_t_dw;
+
+
+
+
+--  DESCRIPTION: ods->dim  班级表(dim_bjxx)
+INSERT OVERWRITE TABLE DIM.dim_bjxx SELECT
+    A.bh,
+    A.bjmc,
+    A.bjjc,
+    NULL,
+    A.nj,
+    A.BZRZGH,
+    NULL,
+    NULL,
+    NULL,
+    A.YXDM,
+    B.DWMC,
+    A.ZYDM,
+    C.ZYMC,
+    NULL,
+    NULL,
+    A.XZ,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            bh,
+            bjmc,
+            bjjc,
+            nj,
+            BZRZGH,
+            YXDM,
+            ZYDM,
+            XZ
+        FROM
+            ods.ods_usr_gxsj_T_BZKS_XZB
+    ) A
+LEFT JOIN (SELECT DWDM,
+ DWMC
+FROM
+    ods.ods_usr_gxsj_t_dw )B ON A.YXDM = B.DWDM
+LEFT JOIN (SELECT ZYDM,
+ ZYMC
+FROM
+    ods.ods_usr_gxsj_t_bzks_zy) C ON A.ZYDM = C.ZYDM;
