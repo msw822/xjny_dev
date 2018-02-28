@@ -133,15 +133,15 @@ LEFT JOIN (
 --  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
 INSERT OVERWRITE TABLE fdm.fdm_jw_pkap PARTITION (dt = '"""+data_day_str+"""') 
 SELECT
-    A.KKXN,
-    A.KKXQ,
     A.JXBH,
     A.KCDM,
     B.KCKSDWH,
     A.XF,
     A.XS,
-    A.KSLBDM,
-    A.KSXZDM
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
 FROM
     (
         SELECT
@@ -149,18 +149,17 @@ FROM
             KKXQ,
             JXBH,
             KCDM,
-            KKYXDM,
             XF,
             XS,
-            KSLBDM,
-            KSXZDM
+            KCLBDM
         FROM
             ods.ods_usr_gxsj_T_JX_KCAP WHERE dt = '"""+data_day_str+"""'
     ) A
 LEFT JOIN (
     SELECT
         KCDM,
-        KCKSDWH
+        KCKSDWH,
+        KCXZ
     FROM
         ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '"""+data_day_str+"""'
 ) B ON A.KCDM = B.KCDM;

@@ -119,19 +119,19 @@ LEFT JOIN (
 
 
 
---  DESCRIPTION: ods->fdm 课程安排信息表(edu_fdm_kc_pk)
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap)
 --教务课程安排信息
 INSERT OVERWRITE TABLE fdm.fdm_jw_pkap PARTITION (dt = '2999-12-31') 
 SELECT
-    A.KKXN,
-    A.KKXQ,
     A.JXBH,
     A.KCDM,
     B.KCKSDWH,
     A.XF,
     A.XS,
-    A.KSLBDM,
-    A.KSXZDM
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
 FROM
     (
         SELECT
@@ -139,20 +139,19 @@ FROM
             KKXQ,
             JXBH,
             KCDM,
-            KKYXDM,
             XF,
             XS,
-            KSLBDM,
-            KSXZDM
+            KCLBDM
         FROM
-            ods.ods_usr_gxsj_T_JX_KCAP
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE dt = '2999-12-31'
     ) A
 LEFT JOIN (
     SELECT
         KCDM,
-        KCKSDWH
+        KCKSDWH,
+        KCXZ
     FROM
-        ods.ods_usr_gxsj_T_BZKS_KC
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
 ) B ON A.KCDM = B.KCDM
 
 
