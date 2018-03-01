@@ -34,9 +34,9 @@ SELECT
 a.kh,
 NULL,
 b.xh,
-NULL,
+A.XYLX,
 A.XFJE,
-NULL,
+A.XFMXID,
 A.XFRQ,
 a.xfsj,
 C.SHMC,
@@ -46,7 +46,9 @@ a.xfsbbh,
 NULL,
 a.xfye 
 FROM
-( SELECT kh,xfje,xfrq,regexp_replace(xfrqsj, '/', '-') as xfsj ,xfsbbh,xfye,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfjl  WHERE dt = '"""+data_day_str+"""' ) A
+( SELECT XFMXID,kh,xfje,xfrq,regexp_replace(xfrqsj, '/', '-') as xfsj ,xfsbbh,xfye,xfdwid,
+CASE WHEN xfje<0 THEN '1' ELSE '2'  END AS JYLX  FROM ods.ods_usr_gxsj_t_ykt_xfjl
+ FROM ods.ods_usr_gxsj_t_ykt_xfjl  WHERE dt = '"""+data_day_str+"""' ) A
 LEFT JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH WHERE dt = '2999-12-31'  ) B ON A.KH = B.kh
 LEFT JOIN ( SELECT shmc,shid,xfsbid,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfsbbh WHERE dt = '2999-12-31') c ON (
 CAST ( CAST ( C.xfsbid AS int ) AS string )) = a.xfsbbh 

@@ -19,61 +19,32 @@ SET mapred.output.compression.type = block;
 set hive.exec.dynamic.partition.mode=nonstrict;
 
 --  DESCRIPTION: ods->fdm 一卡通交易信息表(fdm_ykt_jy_log) 动态分区     
-INSERT OVERWRITE TABLE fdm.fdm_ykt_jy_log PARTITION (dt) SELECT
-    a.kh,
-    NULL,
-    b.xh,
-    NULL,
-    A.XFJE,
-    NULL,
-    A.XFRQ,
-    a.xfrqsj,
-    C.SHMC,
-    c.shid,
-    c.shmc,
-    a.xfsbbh,
-    NULL,
-    a.xfye,
-    a.dt
+INSERT OVERWRITE TABLE fdm.fdm_ykt_jy_log PARTITION (dt) 
+SELECT
+a.kh,
+NULL,
+b.xh,
+A.JYLX,
+A.XFJE,
+A.XFMXID,
+A.XFRQ,
+a.xfsj,
+C.SHMC,
+c.shid,
+c.shmc,
+a.xfsbbh,
+NULL,
+a.xfye,
+dt
 FROM
-    (
-        SELECT
-            kh,
-            xfje,
-            xfrq,
-            xfrqsj,
-            xfsbbh,
-            xfye,
-            xfdwid,
-            dt
-        FROM
-            ods.ods_usr_gxsj_t_ykt_xfjl WHERE dt>='2017-06-01'  AND dt<='2018-03-01'
-    ) A
-LEFT JOIN (
-    SELECT
-        kh,
-        xh
-    FROM
-        ods.ods_usr_gxsj_t_ykt_KH WHERE dt = '2999-12-31' 
-) B ON A.KH = B.kh
-LEFT JOIN (
-    SELECT
-        shmc,
-        shid,
-        xfsbid,
-        xfdwid
-    FROM
-        ods.ods_usr_gxsj_t_ykt_xfsbbh WHERE dt = '2999-12-31' 
-) c ON (
-    CAST(
-        CAST(C.xfsbid AS INT) AS string
-    )
-) = a.xfsbbh
+( SELECT XFMXID,kh,xfje,xfrq,regexp_replace(xfrqsj, '/', '-') as xfsj ,xfsbbh,xfye,xfdwid,
+CASE WHEN xfje<0 THEN '1' ELSE '2'  END AS JYLX,
+dt FROM ods.ods_usr_gxsj_t_ykt_xfjl  WHERE dt>='2017-06-01'  AND dt<='2018-03-01' ) A
+LEFT JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH WHERE dt = '2999-12-31'  ) B ON A.KH = B.kh
+LEFT JOIN ( SELECT shmc,shid,xfsbid,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfsbbh WHERE dt = '2999-12-31') c ON (
+CAST ( CAST ( C.xfsbid AS int ) AS string )) = a.xfsbbh 
 AND (
-    CAST(
-        CAST(c.xfdwid AS INT) AS string
-    )
-) = a.xfdwid;
+CAST ( CAST ( c.xfdwid AS int ) AS string )) = a.xfdwid;
 
 
 

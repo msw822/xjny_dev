@@ -75,9 +75,9 @@ SELECT
 a.kh,
 NULL,
 b.xh,
-NULL,
+A.JYLX,
 A.XFJE,
-NULL,
+A.XFMXID,
 A.XFRQ,
 a.xfrqsj,
 C.SHMC,
@@ -87,7 +87,9 @@ a.xfsbbh,
 NULL,
 a.xfye 
 FROM
-( SELECT kh,xfje,xfrq,regexp_replace(xfrqsj, '/', '-'),xfsbbh,xfye,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfjl WHERE dt = '2018-01-01' ) A
+( SELECT XFMXID,kh,xfje,xfrq,regexp_replace(xfrqsj, '/', '-')AS jysj,xfsbbh,xfye,xfdwid, 
+CASE WHEN xfje<0 THEN '1' ELSE '2'  END AS JYLX FROM ods.ods_usr_gxsj_t_ykt_xfjl
+ WHERE dt = '2018-01-01' ) A
 LEFT JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH  ) B ON A.KH = B.kh
 LEFT JOIN ( SELECT shmc,shid,xfsbid,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfsbbh ) c ON (
 CAST ( CAST ( C.xfsbid AS int ) AS string )) = a.xfsbbh 
