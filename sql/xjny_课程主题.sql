@@ -32,7 +32,7 @@ INSERT OVERWRITE TABLE fdm.fdm_kc_jbxx PARTITION (dt = '2999-12-31') SELECT
     NULL,
     A.KCKSDWH,
     NULL,
-    NULL
+    A.KCXZ
 FROM
     (
         SELECT
@@ -43,7 +43,8 @@ FROM
             ZHXS,
             XS,
             KCJJ,
-            KCKSDWH
+            KCKSDWH,
+            KCXZ
         FROM
             ODS.ods_usr_gxsj_t_bzks_kc
     ) A

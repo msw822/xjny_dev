@@ -45,7 +45,7 @@ INSERT OVERWRITE TABLE fdm.fdm_kc_jbxx PARTITION (dt = '"""+data_day_str+"""')  
     NULL,
     A.KCKSDWH,
     NULL,
-    NULL
+    A.KCXZ
 FROM
     (
         SELECT
@@ -56,7 +56,8 @@ FROM
             ZHXS,
             XS,
             KCJJ,
-            KCKSDWH
+            KCKSDWH,
+            KCXZ
         FROM
             ODS.ods_usr_gxsj_t_bzks_kc WHERE dt = '"""+data_day_str+"""'
     ) A
@@ -70,99 +71,6 @@ LEFT JOIN (
 
 
 
---  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-10                  
-INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (dt = '"""+data_day_str+"""')  SELECT
-    A.xn,
-    A.xqdm,
-    NULL,
-    A.xh,
-    A.KCDM,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    A.BFZKSCJ,
-    A.DJZKSCJ,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    B.BH,
-    NULL,
-    B.ZYDM,
-    B.YXDM,
-    NULL,
-    A.xf,
-    NULL,
-    NULL,
-    A.jd,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-FROM
-    (
-        SELECT
-            XN,
-            XQDM,
-            XH,
-            KCDM,
-            BFZKSCJ,
-            DJZKSCJ,
-            XF,
-            JD
-        FROM
-            ODS.ods_usr_gxsj_t_bzks_kscj WHERE dt = '"""+data_day_str+"""'
-    ) A
-LEFT JOIN (
-    SELECT
-        XH,
-        BH,
-        ZYDM,
-        YXDM
-    FROM
-        ods.ods_usr_gxsj_T_BZKS WHERE dt = '"""+data_day_str+"""'
-) B ON A.xh = B.xh;
-
---  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
-INSERT OVERWRITE TABLE fdm.fdm_jw_pkap PARTITION (dt = '"""+data_day_str+"""') 
-SELECT
-    A.JXBH,
-    A.KCDM,
-    B.KCKSDWH,
-    A.XF,
-    A.XS,
-    A.KCLBDM,
-    A.KCLBDM,
-    B.KCXZ,
-    B.KCXZ
-FROM
-    (
-        SELECT
-            KKXN,
-            KKXQ,
-            JXBH,
-            KCDM,
-            XF,
-            XS,
-            KCLBDM
-        FROM
-            ods.ods_usr_gxsj_T_JX_KCAP WHERE dt = '"""+data_day_str+"""'
-    ) A
-LEFT JOIN (
-    SELECT
-        KCDM,
-        KCKSDWH,
-        KCXZ
-    FROM
-        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '"""+data_day_str+"""'
-) B ON A.KCDM = B.KCDM;
 
 --  DESCRIPTION: ods->fdm 选课信息表(fdm_kc_xsxkxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-10
 -- 选课信息 暂不需要                    
