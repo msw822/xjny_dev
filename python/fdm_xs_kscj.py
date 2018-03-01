@@ -43,7 +43,7 @@ INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (xn = '"""+xn+"""', xqm= '"""
     NULL,
     A.BFZKSCJ,
     A.DJZKSCJ,
-    NULL,
+    A.BFZKSCJ,
     NULL,
     NULL,
     NULL,
