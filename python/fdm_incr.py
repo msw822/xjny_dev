@@ -34,7 +34,7 @@ SELECT
 a.kh,
 NULL,
 b.xh,
-A.XYLX,
+A.JYLX,
 A.XFJE,
 A.XFMXID,
 A.XFRQ,
@@ -47,7 +47,7 @@ NULL,
 a.xfye 
 FROM
 ( SELECT XFMXID,kh,xfje,xfrq,regexp_replace(xfrqsj, '/', '-') as xfsj ,xfsbbh,xfye,xfdwid,
-CASE WHEN xfje<0 THEN '1' ELSE '2'  END AS JYLX  FROM ods.ods_usr_gxsj_t_ykt_xfjl
+CASE WHEN xfje<0 THEN '1' ELSE '2'  END AS JYLX  
  FROM ods.ods_usr_gxsj_t_ykt_xfjl  WHERE dt = '"""+data_day_str+"""' ) A
 LEFT JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH WHERE dt = '2999-12-31'  ) B ON A.KH = B.kh
 LEFT JOIN ( SELECT shmc,shid,xfsbid,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfsbbh WHERE dt = '2999-12-31') c ON (
@@ -56,8 +56,8 @@ AND (
 CAST ( CAST ( c.xfdwid AS int ) AS string )) = a.xfdwid;
 
 
---  DESCRIPTION: ods->fdm 图书借阅记录表(fdm_ts_jyjl)
-INSERT OVERWRITE TABLE fdm.fdm_ts_jyjl PARTITION (dt = '"""+data_day_str+"""') 
+--  DESCRIPTION: ods->fdm 图书借阅记录表(fdm_ts_jy_log)
+INSERT OVERWRITE TABLE fdm.fdm_ts_jy_log PARTITION (dt = '"""+data_day_str+"""') 
 SELECT
   a.tstm,
   b.tm,
