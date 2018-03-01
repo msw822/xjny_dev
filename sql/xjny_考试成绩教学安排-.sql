@@ -17,7 +17,10 @@ SET mapred.output.compression.codec = org.apache.hadoop.io.compress.SnappyCodec;
 SET mapred.output.compression.type = block;
 
 --  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
-INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (xn = '"""+xn+"""', xqm= '"""+xqm+"""')  SELECT
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '"""+xn+"""',
+    xqm = '"""+xqm+"""'
+) SELECT
     NULL,
     A.xh,
     A.KCDM,
@@ -27,9 +30,9 @@ INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (xn = '"""+xn+"""', xqm= '"""
     NULL,
     A.BFZKSCJ,
     A.DJZKSCJ,
-    A.BFZKSCJ,
-    NULL,
-    NULL,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
     NULL,
     NULL,
     NULL,
@@ -43,7 +46,7 @@ INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (xn = '"""+xn+"""', xqm= '"""
     B.YXDM,
     NULL,
     A.xf,
-    NULL,
+    A.xf_hd,
     NULL,
     A.jd,
     NULL,
@@ -58,11 +61,37 @@ FROM
             XH,
             KCDM,
             BFZKSCJ,
-            DJZKSCJ,
-            XF,
-            JD
-        FROM
-            ODS.ods_usr_gxsj_t_bzks_kscj WHERE  xn='"""+xn+"""' AND xqdm='"""+xqm+"""'
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '90'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '80'
+        WHEN DJZKSCJ IN ('中等', '通过', 'C') THEN
+            '70'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '60'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '"""+xn+"""'
+AND xqdm = '"""+xqm+"""'
     ) A
 LEFT JOIN (
     SELECT
@@ -71,8 +100,11 @@ LEFT JOIN (
         ZYDM,
         YXDM
     FROM
-        ods.ods_usr_gxsj_T_BZKS WHERE dt = '"""+data_newest_str+"""'
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '"""+data_newest_str+"""'
 ) B ON A.xh = B.xh;
+
 
 --  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
 INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '"""+xn+"""', xqm= '"""+xqm+"""')
