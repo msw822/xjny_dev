@@ -87,7 +87,7 @@ a.xfsbbh,
 NULL,
 a.xfye 
 FROM
-( SELECT kh,xfje,xfrq,xfrqsj,xfsbbh,xfye,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfjl WHERE dt = '2018-01-01' ) A
+( SELECT kh,xfje,xfrq,regexp_replace(xfrqsj, '/', '-'),xfsbbh,xfye,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfjl WHERE dt = '2018-01-01' ) A
 LEFT JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH  ) B ON A.KH = B.kh
 LEFT JOIN ( SELECT shmc,shid,xfsbid,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfsbbh ) c ON (
 CAST ( CAST ( C.xfsbid AS int ) AS string )) = a.xfsbbh 
