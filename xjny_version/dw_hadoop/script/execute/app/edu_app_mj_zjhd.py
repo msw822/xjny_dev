@@ -46,24 +46,26 @@ set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 set mapred.output.compression.type=block;
 
 INSERT OVERWRITE TABLE app.edu_app_mj_zjhd PARTITION (dt='"""+data_day_str+"""')
-SELECT jbxx.xh,
+SELECT 
+       '"""+data_day_str+"""',
+       jbxx.xh,
        jbxx.xm,
-       jbxx.yxdm,
-       jbxx.yxmc,
-       jbxx.zydm,
-       jbxx.zymc,
-       jbxx.bjdm,
-       jbxx.bjmc,
-       jbxx.xznj,
+       jbxx.SSYXM,
+       jbxx.SSYXM_MC,
+       jbxx.ZYM,
+       jbxx.ZYM_MC,
+       jbxx.SZBH,
+       jbxx.BJMC,
+       jbxx.SZNJ,
        jbxx.xz,
        xf.zhxfsj,
        js.zhjssj,
        mj.zhmjsj
-  from( SELECT xh,xm,yxdm,yxmc,zydm,zymc,bjdm,bjmc,xznj,xz FROM gdm.gdm_xs_jbxx_da 
-        WHERE dt='"""+data_newest_str+"""') jbxx
+  from( SELECT xh,xm,SSYXM,SSYXM_MC,ZYM,ZYM_MC,SZBH,BJMC,SZNJ,xz FROM gdm.gdm_xs_jbxx_da 
+        WHERE dt='"""+data_newest_str+"""' and xh like '22%') jbxx
   LEFT OUTER JOIN (select xh, MAX(jysj) AS zhxfsj
-                     from gdm.gdm_ykt_jy_log
-                    WHERE dt = '"""+data_day_str+"""'
+                     from gdm.gdm_ykt_jy_log 
+                    WHERE dt = '"""+data_day_str+"""' 
                     GROUP BY xh) xf
     ON xf.xh = jbxx.xh
   LEFT JOIN (select xh, max(SKSJ) as zhjssj
