@@ -85,8 +85,8 @@ LEFT JOIN (SELECT tstm, tm FROM ods.ods_usr_gxsj_T_TS_TSXX WHERE dt = '2999-12-3
 LEFT JOIN (SELECT sfrzh,dzxm FROM ods.ods_usr_gxsj_t_ts_dz WHERE dt = '2999-12-31')  c ON a.sfrzh = c.sfrzh;
 
 
---  DESCRIPTION: ods->fdm 门禁记录表(fdm_bks_mj)
-INSERT OVERWRITE TABLE fdm.fdm_bks_mj PARTITION (dt = '"""+data_day_str+"""') 
+--  DESCRIPTION: ods->fdm 门禁记录表(fdm_xs_mj_log)
+INSERT OVERWRITE TABLE fdm.fdm_xs_mj_log PARTITION (dt = '"""+data_day_str+"""') 
 SELECT
    a.num,
    b.xm,
