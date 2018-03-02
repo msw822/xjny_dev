@@ -55,7 +55,7 @@ SELECT xh,
            END) AS zcxfje,
        MIN(CASE
              WHEN jysj_h >= '06:00:00' AND jysj_h < '12:00:00' THEN
-              jysj_h
+              jysj
            END) as zxxfsj,
        SUM(CASE
              WHEN jysj_h >= '12:00:00' AND jysj_h < '16:00:00' THEN
@@ -65,7 +65,7 @@ SELECT xh,
            END) AS wcxfje,
        MIN(CASE
              WHEN jysj_h >= '12:00:00' AND jysj_h < '16:00:00' THEN
-              jysj_h
+              jysj
            END) AS wcxfsj,
        
        SUM(CASE
@@ -76,11 +76,12 @@ SELECT xh,
            END) AS wacxfje,
        MIN(CASE
              WHEN jysj_h >= '16:00:00' AND jysj_h < '24:00:00' THEN
-              jysj_h
+              jysj
            END) AS wacxfsj
   FROM (SELECT xh,
                SUBSTR(jysj, 1, 10) AS xfrq,
                SUBSTR(jysj, 12, 8) AS jysj_h,
+               jysj,
                xfjl.jyje
           FROM gdm.gdm_ykt_jy_log xfjl
          WHERE dt = '"""+data_day_str+"""'
