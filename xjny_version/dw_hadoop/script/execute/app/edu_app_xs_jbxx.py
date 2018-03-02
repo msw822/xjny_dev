@@ -84,7 +84,7 @@ SELECT XH,
     NULL,
     NULL,
     NULL
-FROM GDM.GDM_XS_JBXX_DA WHERE dt='"""+data_newest_str+"""'
+FROM GDM.GDM_XS_JBXX_DA WHERE dt='"""+data_newest_str+"""' and  xh like '22%'
 """
 hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
 print(hiveShell)

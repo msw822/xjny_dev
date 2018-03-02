@@ -47,6 +47,9 @@ set mapred.output.compression.type=block;
 
 INSERT OVERWRITE TABLE app.edu_app_mj_zjhd PARTITION (dt='"""+data_day_str+"""')
 SELECT 
+* FROM 
+
+(SELECT 
        '"""+data_day_str+"""',
        jbxx.xh,
        jbxx.xm,
@@ -58,9 +61,9 @@ SELECT
        jbxx.BJMC,
        jbxx.SZNJ,
        jbxx.xz,
-       xf.zhxfsj,
-       js.zhjssj,
-       mj.zhmjsj
+       xf.zhxfsj as ZHXFSJ,
+       js.zhjssj AS ZHMJSJ,
+       mj.zhmjsj as ZHSWSJ
   from( SELECT xh,xm,SSYXM,SSYXM_MC,ZYM,ZYM_MC,SZBH,BJMC,SZNJ,xz FROM gdm.gdm_xs_jbxx_da 
         WHERE dt='"""+data_newest_str+"""' and xh like '22%') jbxx
   LEFT OUTER JOIN (select xh, MAX(jysj) AS zhxfsj
@@ -77,7 +80,7 @@ SELECT
                from fdm.fdm_sw_log
               WHERE dt = '"""+data_day_str+"""'
               group by xh) mj
-    on mj.xh = jbxx.xh
+    on mj.xh = jbxx.xh) AS zjhd  WHERE zjhd.ZHXFSJ is not null OR zjhd.ZHMJSJ IS NOT NULL OR zjhd.ZHSWSJ IS NOT NULL
 ;
 """
 hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
