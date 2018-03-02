@@ -66,7 +66,7 @@ LEFT JOIN (
         SYXS,
         KCDM
     FROM
-        ods.ods_usr_gxsj_T_BZKS_JXJH WHERE dt = '"""+data_day_str+"""'
+        ods.ods_usr_gxsj_T_BZKS_JXJH WHERE dt = '"""+data_day_str+"""' order by kkxn desc limit 1
 ) B ON A.KCDM = B.KCDM;
 
 

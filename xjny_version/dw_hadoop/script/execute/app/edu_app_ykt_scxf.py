@@ -84,7 +84,7 @@ SELECT xh,
                jysj,
                xfjl.jyje
           FROM gdm.gdm_ykt_jy_log xfjl
-         WHERE dt = '"""+data_day_str+"""'
+         WHERE dt = '"""+data_day_str+"""' and  xh like '22%'
            AND jylx in ('1')) tmp
  GROUP BY xh, xfrq;
 ;

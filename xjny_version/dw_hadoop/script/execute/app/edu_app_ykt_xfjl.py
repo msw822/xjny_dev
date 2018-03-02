@@ -62,7 +62,7 @@ SELECT XH,
        JYJE,
        JYYE
   FROM gdm.gdm_ykt_jy_log
- WHERE dt = '"""+data_day_str+"""'
+ WHERE dt = '"""+data_day_str+"""' and  xh like '22%'
 ;
 """
 hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""

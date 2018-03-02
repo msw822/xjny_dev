@@ -48,7 +48,7 @@ set mapred.output.compression.type=block;
 INSERT OVERWRITE TABLE app.edu_app_ts_jyjl PARTITION (dt='"""+data_day_str+"""')
 SELECT XH, JSRQ, TSMC, TSLB_MC, NULL, NULL, NULL, NULL
   FROM gdm.gdm_ts_jy_log
- WHERE dt = '"""+data_day_str+"""'"'
+ WHERE dt = '"""+data_day_str+"""'"' and  xh like '22%'
  ;
 """
 hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
