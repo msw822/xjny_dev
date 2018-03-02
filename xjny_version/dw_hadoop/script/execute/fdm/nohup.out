@@ -1,0 +1,2002 @@
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Query ID = hdfs_20180301161944_7d487924-a798-443d-b965-ac766dc34fe4
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1588)
+
+Map 1: -/-	Map 2: -/-	
+Map 1: 0/5	Map 2: 0/1	
+Map 1: 0(+2)/5	Map 2: 0/1	
+Map 1: 0(+4)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 1/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 1(+4)/5	Map 2: 1/1	
+Map 1: 2(+3)/5	Map 2: 1/1	
+Map 1: 4(+1)/5	Map 2: 1/1	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 5/5	Map 2: 1/1	
+Loading data to table fdm.fdm_kc_cjjbxx partition (xn=2017-2018, xqm=1)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2017-2018/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2017-2018/xqm=1/000001_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2017-2018/xqm=1/000002_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2017-2018/xqm=1/000003_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2017-2018/xqm=1/000004_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_kc_cjjbxx{xn=2017-2018, xqm=1} stats: [numFiles=5, numRows=144828, totalSize=1314367, rawDataSize=151345135]
+OK
+Time taken: 20.927 seconds
+Query ID = hdfs_20180301162005_9f23cc9c-1c6d-4901-a2f7-c4e0ea9f2610
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1588)
+
+Map 1: 0/1	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 1/1	
+Map 1: 1/1	Map 2: 1/1	
+Loading data to table fdm.fdm_jw_pkap partition (xn=2017-2018, xqm=1)
+Query ID = hdfs_20180301162000_a77f6503-4988-48b2-b245-1411b1523b8b
+Total jobs = 1
+Launching Job 1 out of 1
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_jw_pkap/xn=2017-2018/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_jw_pkap{xn=2017-2018, xqm=1} stats: [numFiles=1, numRows=3154, totalSize=50755, rawDataSize=2101022]
+OK
+Time taken: 4.431 seconds
+
+
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+--  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '2017-2018',
+    xqm = '1'
+) SELECT
+    NULL,
+    A.xh,
+    A.KCDM,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    A.BFZKSCJ,
+    A.DJZKSCJ,
+    A.BFZKSCJ,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    B.BH,
+    NULL,
+    B.ZYDM,
+    B.YXDM,
+    NULL,
+    A.xf,
+    A.xf_hd,
+    NULL,
+    A.jd,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            XN,
+            XQDM,
+            XH,
+            KCDM,
+            BFZKSCJ,
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '2017-2018'
+AND xqdm = '1'
+    ) A
+LEFT JOIN (
+    SELECT
+        XH,
+        BH,
+        ZYDM,
+        YXDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '2999-12-31'
+) B ON A.xh = B.xh;
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '2017-2018', xqm= '1')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='2017-2018' AND kkxq='1'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
+\""
+finish--
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1589)
+
+Map 1: -/-	Map 2: -/-	
+Map 1: 0/5	Map 2: 0/1	
+Map 1: 0(+1)/5	Map 2: 0(+1)/1	
+Map 1: 0(+3)/5	Map 2: 0(+1)/1	
+Map 1: 0(+4)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 1/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 2(+3)/5	Map 2: 1/1	
+Map 1: 3(+2)/5	Map 2: 1/1	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 4(+1)/5	Map 2: 1/1	
+Map 1: 5/5	Map 2: 1/1	
+Loading data to table fdm.fdm_kc_cjjbxx partition (xn=2016-2017, xqm=1)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2016-2017/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2016-2017/xqm=1/000001_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2016-2017/xqm=1/000002_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2016-2017/xqm=1/000003_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2016-2017/xqm=1/000004_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_kc_cjjbxx{xn=2016-2017, xqm=1} stats: [numFiles=5, numRows=132701, totalSize=1105578, rawDataSize=138573372]
+OK
+Time taken: 21.178 seconds
+Query ID = hdfs_20180301162013_6bdb56a1-b07a-439c-800f-40d3000dc907
+Total jobs = 1
+Launching Job 1 out of 1
+Query ID = hdfs_20180301162021_9106c58c-279b-4ee5-9e64-6746bf52db4c
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1589)
+
+Map 1: 0(+1)/1	Map 2: 0(+1)/1	
+
+
+Map 1: 0(+1)/1	Map 2: 1/1	
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1590)
+
+Map 1: -/-	Map 2: -/-	
+Map 1: 1/1	Map 2: 1/1	
+Map 1: 0/5	Map 2: 0/1	
+Loading data to table fdm.fdm_jw_pkap partition (xn=2016-2017, xqm=1)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_jw_pkap/xn=2016-2017/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_jw_pkap{xn=2016-2017, xqm=1} stats: [numFiles=1, numRows=2789, totalSize=44480, rawDataSize=1863782]
+OK
+Time taken: 3.717 seconds
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+--  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '2016-2017',
+    xqm = '1'
+) SELECT
+    NULL,
+    A.xh,
+    A.KCDM,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    A.BFZKSCJ,
+    A.DJZKSCJ,
+    A.BFZKSCJ,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    B.BH,
+    NULL,
+    B.ZYDM,
+    B.YXDM,
+    NULL,
+    A.xf,
+    A.xf_hd,
+    NULL,
+    A.jd,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            XN,
+            XQDM,
+            XH,
+            KCDM,
+            BFZKSCJ,
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '2016-2017'
+AND xqdm = '1'
+    ) A
+LEFT JOIN (
+    SELECT
+        XH,
+        BH,
+        ZYDM,
+        YXDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '2999-12-31'
+) B ON A.xh = B.xh;
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '2016-2017', xqm= '1')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='2016-2017' AND kkxq='1'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
+\""
+finish--
+Map 1: 0(+3)/5	Map 2: 0/1	
+Map 1: 0(+5)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 1/1	
+Map 1: 1(+4)/5	Map 2: 1/1	
+Map 1: 2(+3)/5	Map 2: 1/1	
+Map 1: 3(+2)/5	Map 2: 1/1	
+Map 1: 4(+1)/5	Map 2: 1/1	
+Map 1: 5/5	Map 2: 1/1	
+Loading data to table fdm.fdm_kc_cjjbxx partition (xn=2016-2017, xqm=2)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2016-2017/xqm=2/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2016-2017/xqm=2/000001_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2016-2017/xqm=2/000002_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2016-2017/xqm=2/000003_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2016-2017/xqm=2/000004_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+WARNING: Use "yarn jar" to launch YARN applications.
+Partition fdm.fdm_kc_cjjbxx{xn=2016-2017, xqm=2} stats: [numFiles=5, numRows=145624, totalSize=1426643, rawDataSize=152695200]
+OK
+Time taken: 20.218 seconds
+Query ID = hdfs_20180301162033_76549dc9-5a7d-4942-8b79-20d04fcfa8eb
+Total jobs = 1
+Launching Job 1 out of 1
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1590)
+
+Map 1: 0/1	Map 2: 0/1	
+Map 1: 0(+1)/1	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 1/1	
+Query ID = hdfs_20180301162027_b79bf14d-fbff-47a7-9e80-e4661000c7ae
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 1/1	Map 2: 1/1	
+Loading data to table fdm.fdm_jw_pkap partition (xn=2016-2017, xqm=2)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_jw_pkap/xn=2016-2017/xqm=2/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_jw_pkap{xn=2016-2017, xqm=2} stats: [numFiles=1, numRows=2551, totalSize=41690, rawDataSize=1701644]
+
+
+OK
+Time taken: 3.956 seconds
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1591)
+
+Map 1: -/-	Map 2: -/-	
+Map 1: 0/5	Map 2: 0/1	
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+--  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '2016-2017',
+    xqm = '2'
+) SELECT
+    NULL,
+    A.xh,
+    A.KCDM,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    A.BFZKSCJ,
+    A.DJZKSCJ,
+    A.BFZKSCJ,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    B.BH,
+    NULL,
+    B.ZYDM,
+    B.YXDM,
+    NULL,
+    A.xf,
+    A.xf_hd,
+    NULL,
+    A.jd,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            XN,
+            XQDM,
+            XH,
+            KCDM,
+            BFZKSCJ,
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '2016-2017'
+AND xqdm = '2'
+    ) A
+LEFT JOIN (
+    SELECT
+        XH,
+        BH,
+        ZYDM,
+        YXDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '2999-12-31'
+) B ON A.xh = B.xh;
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '2016-2017', xqm= '2')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='2016-2017' AND kkxq='2'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
+\""
+finish--
+Map 1: 0(+1)/5	Map 2: 0(+1)/1	
+Map 1: 0(+4)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 1/1	
+Map 1: 1(+4)/5	Map 2: 1/1	
+Map 1: 3(+2)/5	Map 2: 1/1	
+Map 1: 4(+1)/5	Map 2: 1/1	
+Map 1: 5/5	Map 2: 1/1	
+Loading data to table fdm.fdm_kc_cjjbxx partition (xn=2015-2016, xqm=2)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2015-2016/xqm=2/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2015-2016/xqm=2/000001_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2015-2016/xqm=2/000002_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2015-2016/xqm=2/000003_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2015-2016/xqm=2/000004_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+WARNING: Use "yarn jar" to launch YARN applications.
+Partition fdm.fdm_kc_cjjbxx{xn=2015-2016, xqm=2} stats: [numFiles=5, numRows=121589, totalSize=1034725, rawDataSize=127297538]
+OK
+Time taken: 20.59 seconds
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+Query ID = hdfs_20180301162047_b9a68be9-5d82-4d9a-bd34-354e099be85f
+Total jobs = 1
+Launching Job 1 out of 1
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1591)
+
+Map 1: 0/1	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 1/1	
+Map 1: 1/1	Map 2: 1/1	
+Loading data to table fdm.fdm_jw_pkap partition (xn=2015-2016, xqm=2)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_jw_pkap/xn=2015-2016/xqm=2/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_jw_pkap{xn=2015-2016, xqm=2} stats: [numFiles=1, numRows=3219, totalSize=50610, rawDataSize=2161335]
+OK
+Time taken: 3.758 seconds
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+--  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '2015-2016',
+    xqm = '2'
+) SELECT
+    NULL,
+    A.xh,
+    A.KCDM,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    A.BFZKSCJ,
+    A.DJZKSCJ,
+    A.BFZKSCJ,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    B.BH,
+    NULL,
+    B.ZYDM,
+    B.YXDM,
+    NULL,
+    A.xf,
+    A.xf_hd,
+    NULL,
+    A.jd,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            XN,
+            XQDM,
+            XH,
+            KCDM,
+            BFZKSCJ,
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '2015-2016'
+AND xqdm = '2'
+    ) A
+LEFT JOIN (
+    SELECT
+        XH,
+        BH,
+        ZYDM,
+        YXDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '2999-12-31'
+) B ON A.xh = B.xh;
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '2015-2016', xqm= '2')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='2015-2016' AND kkxq='2'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
+\""
+finish--
+Query ID = hdfs_20180301162044_5cf11571-9277-4c37-ac30-47ea6f2ba17a
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1592)
+
+Map 1: -/-	Map 2: -/-	
+Map 1: 0/5	Map 2: 0/1	
+Map 1: 0(+4)/5	Map 2: 0/1	
+Map 1: 0(+4)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 0(+1)/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 0(+5)/5	Map 2: 1/1	
+Map 1: 1(+4)/5	Map 2: 1/1	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+Map 1: 3(+2)/5	Map 2: 1/1	
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 4(+1)/5	Map 2: 1/1	
+Map 1: 5/5	Map 2: 1/1	
+Loading data to table fdm.fdm_kc_cjjbxx partition (xn=2015-2016, xqm=1)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2015-2016/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2015-2016/xqm=1/000001_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2015-2016/xqm=1/000002_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2015-2016/xqm=1/000003_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2015-2016/xqm=1/000004_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_kc_cjjbxx{xn=2015-2016, xqm=1} stats: [numFiles=5, numRows=128036, totalSize=1073221, rawDataSize=133753239]
+OK
+Time taken: 20.488 seconds
+Query ID = hdfs_20180301162104_35e3ad38-b6cf-4e77-b7b1-de9f082ef693
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1592)
+
+Map 1: 0/1	Map 2: 0/1	
+Map 1: 0(+1)/1	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 1/1	
+Map 1: 1/1	Map 2: 1/1	
+Loading data to table fdm.fdm_jw_pkap partition (xn=2015-2016, xqm=1)
+Query ID = hdfs_20180301162058_2d5db59b-bf49-4284-a645-3177d7dac019
+Total jobs = 1
+Launching Job 1 out of 1
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_jw_pkap/xn=2015-2016/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_jw_pkap{xn=2015-2016, xqm=1} stats: [numFiles=1, numRows=3187, totalSize=50320, rawDataSize=2136661]
+OK
+Time taken: 3.686 seconds
+
+
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+--  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '2015-2016',
+    xqm = '1'
+) SELECT
+    NULL,
+    A.xh,
+    A.KCDM,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    A.BFZKSCJ,
+    A.DJZKSCJ,
+    A.BFZKSCJ,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    B.BH,
+    NULL,
+    B.ZYDM,
+    B.YXDM,
+    NULL,
+    A.xf,
+    A.xf_hd,
+    NULL,
+    A.jd,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            XN,
+            XQDM,
+            XH,
+            KCDM,
+            BFZKSCJ,
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '2015-2016'
+AND xqdm = '1'
+    ) A
+LEFT JOIN (
+    SELECT
+        XH,
+        BH,
+        ZYDM,
+        YXDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '2999-12-31'
+) B ON A.xh = B.xh;
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '2015-2016', xqm= '1')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='2015-2016' AND kkxq='1'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
+\""
+finish--
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1593)
+
+Map 1: -/-	Map 2: -/-	
+Map 1: 0/5	Map 2: 0/1	
+Map 1: 0(+1)/5	Map 2: 0/1	
+Map 1: 0(+2)/5	Map 2: 0(+1)/1	
+Map 1: 0(+4)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 1/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 2(+3)/5	Map 2: 1/1	
+Map 1: 3(+2)/5	Map 2: 1/1	
+Map 1: 4(+1)/5	Map 2: 1/1	
+Map 1: 5/5	Map 2: 1/1	
+Loading data to table fdm.fdm_kc_cjjbxx partition (xn=2014-2015, xqm=1)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2014-2015/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2014-2015/xqm=1/000001_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2014-2015/xqm=1/000002_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2014-2015/xqm=1/000003_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2014-2015/xqm=1/000004_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Partition fdm.fdm_kc_cjjbxx{xn=2014-2015, xqm=1} stats: [numFiles=5, numRows=125092, totalSize=1048336, rawDataSize=128536979]
+OK
+Time taken: 20.119 seconds
+Query ID = hdfs_20180301162118_a06c2e20-648f-4ac4-adbe-9d7d3e5d8b89
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1593)
+
+Map 1: 0/1	Map 2: 0/1	
+Map 1: 0(+1)/1	Map 2: 1/1	
+Query ID = hdfs_20180301162111_2c7da162-f9f8-40a7-a3ef-5e52d3b3266d
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 1/1	Map 2: 1/1	
+Loading data to table fdm.fdm_jw_pkap partition (xn=2014-2015, xqm=1)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_jw_pkap/xn=2014-2015/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_jw_pkap{xn=2014-2015, xqm=1} stats: [numFiles=1, numRows=2918, totalSize=45867, rawDataSize=1956515]
+
+
+OK
+Time taken: 3.404 seconds
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1594)
+
+Map 1: -/-	Map 2: -/-	
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+--  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '2014-2015',
+    xqm = '1'
+) SELECT
+    NULL,
+    A.xh,
+    A.KCDM,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    A.BFZKSCJ,
+    A.DJZKSCJ,
+    A.BFZKSCJ,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    B.BH,
+    NULL,
+    B.ZYDM,
+    B.YXDM,
+    NULL,
+    A.xf,
+    A.xf_hd,
+    NULL,
+    A.jd,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            XN,
+            XQDM,
+            XH,
+            KCDM,
+            BFZKSCJ,
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '2014-2015'
+AND xqdm = '1'
+    ) A
+LEFT JOIN (
+    SELECT
+        XH,
+        BH,
+        ZYDM,
+        YXDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '2999-12-31'
+) B ON A.xh = B.xh;
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '2014-2015', xqm= '1')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='2014-2015' AND kkxq='1'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
+\""
+finish--
+Map 1: 0/5	Map 2: 0/1	
+Map 1: 0(+4)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 0(+1)/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+5)/5	Map 2: 0/1	
+Map 1: 0(+5)/5	Map 2: 1/1	
+Map 1: 1(+4)/5	Map 2: 1/1	
+Map 1: 2(+3)/5	Map 2: 1/1	
+Map 1: 3(+2)/5	Map 2: 1/1	
+Map 1: 4(+1)/5	Map 2: 1/1	
+Map 1: 5/5	Map 2: 1/1	
+Loading data to table fdm.fdm_kc_cjjbxx partition (xn=2014-2015, xqm=2)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2014-2015/xqm=2/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2014-2015/xqm=2/000001_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2014-2015/xqm=2/000002_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2014-2015/xqm=2/000003_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2014-2015/xqm=2/000004_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_kc_cjjbxx{xn=2014-2015, xqm=2} stats: [numFiles=5, numRows=116104, totalSize=986776, rawDataSize=120220767]
+OK
+Time taken: 19.906 seconds
+Query ID = hdfs_20180301162131_bc6ecdea-b4ce-49d5-852f-a0a4d97092d9
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1594)
+
+Map 1: 0/1	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 1/1	
+Map 1: 1/1	Map 2: 1/1	
+Loading data to table fdm.fdm_jw_pkap partition (xn=2014-2015, xqm=2)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_jw_pkap/xn=2014-2015/xqm=2/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_jw_pkap{xn=2014-2015, xqm=2} stats: [numFiles=1, numRows=2961, totalSize=44242, rawDataSize=1991299]
+OK
+Time taken: 3.759 seconds
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+--  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '2014-2015',
+    xqm = '2'
+) SELECT
+    NULL,
+    A.xh,
+    A.KCDM,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    A.BFZKSCJ,
+    A.DJZKSCJ,
+    A.BFZKSCJ,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    B.BH,
+    NULL,
+    B.ZYDM,
+    B.YXDM,
+    NULL,
+    A.xf,
+    A.xf_hd,
+    NULL,
+    A.jd,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            XN,
+            XQDM,
+            XH,
+            KCDM,
+            BFZKSCJ,
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '2014-2015'
+AND xqdm = '2'
+    ) A
+LEFT JOIN (
+    SELECT
+        XH,
+        BH,
+        ZYDM,
+        YXDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '2999-12-31'
+) B ON A.xh = B.xh;
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '2014-2015', xqm= '2')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='2014-2015' AND kkxq='2'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
+\""
+finish--
+Query ID = hdfs_20180301162127_eda9e532-9026-42f8-bdd8-205d65988360
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+WARNING: Use "yarn jar" to launch YARN applications.
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1595)
+
+Map 1: -/-	Map 2: -/-	
+Map 1: 0/5	Map 2: 0/1	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+2)/5	Map 2: 0/1	
+Map 1: 0(+4)/5	Map 2: 0/1	
+Map 1: 0(+5)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 1/1	
+Map 1: 1(+4)/5	Map 2: 1/1	
+Query ID = hdfs_20180301162136_5e09276c-e68d-4fc4-bdff-22b7407527f2
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 2(+3)/5	Map 2: 1/1	
+Map 1: 3(+2)/5	Map 2: 1/1	
+Map 1: 4(+1)/5	Map 2: 1/1	
+Map 1: 5/5	Map 2: 1/1	
+Loading data to table fdm.fdm_kc_cjjbxx partition (xn=2013-2014, xqm=2)
+
+
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2013-2014/xqm=2/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2013-2014/xqm=2/000001_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2013-2014/xqm=2/000002_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2013-2014/xqm=2/000003_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2013-2014/xqm=2/000004_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1596)
+
+Map 1: -/-	Map 2: -/-	
+Map 1: 0/5	Map 2: 0/1	
+Partition fdm.fdm_kc_cjjbxx{xn=2013-2014, xqm=2} stats: [numFiles=5, numRows=114862, totalSize=961592, rawDataSize=116218627]
+OK
+Time taken: 20.425 seconds
+Query ID = hdfs_20180301162147_2eb1e4bd-e05c-48f7-b2ff-5f5a9bd17788
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 0(+1)/5	Map 2: 0/1	
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1595)
+
+Map 1: 0(+1)/1	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 1/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 1/1	Map 2: 1/1	
+Loading data to table fdm.fdm_jw_pkap partition (xn=2013-2014, xqm=2)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_jw_pkap/xn=2013-2014/xqm=2/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_jw_pkap{xn=2013-2014, xqm=2} stats: [numFiles=1, numRows=2738, totalSize=41935, rawDataSize=1842575]
+Map 1: 0(+5)/5	Map 2: 1/1	
+OK
+Time taken: 4.263 seconds
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+--  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '2013-2014',
+    xqm = '2'
+) SELECT
+    NULL,
+    A.xh,
+    A.KCDM,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    A.BFZKSCJ,
+    A.DJZKSCJ,
+    A.BFZKSCJ,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    B.BH,
+    NULL,
+    B.ZYDM,
+    B.YXDM,
+    NULL,
+    A.xf,
+    A.xf_hd,
+    NULL,
+    A.jd,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            XN,
+            XQDM,
+            XH,
+            KCDM,
+            BFZKSCJ,
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '2013-2014'
+AND xqdm = '2'
+    ) A
+LEFT JOIN (
+    SELECT
+        XH,
+        BH,
+        ZYDM,
+        YXDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '2999-12-31'
+) B ON A.xh = B.xh;
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '2013-2014', xqm= '2')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='2013-2014' AND kkxq='2'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
+\""
+finish--
+Map 1: 1(+4)/5	Map 2: 1/1	
+Map 1: 2(+3)/5	Map 2: 1/1	
+Map 1: 3(+2)/5	Map 2: 1/1	
+Map 1: 5/5	Map 2: 1/1	
+Loading data to table fdm.fdm_kc_cjjbxx partition (xn=2013-2014, xqm=1)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2013-2014/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2013-2014/xqm=1/000001_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2013-2014/xqm=1/000002_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2013-2014/xqm=1/000003_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2013-2014/xqm=1/000004_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_kc_cjjbxx{xn=2013-2014, xqm=1} stats: [numFiles=5, numRows=123406, totalSize=1011955, rawDataSize=123924184]
+OK
+Time taken: 19.536 seconds
+Query ID = hdfs_20180301162155_0b06bbfc-a2b4-45dd-8a7e-8ffce6f40a16
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1596)
+
+Map 1: 0/1	Map 2: 0/1	
+Map 1: 0(+1)/1	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 1/1	
+Query ID = hdfs_20180301162149_2aab47bc-f85c-4d3c-99c5-e557a9b07c2f
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 1/1	Map 2: 1/1	
+Loading data to table fdm.fdm_jw_pkap partition (xn=2013-2014, xqm=1)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_jw_pkap/xn=2013-2014/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+
+
+Partition fdm.fdm_jw_pkap{xn=2013-2014, xqm=1} stats: [numFiles=1, numRows=2875, totalSize=46252, rawDataSize=1920065]
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1597)
+
+Map 1: -/-	Map 2: -/-	
+OK
+Time taken: 4.235 seconds
+Map 1: 0/5	Map 2: 0/1	
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+--  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '2013-2014',
+    xqm = '1'
+) SELECT
+    NULL,
+    A.xh,
+    A.KCDM,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    A.BFZKSCJ,
+    A.DJZKSCJ,
+    A.BFZKSCJ,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    B.BH,
+    NULL,
+    B.ZYDM,
+    B.YXDM,
+    NULL,
+    A.xf,
+    A.xf_hd,
+    NULL,
+    A.jd,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            XN,
+            XQDM,
+            XH,
+            KCDM,
+            BFZKSCJ,
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '2013-2014'
+AND xqdm = '1'
+    ) A
+LEFT JOIN (
+    SELECT
+        XH,
+        BH,
+        ZYDM,
+        YXDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '2999-12-31'
+) B ON A.xh = B.xh;
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '2013-2014', xqm= '1')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='2013-2014' AND kkxq='1'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
+\""
+finish--
+Map 1: 0(+1)/5	Map 2: 0/1	
+Map 1: 0(+5)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 1/1	
+Map 1: 1(+4)/5	Map 2: 1/1	
+Map 1: 2(+3)/5	Map 2: 1/1	
+Map 1: 3(+2)/5	Map 2: 1/1	
+Map 1: 4(+1)/5	Map 2: 1/1	
+Map 1: 5/5	Map 2: 1/1	
+Loading data to table fdm.fdm_kc_cjjbxx partition (xn=2012-2013, xqm=1)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2012-2013/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2012-2013/xqm=1/000001_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2012-2013/xqm=1/000002_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2012-2013/xqm=1/000003_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2012-2013/xqm=1/000004_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_kc_cjjbxx{xn=2012-2013, xqm=1} stats: [numFiles=5, numRows=122864, totalSize=980630, rawDataSize=120791483]
+OK
+Time taken: 20.19 seconds
+Query ID = hdfs_20180301162209_d20f6a90-7520-4083-9f42-70af58b7d84a
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1597)
+
+Map 1: 0/1	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 0(+1)/1	
+Query ID = hdfs_20180301162202_ec4e4ddb-1544-4806-ae33-2f0d4a612968
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 0(+1)/1	Map 2: 1/1	
+Map 1: 1/1	Map 2: 1/1	
+Loading data to table fdm.fdm_jw_pkap partition (xn=2012-2013, xqm=1)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_jw_pkap/xn=2012-2013/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+
+
+Partition fdm.fdm_jw_pkap{xn=2012-2013, xqm=1} stats: [numFiles=1, numRows=2430, totalSize=37878, rawDataSize=1610058]
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1598)
+
+Map 1: -/-	Map 2: -/-	
+OK
+Time taken: 3.866 seconds
+Map 1: 0/5	Map 2: 0/1	
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+--  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '2012-2013',
+    xqm = '1'
+) SELECT
+    NULL,
+    A.xh,
+    A.KCDM,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    A.BFZKSCJ,
+    A.DJZKSCJ,
+    A.BFZKSCJ,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    B.BH,
+    NULL,
+    B.ZYDM,
+    B.YXDM,
+    NULL,
+    A.xf,
+    A.xf_hd,
+    NULL,
+    A.jd,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            XN,
+            XQDM,
+            XH,
+            KCDM,
+            BFZKSCJ,
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '2012-2013'
+AND xqdm = '1'
+    ) A
+LEFT JOIN (
+    SELECT
+        XH,
+        BH,
+        ZYDM,
+        YXDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '2999-12-31'
+) B ON A.xh = B.xh;
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '2012-2013', xqm= '1')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='2012-2013' AND kkxq='1'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
+\""
+finish--
+Map 1: 0(+2)/5	Map 2: 0/1	
+Map 1: 0(+4)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 0(+1)/1	
+Map 1: 0(+5)/5	Map 2: 1/1	
+Map 1: 1(+4)/5	Map 2: 1/1	
+Map 1: 2(+3)/5	Map 2: 1/1	
+Map 1: 4(+1)/5	Map 2: 1/1	
+Map 1: 5/5	Map 2: 1/1	
+Loading data to table fdm.fdm_kc_cjjbxx partition (xn=2012-2013, xqm=2)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2012-2013/xqm=2/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2012-2013/xqm=2/000001_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2012-2013/xqm=2/000002_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2012-2013/xqm=2/000003_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_kc_cjjbxx/xn=2012-2013/xqm=2/000004_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_kc_cjjbxx{xn=2012-2013, xqm=2} stats: [numFiles=5, numRows=116566, totalSize=961449, rawDataSize=114333471]
+OK
+Time taken: 20.162 seconds
+Query ID = hdfs_20180301162222_57e8e412-99e3-4c51-8b3a-f90e454e1e4d
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1598)
+
+Map 1: 0/1	Map 2: 0/1	
+Map 1: 0(+1)/1	Map 2: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 1/1	
+Map 1: 1/1	Map 2: 1/1	
+Loading data to table fdm.fdm_jw_pkap partition (xn=2012-2013, xqm=2)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/fdm.db/fdm_jw_pkap/xn=2012-2013/xqm=2/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition fdm.fdm_jw_pkap{xn=2012-2013, xqm=2} stats: [numFiles=1, numRows=2406, totalSize=36826, rawDataSize=1598012]
+OK
+Time taken: 3.938 seconds
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+--  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
+INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
+    xn = '2012-2013',
+    xqm = '2'
+) SELECT
+    NULL,
+    A.xh,
+    A.KCDM,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    A.BFZKSCJ,
+    A.DJZKSCJ,
+    A.BFZKSCJ,
+    A.KCCJ_JG,
+    A.KCCJ_JG,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    B.BH,
+    NULL,
+    B.ZYDM,
+    B.YXDM,
+    NULL,
+    A.xf,
+    A.xf_hd,
+    NULL,
+    A.jd,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+FROM
+    (
+        SELECT
+            XN,
+            XQDM,
+            XH,
+            KCDM,
+            BFZKSCJ,
+            CASE
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN BKCJ IS NOT NULL THEN
+            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS KCCJ_JG,
+        DJZKSCJ,
+        XF,
+        CASE
+    WHEN SFTG = '是' THEN
+        XF
+    ELSE
+        '0'
+    END AS XF_HD,
+    JD
+FROM
+    ODS.ods_usr_gxsj_t_bzks_kscj
+WHERE
+    xn = '2012-2013'
+AND xqdm = '2'
+    ) A
+LEFT JOIN (
+    SELECT
+        XH,
+        BH,
+        ZYDM,
+        YXDM
+    FROM
+        ods.ods_usr_gxsj_T_BZKS
+    WHERE
+        dt = '2999-12-31'
+) B ON A.xh = B.xh;
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '2012-2013', xqm= '2')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='2012-2013' AND kkxq='2'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '2999-12-31'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
+\""
+finish--

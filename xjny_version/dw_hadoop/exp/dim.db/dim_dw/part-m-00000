@@ -1,0 +1,67 @@
+050000	附属单位		null		null	10006	050000	null	null	null	null	null	null	2	null	null	null
+060000	挂靠单位		null		null	10006	060000	null	null	null	null	null	null	2	null	null	null
+070000	学术组织		null		null	10006	070000	null	null	null	null	null	null	2	null	null	null
+990000	其他部门		null		null	10006	990000	null	null	null	null	null	null	3	null	null	null
+000000	学校领导		null		null	10006	000000	null	null	null	null	null	null	2	null	null	null
+6	教学院系		null		null	10006		null	null	null	null	null	null	2	null	null	null
+012400	大数据工程师学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+011100	人文社会科学学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+011200	外国语学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+011300	交通科学与工程学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+011400	新华三学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+011500	汽车学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+011600	食品科学学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+011700	光电工程学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+011900	物理科学学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+012000	法学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+012100	软件学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+012200	教育学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+012300	理工学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+012600	设计学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+012700	化学学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+012800	马克思学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+012900	工程研究所		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+013000	工程训练中心		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+013100	体育部		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+011000	生物与医学工程学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+010400	能源与动力工程学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+010700	机械工程及自动化学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+010800	经济管理学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+010500	航空科学与工程学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+010200	电子信息工程学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+010600	计算机学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+010900	数学科学学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+011209	语言科学与工程系		null		null	011200	011200	null	null	null	null	null	null	3	null	null	null
+011210	俄语系		null		null	011200	011200	null	null	null	null	null	null	3	null	null	null
+011211	翻译系		null		null	011200	011200	null	null	null	null	null	null	3	null	null	null
+011301	汽车机关		null		null	011300	011300	null	null	null	null	null	null	3	null	null	null
+011302	交通运输工程系		null		null	011300	011300	null	null	null	null	null	null	3	null	null	null
+011303	汽车工程系		null		null	011300	011300	null	null	null	null	null	null	3	null	null	null
+011401	院机关		null		null	011400	011400	null	null	null	null	null	null	3	null	null	null
+011402	院科技办		null		null	011400	011400	null	null	null	null	null	null	3	null	null	null
+010300	电气工程学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+010100	材料科学与工程学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+010101	院机关		null		null	010100	010100	null	null	null	null	null	null	3	null	null	null
+010000	石油提炼学院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+050900	新主楼物业		null		null	050000	050000	null	null	null	null	null	null	3	null	null	null
+022601	烟草科学技术研究院		null		null	022600	022600	null	null	null	null	null	null	3	null	null	null
+022603	基础研究院		null		null	022600	022600	null	null	null	null	null	null	3	null	null	null
+013200	人文高等研究院		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+041104	工程国际研究中心		null		null	041100	041100	null	null	null	null	null	null	3	null	null	null
+041105	清洁材料中心		null		null	041100	041100	null	null	null	null	null	null	3	null	null	null
+041106	器械研究中心		null		null	041100	041100	null	null	null	null	null	null	3	null	null	null
+01FJ00	有才开发		null		null	6	6	null	null	null	null	null	null	3	null	null	null
+041100	交叉研究院		null		null	040000	040000	null	null	null	null	null	null	3	null	null	null
+010810	循环研究中心		null		null	010800	010800	null	null	null	null	null	null	3	null	null	null
+013500	人文学院		null		null	6	6	null	null	null	null	null	null		null	null	null
+011708	烟草技术研究所		null		null	011700	011700	null	null	null	null	null	null		null	null	null
+011800	郑州学院		null		null	6	6	null	null	null	null	null	null		null	null	null
+011707	遥感技术系		null		null	011700	011700	null	null	null	null	null	null		null	null	null
+011408	可靠性工程系		null		null	011400	011400	null	null	null	null	null	null		null	null	null
+041200	国家实验室办公室		null		null	040000	040000	null	null	null	null	null	null		null	null	null
+013300	外语研究学院		null		null	6	6	null	null	null	null	null	null		null	null	null
+022800	办公室		null		null	020000	020000	null	null	null	null	null	null		null	null	null
+022700	高新校区党委		null		null	020000	020000	null	null	null	null	null	null		null	null	null
+022900	法律事务办公室		null		null	020000	020000	null	null	null	null	null	null		null	null	null
+023100	建设与资产管理处		null		null	020000	020000	null	null	null	null	null	null		null	null	null
+013400	国际通用工程学院		null		null	6	6	null	null	null	null	null	null		null	null	null

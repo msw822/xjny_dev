@@ -1,0 +1,2499 @@
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+OK
+Time taken: 1.78 seconds
+Query ID = hdfs_20180301135143_d5095f18-827d-42ea-8fbc-fd86a35dffeb
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1582)
+
+Map 1: -/-	Reducer 2: 0/2	
+Map 1: 0/1	Reducer 2: 0/2	
+Map 1: 0(+1)/1	Reducer 2: 0/2	
+Map 1: 1/1	Reducer 2: 0/2	
+Map 1: 1/1	Reducer 2: 0(+1)/1	
+Map 1: 1/1	Reducer 2: 1/1	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+Table tmp.tmp_ks_grcj stats: [numFiles=1, numRows=7, totalSize=129, rawDataSize=231]
+OK
+Time taken: 9.592 seconds
+Query ID = hdfs_20180301135152_5f6d19a7-678d-4b44-85c0-75c4eeeb2d11
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1582)
+
+Map 1: 0/1	Map 2: 0/1	Reducer 3: 0/2	
+Map 1: 0/1	Map 2: 0(+1)/1	Reducer 3: 0/2	
+Map 1: 0/1	Map 2: 1/1	Reducer 3: 0/1	
+Map 1: 0(+1)/1	Map 2: 1/1	Reducer 3: 1/1	
+Map 1: 1/1	Map 2: 1/1	Reducer 3: 1/1	
+Loading data to table app.edu_app_ks_cjbj partition (xn=2017-2018, xqm=2)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/app.db/edu_app_ks_cjbj/xn=2017-2018/xqm=2/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Partition app.edu_app_ks_cjbj{xn=2017-2018, xqm=2} stats: [numFiles=1, numRows=7, totalSize=572, rawDataSize=735]
+OK
+Time taken: 3.969 seconds
+yesterday: 2018-02-28
+('2017-2018', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2017-2018'
+           AND xqm = '2') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2017-2018',xqm='2')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+
+Session terminated, killing shell... ...killed.
+('2017-2018', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2017-2018'
+           AND xqm = '1') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2017-2018',xqm='1')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+
+Session terminated, killing shell... ...killed.
+('2016-2017', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2016-2017'
+           AND xqm = '1') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2016-2017',xqm='1')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+
+Session terminated, killing shell... ...killed.
+('2016-2017', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2016-2017'
+           AND xqm = '2') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2016-2017',xqm='2')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+OK
+Time taken: 1.747 seconds
+WARNING: Use "yarn jar" to launch YARN applications.
+Query ID = hdfs_20180301170326_282b75e4-f729-49e6-be03-1f24d7be7d63
+Total jobs = 1
+Launching Job 1 out of 1
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1615)
+
+Map 1: -/-	Reducer 2: 0/1009	
+Map 1: 0/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+OK
+Time taken: 1.437 seconds
+Query ID = hdfs_20180301170339_86184946-529c-409b-a458-e90263de711b
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+
+
+WARNING: Use "yarn jar" to launch YARN applications.
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1616)
+
+Map 1: -/-	Reducer 2: 0/1009	
+Map 1: 0/1	Reducer 2: 0/1009	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+OK
+Time taken: 1.571 seconds
+Query ID = hdfs_20180301170345_2919f3b4-56b1-4061-809c-16e74bb96f83
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+WARNING: Use "yarn jar" to launch YARN applications.
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1617)
+
+Map 1: -/-	Reducer 2: 0/1009	
+Map 1: 0/1	Reducer 2: 0/1009	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 0(+1)/202	
+Map 1: 1/1	Reducer 2: 1(+0)/202	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 1(+1)/202	
+Map 1: 1/1	Reducer 2: 2(+1)/202	
+Map 1: 1/1	Reducer 2: 3(+1)/202	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 4(+1)/202	
+Map 1: 1/1	Reducer 2: 5(+0)/202	
+Map 1: 1/1	Reducer 2: 5(+1)/202	
+Map 1: 1/1	Reducer 2: 6(+2)/202	
+Map 1: 1/1	Reducer 2: 7(+3)/202	
+Map 1: 1/1	Reducer 2: 8(+2)/202	
+Map 1: 1/1	Reducer 2: 8(+3)/202	
+Map 1: 1/1	Reducer 2: 9(+3)/202	
+Map 1: 1/1	Reducer 2: 10(+3)/202	
+Map 1: 1/1	Reducer 2: 10(+4)/202	
+Map 1: 1/1	Reducer 2: 11(+5)/202	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 12(+5)/202	
+Map 1: 1/1	Reducer 2: 13(+4)/202	
+Map 1: 1/1	Reducer 2: 14(+5)/202	
+Map 1: 1/1	Reducer 2: 14(+6)/202	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 15(+7)/202	
+Map 1: 1/1	Reducer 2: 16(+6)/202	
+Map 1: 1/1	Reducer 2: 18(+6)/202	
+Map 1: 1/1	Reducer 2: 19(+7)/202	
+Map 1: 1/1	Reducer 2: 22(+6)/202	
+Map 1: 1/1	Reducer 2: 22(+9)/202	
+Map 1: 1/1	Reducer 2: 25(+8)/202	
+Map 1: 1/1	Reducer 2: 26(+9)/202	
+Map 1: 1/1	Reducer 2: 29(+8)/202	
+Map 1: 1/1	Reducer 2: 32(+8)/202	
+Map 1: 1/1	Reducer 2: 34(+9)/202	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 36(+11)/202	
+Map 1: 1/1	Reducer 2: 40(+8)/202	
+Map 1: 1/1	Reducer 2: 42(+9)/202	
+Map 1: 1/1	Reducer 2: 46(+9)/202	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 49(+9)/202	
+Map 1: 1/1	Reducer 2: 53(+11)/202	
+Map 1: 1/1	Reducer 2: 55(+11)/202	
+Map 1: 1/1	Reducer 2: 59(+12)/202	
+Map 1: 1/1	Reducer 2: 61(+12)/202	
+Map 1: 1/1	Reducer 2: 68(+10)/202	
+Map 1: 1/1	Reducer 2: 70(+13)/202	
+Map 1: 1/1	Reducer 2: 71(+14)/202	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+Map 1: 1/1	Reducer 2: 79(+12)/202	
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 1/1	Reducer 2: 79(+15)/202	
+Map 1: 1/1	Reducer 2: 85(+11)/202	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 88(+16)/202	
+Map 1: 1/1	Reducer 2: 91(+15)/202	
+Map 1: 1/1	Reducer 2: 99(+14)/202	
+Map 1: 1/1	Reducer 2: 103(+15)/202	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 110(+13)/202	
+Map 1: 1/1	Reducer 2: 113(+17)/202	
+Map 1: 1/1	Reducer 2: 122(+11)/202	
+Map 1: 1/1	Reducer 2: 125(+17)/202	
+Map 1: 1/1	Reducer 2: 129(+16)/202	
+Map 1: 1/1	Reducer 2: 137(+16)/202	
+Map 1: 1/1	Reducer 2: 142(+18)/202	
+Map 1: 1/1	Reducer 2: 152(+15)/202	
+Map 1: 1/1	Reducer 2: 157(+17)/202	
+Map 1: 1/1	Reducer 2: 166(+15)/202	
+Map 1: 1/1	Reducer 2: 171(+17)/202	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 186(+13)/202	
+Map 1: 1/1	Reducer 2: 192(+10)/202	
+Map 1: 1/1	Reducer 2: 200(+2)/202	
+Map 1: 1/1	Reducer 2: 201(+1)/202	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 202/202	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+WARNING: Use "yarn jar" to launch YARN applications.
+Table tmp.tmp_ks_grcj stats: [numFiles=202, numRows=16121, totalSize=443888, rawDataSize=755250]
+OK
+Time taken: 56.595 seconds
+Query ID = hdfs_20180301170435_480ac789-2afd-47a9-8e67-7e6a43f043a6
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1616)
+
+Map 1: -/-	Map 2: -/-	Reducer 3: 0/2	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+Map 1: 0/1	Map 2: 0(+1)/1	Reducer 3: 0/2	
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Map 2: 1/1	Reducer 3: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 1/1	Reducer 3: 1/1	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 0(+1)/169	
+Map 1: 1/1	Map 2: 1/1	Reducer 3: 1/1	
+Loading data to table app.edu_app_ks_cjbj partition (xn=2016-2017, xqm=1)
+Moved: 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/app.db/edu_app_ks_cjbj/xn=2016-2017/xqm=1/000000_0' to trash at: hdfs://node1.hde.h3c.com:8020/user/hdfs/.Trash/Current
+Map 1: 1/1	Reducer 2: 1(+1)/169	
+Map 1: 1/1	Reducer 2: 0/253	
+WARNING: Use "yarn jar" to launch YARN applications.
+Partition app.edu_app_ks_cjbj{xn=2016-2017, xqm=1} stats: [numFiles=1, numRows=16121, totalSize=257713, rawDataSize=1754129]
+Map 1: 1/1	Reducer 2: 0(+1)/253	
+Map 1: 1/1	Reducer 2: 2(+1)/169	
+OK
+Time taken: 7.234 seconds
+Map 1: 1/1	Reducer 2: 3(+0)/169	
+Map 1: 1/1	Reducer 2: 3(+1)/169	
+('2016-2017', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2016-2017'
+           AND xqm = '1') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2016-2017',xqm='1')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+Map 1: 1/1	Reducer 2: 4(+1)/169	
+Map 1: 1/1	Reducer 2: 1(+0)/253	
+Map 1: 1/1	Reducer 2: 5(+0)/169	
+Map 1: 1/1	Reducer 2: 1(+1)/253	
+Map 1: 1/1	Reducer 2: 5(+1)/169	
+Map 1: 1/1	Reducer 2: 2(+1)/253	
+Map 1: 1/1	Reducer 2: 6(+1)/169	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+Map 1: 1/1	Reducer 2: 3(+0)/253	
+Map 1: 1/1	Reducer 2: 7(+1)/169	
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 1/1	Reducer 2: 3(+1)/253	
+Map 1: 1/1	Reducer 2: 8(+0)/169	
+Map 1: 1/1	Reducer 2: 4(+2)/253	
+Map 1: 1/1	Reducer 2: 8(+1)/169	
+Map 1: 1/1	Reducer 2: 5(+1)/253	
+Map 1: 1/1	Reducer 2: 9(+0)/169	
+Map 1: 1/1	Reducer 2: 10(+0)/169	
+Map 1: 1/1	Reducer 2: 6(+2)/253	
+Map 1: 1/1	Reducer 2: 10(+1)/169	
+Map 1: 1/1	Reducer 2: 7(+2)/253	
+Map 1: 1/1	Reducer 2: 11(+1)/169	
+Map 1: 1/1	Reducer 2: 8(+3)/253	
+Map 1: 1/1	Reducer 2: 12(+1)/169	
+Map 1: 1/1	Reducer 2: 9(+2)/253	
+Map 1: 1/1	Reducer 2: 13(+0)/169	
+Map 1: 1/1	Reducer 2: 9(+4)/253	
+Map 1: 1/1	Reducer 2: 13(+1)/169	
+Map 1: 1/1	Reducer 2: 10(+4)/253	
+Map 1: 1/1	Reducer 2: 14(+1)/169	
+Map 1: 1/1	Reducer 2: 11(+4)/253	
+Map 1: 1/1	Reducer 2: 15(+0)/169	
+Map 1: 1/1	Reducer 2: 11(+5)/253	
+Map 1: 1/1	Reducer 2: 15(+1)/169	
+Map 1: 1/1	Reducer 2: 13(+5)/253	
+Map 1: 1/1	Reducer 2: 16(+1)/169	
+Map 1: 1/1	Reducer 2: 14(+4)/253	
+Map 1: 1/1	Reducer 2: 15(+6)/253	
+Map 1: 1/1	Reducer 2: 17(+1)/169	
+Map 1: 1/1	Reducer 2: 16(+6)/253	
+Map 1: 1/1	Reducer 2: 18(+1)/169	
+Map 1: 1/1	Reducer 2: 18(+5)/253	
+Map 1: 1/1	Reducer 2: 19(+0)/169	
+Map 1: 1/1	Reducer 2: 19(+6)/253	
+Map 1: 1/1	Reducer 2: 19(+1)/169	
+Map 1: 1/1	Reducer 2: 20(+7)/253	
+Map 1: 1/1	Reducer 2: 20(+1)/169	
+Map 1: 1/1	Reducer 2: 21(+6)/253	
+Map 1: 1/1	Reducer 2: 23(+7)/253	
+Map 1: 1/1	Reducer 2: 25(+5)/253	
+Map 1: 1/1	Reducer 2: 27(+7)/253	
+Map 1: 1/1	Reducer 2: 21(+1)/169	
+Map 1: 1/1	Reducer 2: 28(+9)/253	
+Map 1: 1/1	Reducer 2: 31(+8)/253	
+Map 1: 1/1	Reducer 2: 22(+1)/169	
+Map 1: 1/1	Reducer 2: 33(+9)/253	
+Map 1: 1/1	Reducer 2: 23(+0)/169	
+Map 1: 1/1	Reducer 2: 34(+12)/253	
+Map 1: 1/1	Reducer 2: 23(+1)/169	
+Map 1: 1/1	Reducer 2: 38(+11)/253	
+Map 1: 1/1	Reducer 2: 24(+0)/169	
+Map 1: 1/1	Reducer 2: 40(+11)/253	
+Map 1: 1/1	Reducer 2: 24(+1)/169	
+Map 1: 1/1	Reducer 2: 43(+12)/253	
+Map 1: 1/1	Reducer 2: 25(+0)/169	
+Map 1: 1/1	Reducer 2: 46(+11)/253	
+Map 1: 1/1	Reducer 2: 25(+1)/169	
+Map 1: 1/1	Reducer 2: 48(+13)/253	
+Map 1: 1/1	Reducer 2: 26(+0)/169	
+Map 1: 1/1	Reducer 2: 53(+12)/253	
+Map 1: 1/1	Reducer 2: 26(+1)/169	
+Map 1: 1/1	Reducer 2: 54(+15)/253	
+Map 1: 1/1	Reducer 2: 27(+1)/169	
+Map 1: 1/1	Reducer 2: 56(+15)/253	
+Map 1: 1/1	Reducer 2: 60(+14)/253	
+Map 1: 1/1	Reducer 2: 28(+0)/169	
+Map 1: 1/1	Reducer 2: 62(+17)/253	
+Map 1: 1/1	Reducer 2: 28(+1)/169	
+Map 1: 1/1	Reducer 2: 66(+16)/253	
+Map 1: 1/1	Reducer 2: 29(+0)/169	
+Map 1: 1/1	Reducer 2: 70(+17)/253	
+Map 1: 1/1	Reducer 2: 29(+1)/169	
+Map 1: 1/1	Reducer 2: 72(+18)/253	
+Map 1: 1/1	Reducer 2: 30(+1)/169	
+Map 1: 1/1	Reducer 2: 76(+17)/253	
+Map 1: 1/1	Reducer 2: 82(+15)/253	
+Map 1: 1/1	Reducer 2: 31(+1)/169	
+Map 1: 1/1	Reducer 2: 85(+20)/253	
+Map 1: 1/1	Reducer 2: 32(+0)/169	
+Map 1: 1/1	Reducer 2: 92(+17)/253	
+Map 1: 1/1	Reducer 2: 32(+1)/169	
+Map 1: 1/1	Reducer 2: 98(+21)/253	
+Map 1: 1/1	Reducer 2: 33(+1)/169	
+Map 1: 1/1	Reducer 2: 105(+19)/253	
+Map 1: 1/1	Reducer 2: 110(+18)/253	
+Map 1: 1/1	Reducer 2: 34(+0)/169	
+Map 1: 1/1	Reducer 2: 116(+18)/253	
+Map 1: 1/1	Reducer 2: 34(+1)/169	
+Map 1: 1/1	Reducer 2: 123(+20)/253	
+Map 1: 1/1	Reducer 2: 35(+0)/169	
+Map 1: 1/1	Reducer 2: 133(+19)/253	
+Map 1: 1/1	Reducer 2: 35(+1)/169	
+Map 1: 1/1	Reducer 2: 141(+17)/253	
+Map 1: 1/1	Reducer 2: 36(+1)/169	
+Map 1: 1/1	Reducer 2: 150(+19)/253	
+Map 1: 1/1	Reducer 2: 163(+12)/253	
+Map 1: 1/1	Reducer 2: 37(+1)/169	
+Map 1: 1/1	Reducer 2: 172(+17)/253	
+Map 1: 1/1	Reducer 2: 38(+0)/169	
+Map 1: 1/1	Reducer 2: 186(+8)/253	
+Map 1: 1/1	Reducer 2: 38(+1)/169	
+Map 1: 1/1	Reducer 2: 191(+18)/253	
+Map 1: 1/1	Reducer 2: 39(+1)/169	
+Map 1: 1/1	Reducer 2: 204(+15)/253	
+Map 1: 1/1	Reducer 2: 40(+0)/169	
+Map 1: 1/1	Reducer 2: 211(+20)/253	
+Map 1: 1/1	Reducer 2: 40(+1)/169	
+Map 1: 1/1	Reducer 2: 223(+11)/253	
+Map 1: 1/1	Reducer 2: 41(+0)/169	
+Map 1: 1/1	Reducer 2: 232(+20)/253	
+Map 1: 1/1	Reducer 2: 41(+1)/169	
+Map 1: 1/1	Reducer 2: 241(+12)/253	Map 1: 1/1	Reducer 2: 42(+0)/169	
+
+Map 1: 1/1	Reducer 2: 43(+0)/169	
+Map 1: 1/1	Reducer 2: 253/253	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+Map 1: 1/1	Reducer 2: 43(+1)/169	
+Map 1: 1/1	Reducer 2: 44(+1)/169	
+Map 1: 1/1	Reducer 2: 45(+0)/169	
+Map 1: 1/1	Reducer 2: 45(+1)/169	
+Map 1: 1/1	Reducer 2: 46(+1)/169	
+Map 1: 1/1	Reducer 2: 47(+1)/169	
+Map 1: 1/1	Reducer 2: 48(+0)/169	
+Map 1: 1/1	Reducer 2: 48(+1)/169	
+Map 1: 1/1	Reducer 2: 49(+0)/169	
+Map 1: 1/1	Reducer 2: 49(+1)/169	
+Map 1: 1/1	Reducer 2: 50(+1)/169	
+Map 1: 1/1	Reducer 2: 51(+1)/169	
+Map 1: 1/1	Reducer 2: 52(+0)/169	
+Map 1: 1/1	Reducer 2: 52(+1)/169	
+Map 1: 1/1	Reducer 2: 53(+1)/169	
+Map 1: 1/1	Reducer 2: 54(+0)/169	
+Map 1: 1/1	Reducer 2: 55(+0)/169	
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table tmp_ks_grcj already exists)
+Map 1: 1/1	Reducer 2: 56(+0)/169	
+Map 1: 1/1	Reducer 2: 56(+1)/169	
+Map 1: 1/1	Reducer 2: 57(+1)/169	
+('2017-2018', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2017-2018'
+           AND xqm = '1') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2017-2018',xqm='1')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+Map 1: 1/1	Reducer 2: 58(+1)/169	
+Map 1: 1/1	Reducer 2: 59(+0)/169	
+Map 1: 1/1	Reducer 2: 60(+0)/169	
+Map 1: 1/1	Reducer 2: 61(+0)/169	
+Map 1: 1/1	Reducer 2: 62(+0)/169	
+Map 1: 1/1	Reducer 2: 62(+1)/169	
+Map 1: 1/1	Reducer 2: 63(+1)/169	
+Map 1: 1/1	Reducer 2: 64(+1)/169	
+Map 1: 1/1	Reducer 2: 65(+1)/169	
+Map 1: 1/1	Reducer 2: 66(+0)/169	
+Map 1: 1/1	Reducer 2: 67(+0)/169	
+Map 1: 1/1	Reducer 2: 68(+0)/169	
+Map 1: 1/1	Reducer 2: 69(+0)/169	
+Map 1: 1/1	Reducer 2: 69(+1)/169	
+Map 1: 1/1	Reducer 2: 70(+1)/169	
+Map 1: 1/1	Reducer 2: 71(+1)/169	
+Map 1: 1/1	Reducer 2: 72(+1)/169	
+Map 1: 1/1	Reducer 2: 73(+1)/169	
+Map 1: 1/1	Reducer 2: 74(+1)/169	
+Map 1: 1/1	Reducer 2: 75(+1)/169	
+Map 1: 1/1	Reducer 2: 76(+1)/169	
+Map 1: 1/1	Reducer 2: 77(+0)/169	
+Map 1: 1/1	Reducer 2: 78(+0)/169	
+Map 1: 1/1	Reducer 2: 79(+0)/169	
+Map 1: 1/1	Reducer 2: 80(+0)/169	
+Map 1: 1/1	Reducer 2: 81(+0)/169	
+Map 1: 1/1	Reducer 2: 81(+1)/169	
+Map 1: 1/1	Reducer 2: 82(+1)/169	
+Map 1: 1/1	Reducer 2: 83(+1)/169	
+Map 1: 1/1	Reducer 2: 84(+1)/169	
+Map 1: 1/1	Reducer 2: 85(+1)/169	
+Map 1: 1/1	Reducer 2: 86(+1)/169	
+Map 1: 1/1	Reducer 2: 87(+1)/169	
+Map 1: 1/1	Reducer 2: 88(+1)/169	
+Map 1: 1/1	Reducer 2: 89(+1)/169	
+Map 1: 1/1	Reducer 2: 90(+1)/169	
+Map 1: 1/1	Reducer 2: 91(+4)/169	
+Map 1: 1/1	Reducer 2: 92(+4)/169	
+Map 1: 1/1	Reducer 2: 93(+4)/169	
+Map 1: 1/1	Reducer 2: 94(+3)/169	
+Map 1: 1/1	Reducer 2: 95(+3)/169	
+Map 1: 1/1	Reducer 2: 96(+6)/169	
+Map 1: 1/1	Reducer 2: 97(+6)/169	
+Map 1: 1/1	Reducer 2: 98(+6)/169	
+Map 1: 1/1	Reducer 2: 98(+7)/169	
+Map 1: 1/1	Reducer 2: 99(+7)/169	
+Map 1: 1/1	Reducer 2: 100(+7)/169	
+Map 1: 1/1	Reducer 2: 101(+10)/169	
+Map 1: 1/1	Reducer 2: 102(+9)/169	
+Map 1: 1/1	Reducer 2: 104(+9)/169	
+Map 1: 1/1	Reducer 2: 107(+9)/169	
+Map 1: 1/1	Reducer 2: 108(+9)/169	
+Map 1: 1/1	Reducer 2: 111(+13)/169	
+Map 1: 1/1	Reducer 2: 114(+10)/169	
+Map 1: 1/1	Reducer 2: 117(+12)/169	
+Map 1: 1/1	Reducer 2: 124(+8)/169	
+Map 1: 1/1	Reducer 2: 124(+13)/169	
+Map 1: 1/1	Reducer 2: 131(+12)/169	
+Map 1: 1/1	Reducer 2: 133(+14)/169	
+Map 1: 1/1	Reducer 2: 139(+12)/169	
+Map 1: 1/1	Reducer 2: 143(+12)/169	
+Map 1: 1/1	Reducer 2: 148(+15)/169	
+Map 1: 1/1	Reducer 2: 157(+9)/169	
+Map 1: 1/1	Reducer 2: 159(+8)/169	
+Map 1: 1/1	Reducer 2: 160(+7)/169	
+Map 1: 1/1	Reducer 2: 161(+6)/169	
+Map 1: 1/1	Reducer 2: 162(+6)/169	
+Map 1: 1/1	Reducer 2: 163(+5)/169	
+Map 1: 1/1	Reducer 2: 163(+6)/169	
+Map 1: 1/1	Reducer 2: 164(+5)/169	
+Map 1: 1/1	Reducer 2: 165(+4)/169	
+Map 1: 1/1	Reducer 2: 166(+3)/169	
+Map 1: 1/1	Reducer 2: 167(+2)/169	
+Map 1: 1/1	Reducer 2: 168(+1)/169	
+Map 1: 1/1	Reducer 2: 169/169	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table tmp_ks_grcj already exists)
+('2016-2017', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2016-2017'
+           AND xqm = '2') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2016-2017',xqm='2')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+OK
+Time taken: 1.771 seconds
+OK
+Time taken: 1.583 seconds
+Query ID = hdfs_20180301170521_77f96cc9-cae5-4cca-aaf8-bcebc73536ac
+Total jobs = 1
+Launching Job 1 out of 1
+Query ID = hdfs_20180301170522_c03e4ed1-711f-475e-af6f-01baa272a027
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1618)
+
+Map 1: -/-	Reducer 2: 0/1009	
+Map 1: 0/1	Reducer 2: 0/1009	
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1619)
+
+Map 1: -/-	Reducer 2: 0/1009	
+Map 1: 0/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+OK
+Time taken: 1.431 seconds
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Query ID = hdfs_20180301170532_8d3ae75f-8b29-4e94-b4f9-e22fec18b561
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1620)
+
+Map 1: -/-	Reducer 2: 0/1009	
+Map 1: 0/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 0/169	
+Map 1: 1/1	Reducer 2: 0(+1)/169	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 0/253	
+Map 1: 1/1	Reducer 2: 1(+0)/169	
+Map 1: 1/1	Reducer 2: 0(+1)/253	
+Map 1: 1/1	Reducer 2: 1(+1)/169	
+Map 1: 1/1	Reducer 2: 2(+1)/169	
+Map 1: 1/1	Reducer 2: 3(+1)/169	
+Map 1: 1/1	Reducer 2: 4(+0)/169	
+Map 1: 1/1	Reducer 2: 0/253	
+Map 1: 1/1	Reducer 2: 5(+0)/169	
+Map 1: 1/1	Reducer 2: 1(+1)/253	
+Map 1: 1/1	Reducer 2: 5(+1)/169	
+Map 1: 1/1	Reducer 2: 2(+1)/253	
+Map 1: 1/1	Reducer 2: 6(+1)/169	
+Map 1: 1/1	Reducer 2: 3(+0)/253	
+Map 1: 1/1	Reducer 2: 7(+4)/169	
+Map 1: 1/1	Reducer 2: 3(+1)/253	
+Map 1: 1/1	Reducer 2: 8(+3)/169	
+Map 1: 1/1	Reducer 2: 4(+1)/253	
+Map 1: 1/1	Reducer 2: 9(+3)/169	
+Map 1: 1/1	Reducer 2: 5(+1)/253	
+Map 1: 1/1	Reducer 2: 9(+4)/169	
+Map 1: 1/1	Reducer 2: 6(+0)/253	
+Map 1: 1/1	Reducer 2: 10(+4)/169	
+Map 1: 1/1	Reducer 2: 7(+0)/253	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 11(+4)/169	
+Map 1: 1/1	Reducer 2: 7(+3)/253	
+Map 1: 1/1	Reducer 2: 12(+3)/169	
+Map 1: 1/1	Reducer 2: 8(+4)/253	
+Map 1: 1/1	Reducer 2: 12(+4)/169	
+Map 1: 1/1	Reducer 2: 9(+4)/253	
+Map 1: 1/1	Reducer 2: 13(+4)/169	
+Map 1: 1/1	Reducer 2: 10(+3)/253	
+Map 1: 1/1	Reducer 2: 14(+3)/169	
+Map 1: 1/1	Reducer 2: 10(+4)/253	
+Map 1: 1/1	Reducer 2: 15(+3)/169	
+Map 1: 1/1	Reducer 2: 11(+5)/253	
+Map 1: 1/1	Reducer 2: 15(+4)/169	
+Map 1: 1/1	Reducer 2: 12(+7)/253	
+Map 1: 1/1	Reducer 2: 16(+4)/169	
+Map 1: 1/1	Reducer 2: 13(+6)/253	
+Map 1: 1/1	Reducer 2: 20(+3)/169	
+Map 1: 1/1	Reducer 2: 13(+7)/253	
+Map 1: 1/1	Reducer 2: 22(+2)/169	
+Map 1: 1/1	Reducer 2: 14(+7)/253	
+Map 1: 1/1	Reducer 2: 24(+4)/169	
+Map 1: 1/1	Reducer 2: 15(+7)/253	
+Map 1: 1/1	Reducer 2: 25(+3)/169	
+Map 1: 1/1	Reducer 2: 15(+10)/253	
+Map 1: 1/1	Reducer 2: 28(+2)/169	
+Map 1: 1/1	Reducer 2: 16(+9)/253	
+Map 1: 1/1	Reducer 2: 30(+3)/169	
+Map 1: 1/1	Reducer 2: 17(+9)/253	
+Map 1: 1/1	Reducer 2: 32(+3)/169	
+Map 1: 1/1	Reducer 2: 19(+9)/253	
+Map 1: 1/1	Reducer 2: 35(+1)/169	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 21(+8)/253	
+Map 1: 1/1	Reducer 2: 38(+2)/169	
+Map 1: 1/1	Reducer 2: 23(+11)/253	
+Map 1: 1/1	Reducer 2: 40(+3)/169	
+Map 1: 1/1	Reducer 2: 26(+11)/253	
+Map 1: 1/1	Reducer 2: 42(+4)/169	
+Map 1: 1/1	Reducer 2: 27(+12)/253	
+Map 1: 1/1	Reducer 2: 45(+3)/169	
+Map 1: 1/1	Reducer 2: 29(+13)/253	
+Map 1: 1/1	Reducer 2: 47(+2)/169	
+Map 1: 1/1	Reducer 2: 32(+11)/253	
+Map 1: 1/1	Reducer 2: 49(+4)/169	
+Map 1: 1/1	Reducer 2: 38(+9)/253	
+Map 1: 1/1	Reducer 2: 53(+2)/169	
+Map 1: 1/1	Reducer 2: 40(+13)/253	
+Map 1: 1/1	Reducer 2: 54(+3)/169	
+Map 1: 1/1	Reducer 2: 44(+14)/253	
+Map 1: 1/1	Reducer 2: 57(+4)/169	
+Map 1: 1/1	Reducer 2: 50(+12)/253	
+Map 1: 1/1	Reducer 2: 61(+2)/169	
+Map 1: 1/1	Reducer 2: 54(+12)/253	
+Map 1: 1/1	Reducer 2: 61(+4)/169	
+Map 1: 1/1	Reducer 2: 56(+13)/253	
+Map 1: 1/1	Reducer 2: 65(+1)/169	
+Map 1: 1/1	Reducer 2: 64(+11)/253	
+Map 1: 1/1	Reducer 2: 67(+2)/169	
+Map 1: 1/1	Reducer 2: 68(+13)/253	
+Map 1: 1/1	Reducer 2: 69(+4)/169	
+Map 1: 1/1	Reducer 2: 77(+12)/253	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 73(+2)/169	
+Map 1: 1/1	Reducer 2: 83(+12)/253	
+Map 1: 1/1	Reducer 2: 75(+2)/169	
+Map 1: 1/1	Reducer 2: 91(+12)/253	
+Map 1: 1/1	Reducer 2: 78(+2)/169	
+Map 1: 1/1	Reducer 2: 99(+12)/253	
+Map 1: 1/1	Reducer 2: 80(+3)/169	
+Map 1: 1/1	Reducer 2: 108(+12)/253	
+Map 1: 1/1	Reducer 2: 83(+4)/169	
+Map 1: 1/1	Reducer 2: 119(+9)/253	
+Map 1: 1/1	Reducer 2: 87(+1)/169	
+Map 1: 1/1	Reducer 2: 125(+13)/253	
+Map 1: 1/1	Reducer 2: 88(+3)/169	
+Map 1: 1/1	Reducer 2: 131(+8)/253	
+Map 1: 1/1	Reducer 2: 91(+3)/169	
+Map 1: 1/1	Reducer 2: 143(+11)/253	
+Map 1: 1/1	Reducer 2: 94(+2)/169	
+Map 1: 1/1	Reducer 2: 152(+12)/253	
+Map 1: 1/1	Reducer 2: 96(+4)/169	
+Map 1: 1/1	Reducer 2: 161(+11)/253	
+Map 1: 1/1	Reducer 2: 0/202	
+Map 1: 1/1	Reducer 2: 100(+2)/169	
+Map 1: 1/1	Reducer 2: 173(+10)/253	
+Map 1: 1/1	Reducer 2: 0(+1)/202	
+Map 1: 1/1	Reducer 2: 102(+3)/169	
+Map 1: 1/1	Reducer 2: 183(+9)/253	
+Map 1: 1/1	Reducer 2: 105(+3)/169	
+Map 1: 1/1	Reducer 2: 192(+13)/253	
+Map 1: 1/1	Reducer 2: 108(+2)/169	
+Map 1: 1/1	Reducer 2: 205(+7)/253	
+Map 1: 1/1	Reducer 2: 110(+3)/169	
+Map 1: 1/1	Reducer 2: 213(+9)/253	
+Map 1: 1/1	Reducer 2: 113(+4)/169	
+Map 1: 1/1	Reducer 2: 222(+15)/253	
+Map 1: 1/1	Reducer 2: 1(+1)/202	
+Map 1: 1/1	Reducer 2: 117(+1)/169	
+Map 1: 1/1	Reducer 2: 234(+9)/253	
+Map 1: 1/1	Reducer 2: 117(+4)/169	
+Map 1: 1/1	Reducer 2: 237(+15)/253	
+Map 1: 1/1	Reducer 2: 2(+0)/202	
+Map 1: 1/1	Reducer 2: 121(+4)/169	
+Map 1: 1/1	Reducer 2: 252(+1)/253	
+Map 1: 1/1	Reducer 2: 2(+1)/202	
+Map 1: 1/1	Reducer 2: 125(+0)/169	
+Map 1: 1/1	Reducer 2: 253/253	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+Map 1: 1/1	Reducer 2: 3(+1)/202	
+Map 1: 1/1	Reducer 2: 127(+2)/169	
+Map 1: 1/1	Reducer 2: 4(+1)/202	
+Map 1: 1/1	Reducer 2: 129(+4)/169	
+Map 1: 1/1	Reducer 2: 5(+0)/202	
+Map 1: 1/1	Reducer 2: 133(+3)/169	
+Map 1: 1/1	Reducer 2: 137(+2)/169	
+Map 1: 1/1	Reducer 2: 6(+1)/202	
+Map 1: 1/1	Reducer 2: 140(+1)/169	
+Map 1: 1/1	Reducer 2: 7(+1)/202	
+Map 1: 1/1	Reducer 2: 142(+3)/169	
+Map 1: 1/1	Reducer 2: 8(+0)/202	
+Map 1: 1/1	Reducer 2: 145(+4)/169	
+Map 1: 1/1	Reducer 2: 8(+1)/202	
+Map 1: 1/1	Reducer 2: 149(+3)/169	
+Map 1: 1/1	Reducer 2: 9(+1)/202	
+Map 1: 1/1	Reducer 2: 153(+1)/169	
+Map 1: 1/1	Reducer 2: 10(+1)/202	
+Map 1: 1/1	Reducer 2: 156(+2)/169	
+Map 1: 1/1	Reducer 2: 11(+0)/202	
+Map 1: 1/1	Reducer 2: 157(+4)/169	
+Map 1: 1/1	Reducer 2: 161(+1)/169	
+Map 1: 1/1	Reducer 2: 12(+1)/202	
+Map 1: 1/1	Reducer 2: 162(+3)/169	
+Map 1: 1/1	Reducer 2: 13(+1)/202	
+Map 1: 1/1	Reducer 2: 165(+4)/169	
+Map 1: 1/1	Reducer 2: 14(+0)/202	
+Map 1: 1/1	Reducer 2: 169/169	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+chmod: changing permissions of 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj/000246_0.snappy': File does not exist: /apps/hive/warehouse/tmp.db/tmp_ks_grcj/000246_0.snappy
+chmod: changing permissions of 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj/000247_0.snappy': File does not exist: /apps/hive/warehouse/tmp.db/tmp_ks_grcj/000247_0.snappy
+chmod: changing permissions of 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj/000248_0.snappy': File does not exist: /apps/hive/warehouse/tmp.db/tmp_ks_grcj/000248_0.snappy
+chmod: changing permissions of 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj/000249_0.snappy': File does not exist: /apps/hive/warehouse/tmp.db/tmp_ks_grcj/000249_0.snappy
+chmod: changing permissions of 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj/000250_0.snappy': File does not exist: /apps/hive/warehouse/tmp.db/tmp_ks_grcj/000250_0.snappy
+chmod: changing permissions of 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj/000251_0.snappy': File does not exist: /apps/hive/warehouse/tmp.db/tmp_ks_grcj/000251_0.snappy
+chmod: changing permissions of 'hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj/000252_0.snappy': File does not exist: /apps/hive/warehouse/tmp.db/tmp_ks_grcj/000252_0.snappy
+Map 1: 1/1	Reducer 2: 14(+1)/202	
+Map 1: 1/1	Reducer 2: 15(+1)/202	
+Map 1: 1/1	Reducer 2: 16(+1)/202	
+Map 1: 1/1	Reducer 2: 17(+0)/202	
+Map 1: 1/1	Reducer 2: 17(+1)/202	
+Table tmp.tmp_ks_grcj stats: [numFiles=169, numRows=15308, totalSize=421759, rawDataSize=721345]
+OK
+Time taken: 37.235 seconds
+Map 1: 1/1	Reducer 2: 18(+1)/202	
+Map 1: 1/1	Reducer 2: 19(+0)/202	
+Map 1: 1/1	Reducer 2: 19(+1)/202	
+Map 1: 1/1	Reducer 2: 20(+1)/202	
+Map 1: 1/1	Reducer 2: 21(+1)/202	
+Query ID = hdfs_20180301170559_89234389-617d-45e7-939f-cbb582bb67a7
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 1/1	Reducer 2: 22(+0)/202	
+Map 1: 1/1	Reducer 2: 23(+0)/202	
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table tmp_ks_grcj already exists)
+Map 1: 1/1	Reducer 2: 23(+1)/202	
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1618)
+
+Map 1: -/-	Map 2: -/-	Reducer 3: 0/2	
+Map 1: 1/1	Reducer 2: 24(+1)/202	
+('2015-2016', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2015-2016'
+           AND xqm = '2') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2015-2016',xqm='2')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+Map 1: 0/1	Map 2: 0(+1)/1	Reducer 3: 0/2	
+Map 1: 1/1	Reducer 2: 25(+0)/202	
+Map 1: 1/1	Reducer 2: 26(+0)/202	
+Map 1: 1/1	Reducer 2: 26(+1)/202	
+Map 1: 1/1	Reducer 2: 27(+1)/202	
+Map 1: 1/1	Reducer 2: 28(+1)/202	
+Map 1: 1/1	Reducer 2: 29(+1)/202	
+Map 1: 1/1	Reducer 2: 30(+0)/202	
+Map 1: 1/1	Reducer 2: 31(+0)/202	
+Map 1: 0(+1)/1	Map 2: 1/1	Reducer 3: 0(+1)/1	
+Map 1: 1/1	Reducer 2: 31(+1)/202	
+Map 1: 0(+1)/1	Map 2: 1/1	Reducer 3: 0/1	
+Map 1: 1/1	Reducer 2: 32(+1)/202	
+Map 1: 0(+1)/1	Map 2: 1/1	Reducer 3: 1/1	
+Map 1: 1/1	Reducer 2: 33(+1)/202	
+Map 1: 1/1	Reducer 2: 34(+0)/202	
+Map 1: 1/1	Reducer 2: 34(+1)/202	
+Map 1: 1/1	Reducer 2: 35(+1)/202	
+Map 1: 1/1	Reducer 2: 36(+1)/202	
+Map 1: 1/1	Reducer 2: 37(+0)/202	
+Map 1: 1/1	Reducer 2: 38(+0)/202	
+Map 1: 1/1	Reducer 2: 39(+1)/202	
+Map 1: 1/1	Map 2: 1/1	Reducer 3: 1/1	
+Loading data to table app.edu_app_ks_cjbj partition (xn=2015-2016, xqm=1)
+Map 1: 1/1	Reducer 2: 40(+1)/202	
+Map 1: 1/1	Reducer 2: 41(+1)/202	
+Map 1: 1/1	Reducer 2: 42(+0)/202	
+Map 1: 1/1	Reducer 2: 43(+0)/202	
+Map 1: 1/1	Reducer 2: 43(+1)/202	
+Partition app.edu_app_ks_cjbj{xn=2015-2016, xqm=1} stats: [numFiles=1, numRows=15043, totalSize=243986, rawDataSize=1638795]
+Map 1: 1/1	Reducer 2: 44(+1)/202	
+OK
+Time taken: 7.138 seconds
+Map 1: 1/1	Reducer 2: 45(+1)/202	
+Map 1: 1/1	Reducer 2: 46(+1)/202	
+('2015-2016', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2015-2016'
+           AND xqm = '1') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2015-2016',xqm='1')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+Map 1: 1/1	Reducer 2: 47(+0)/202	
+Map 1: 1/1	Reducer 2: 47(+1)/202	
+Map 1: 1/1	Reducer 2: 48(+1)/202	
+Map 1: 1/1	Reducer 2: 49(+2)/202	
+Map 1: 1/1	Reducer 2: 50(+2)/202	
+Map 1: 1/1	Reducer 2: 51(+2)/202	
+Map 1: 1/1	Reducer 2: 52(+1)/202	
+Map 1: 1/1	Reducer 2: 53(+1)/202	
+Map 1: 1/1	Reducer 2: 53(+5)/202	
+Map 1: 1/1	Reducer 2: 54(+5)/202	
+Map 1: 1/1	Reducer 2: 55(+5)/202	
+Map 1: 1/1	Reducer 2: 56(+5)/202	
+Map 1: 1/1	Reducer 2: 57(+5)/202	
+Map 1: 1/1	Reducer 2: 58(+5)/202	
+Map 1: 1/1	Reducer 2: 58(+8)/202	
+Map 1: 1/1	Reducer 2: 59(+8)/202	
+Map 1: 1/1	Reducer 2: 61(+7)/202	
+Map 1: 1/1	Reducer 2: 62(+7)/202	
+Map 1: 1/1	Reducer 2: 64(+7)/202	
+Map 1: 1/1	Reducer 2: 65(+9)/202	
+Map 1: 1/1	Reducer 2: 68(+9)/202	
+Map 1: 1/1	Reducer 2: 72(+7)/202	
+Map 1: 1/1	Reducer 2: 74(+8)/202	
+Map 1: 1/1	Reducer 2: 77(+8)/202	
+Map 1: 1/1	Reducer 2: 81(+7)/202	
+Map 1: 1/1	Reducer 2: 84(+9)/202	
+Map 1: 1/1	Reducer 2: 89(+9)/202	
+Map 1: 1/1	Reducer 2: 93(+7)/202	
+Map 1: 1/1	Reducer 2: 97(+11)/202	
+Map 1: 1/1	Reducer 2: 104(+7)/202	
+Map 1: 1/1	Reducer 2: 107(+10)/202	
+Map 1: 1/1	Reducer 2: 114(+11)/202	
+Map 1: 1/1	Reducer 2: 121(+7)/202	
+Map 1: 1/1	Reducer 2: 125(+10)/202	
+Map 1: 1/1	Reducer 2: 132(+12)/202	
+Map 1: 1/1	Reducer 2: 136(+11)/202	
+Map 1: 1/1	Reducer 2: 143(+13)/202	
+Map 1: 1/1	Reducer 2: 147(+12)/202	
+Map 1: 1/1	Reducer 2: 153(+14)/202	
+Map 1: 1/1	Reducer 2: 161(+11)/202	
+Map 1: 1/1	Reducer 2: 165(+14)/202	
+Map 1: 1/1	Reducer 2: 174(+12)/202	
+Map 1: 1/1	Reducer 2: 178(+16)/202	
+Map 1: 1/1	Reducer 2: 187(+12)/202	
+Map 1: 1/1	Reducer 2: 193(+6)/202	
+Map 1: 1/1	Reducer 2: 194(+5)/202	
+Map 1: 1/1	Reducer 2: 194(+7)/202	
+Map 1: 1/1	Reducer 2: 195(+6)/202	
+Map 1: 1/1	Reducer 2: 197(+4)/202	
+Map 1: 1/1	Reducer 2: 197(+5)/202	
+Map 1: 1/1	Reducer 2: 198(+4)/202	
+Map 1: 1/1	Reducer 2: 199(+3)/202	
+Map 1: 1/1	Reducer 2: 200(+2)/202	
+Map 1: 1/1	Reducer 2: 201(+1)/202	
+Map 1: 1/1	Reducer 2: 202/202	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table tmp_ks_grcj already exists)
+OK
+Time taken: 1.804 seconds
+('2014-2015', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2014-2015'
+           AND xqm = '1') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2014-2015',xqm='1')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+Query ID = hdfs_20180301170622_f275a4b0-b815-4fc2-ab6b-70df4957fbb9
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1621)
+
+Map 1: -/-	Reducer 2: 0/1009	
+Map 1: 0/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+OK
+Time taken: 1.486 seconds
+OK
+Time taken: 1.498 seconds
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Query ID = hdfs_20180301170635_7dec6ef4-18c7-4b2f-9419-78ef7b8c3e0f
+Total jobs = 1
+Launching Job 1 out of 1
+Query ID = hdfs_20180301170635_645bcf36-e820-44b1-af7f-9b813f87a40f
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1623)
+
+Map 1: -/-	Reducer 2: 0/986	
+
+
+Map 1: 0/1	Reducer 2: 0/986	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1622)
+
+Map 1: -/-	Reducer 2: 0/1009	
+Map 1: 0/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/986	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 0/145	
+Map 1: 1/1	Reducer 2: 0(+1)/145	
+Map 1: 1/1	Reducer 2: 1(+1)/145	
+Map 1: 1/1	Reducer 2: 2(+0)/145	
+Map 1: 1/1	Reducer 2: 3(+0)/145	
+Map 1: 1/1	Reducer 2: 3(+1)/145	
+Map 1: 1/1	Reducer 2: 4(+1)/145	
+Map 1: 1/1	Reducer 2: 5(+0)/145	
+Map 1: 1/1	Reducer 2: 5(+1)/145	
+Map 1: 1/1	Reducer 2: 6(+2)/145	
+Map 1: 0(+1)/1	Reducer 2: 0/986	
+Map 1: 1/1	Reducer 2: 7(+3)/145	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 7(+4)/145	
+Map 1: 1/1	Reducer 2: 8(+4)/145	
+Map 1: 1/1	Reducer 2: 9(+4)/145	
+Map 1: 1/1	Reducer 2: 10(+3)/145	
+Map 1: 1/1	Reducer 2: 10(+7)/145	
+Map 1: 1/1	Reducer 2: 11(+7)/145	
+Map 1: 1/1	Reducer 2: 12(+6)/145	
+Map 1: 1/1	Reducer 2: 12(+7)/145	
+Map 1: 1/1	Reducer 2: 13(+7)/145	
+Map 1: 1/1	Reducer 2: 14(+8)/145	
+Map 1: 1/1	Reducer 2: 14(+10)/145	
+Map 1: 1/1	Reducer 2: 16(+9)/145	
+Map 1: 1/1	Reducer 2: 18(+8)/145	
+Map 1: 1/1	Reducer 2: 19(+9)/145	
+Map 1: 0(+1)/1	Reducer 2: 0/986	
+Map 1: 1/1	Reducer 2: 22(+11)/145	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 24(+11)/145	
+Map 1: 1/1	Reducer 2: 26(+11)/145	
+Map 1: 1/1	Reducer 2: 30(+11)/145	
+Map 1: 1/1	Reducer 2: 32(+12)/145	
+Map 1: 1/1	Reducer 2: 36(+12)/145	
+Map 1: 1/1	Reducer 2: 39(+13)/145	
+Map 1: 1/1	Reducer 2: 43(+15)/145	
+Map 1: 1/1	Reducer 2: 47(+11)/145	
+Map 1: 1/1	Reducer 2: 50(+14)/145	
+Map 1: 1/1	Reducer 2: 56(+13)/145	
+Map 1: 1/1	Reducer 2: 60(+17)/145	
+Map 1: 1/1	Reducer 2: 67(+15)/145	
+Map 1: 1/1	Reducer 2: 71(+16)/145	
+Map 1: 1/1	Reducer 2: 78(+12)/145	
+Map 1: 0(+1)/1	Reducer 2: 0/986	
+Map 1: 1/1	Reducer 2: 84(+15)/145	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 92(+14)/145	
+Map 1: 1/1	Reducer 2: 99(+16)/145	
+Map 1: 1/1	Reducer 2: 107(+16)/145	
+Map 1: 1/1	Reducer 2: 116(+12)/145	
+Map 1: 1/1	Reducer 2: 122(+17)/145	
+Map 1: 1/1	Reducer 2: 135(+10)/145	
+Map 1: 1/1	Reducer 2: 142(+3)/145	
+Map 1: 1/1	Reducer 2: 144(+1)/145	
+Map 1: 1/1	Reducer 2: 145/145	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+Map 1: 0(+1)/1	Reducer 2: 0/986	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 0/124	
+Map 1: 1/1	Reducer 2: 0(+1)/124	
+Map 1: 1/1	Reducer 2: 1(+1)/124	
+Table tmp.tmp_ks_grcj stats: [numFiles=145, numRows=14649, totalSize=406618, rawDataSize=692686]
+OK
+Time taken: 33.705 seconds
+Map 1: 1/1	Reducer 2: 2(+0)/124	
+Map 1: 1/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 2(+1)/124	
+Map 1: 1/1	Reducer 2: 0(+1)/169	
+Map 1: 1/1	Reducer 2: 3(+1)/124	
+Map 1: 1/1	Reducer 2: 4(+0)/124	
+Map 1: 1/1	Reducer 2: 4(+1)/124	
+Query ID = hdfs_20180301170656_d2b54d1a-0a60-4673-bbac-d7ad77363816
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 1/1	Reducer 2: 5(+0)/124	
+Map 1: 1/1	Reducer 2: 5(+1)/124	
+Map 1: 1/1	Reducer 2: 1(+1)/169	
+Map 1: 1/1	Reducer 2: 6(+1)/124	
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1621)
+
+Map 1: -/-	Map 2: -/-	Reducer 3: 0/2	
+Map 1: 1/1	Reducer 2: 2(+0)/169	
+Map 1: 1/1	Reducer 2: 7(+0)/124	
+Map 1: 0/1	Map 2: 0(+1)/1	Reducer 3: 0/2	
+Map 1: 1/1	Reducer 2: 2(+1)/169	
+Map 1: 1/1	Reducer 2: 7(+1)/124	
+Map 1: 1/1	Reducer 2: 3(+1)/169	
+Map 1: 1/1	Reducer 2: 8(+1)/124	
+Map 1: 1/1	Reducer 2: 4(+0)/169	
+Map 1: 1/1	Reducer 2: 9(+0)/124	
+Map 1: 1/1	Reducer 2: 4(+1)/169	
+Map 1: 1/1	Reducer 2: 9(+1)/124	
+Map 1: 1/1	Reducer 2: 5(+1)/169	
+Map 1: 1/1	Reducer 2: 10(+1)/124	
+Map 1: 1/1	Reducer 2: 6(+0)/169	
+Map 1: 1/1	Reducer 2: 11(+0)/124	
+Map 1: 1/1	Reducer 2: 6(+1)/169	
+Map 1: 1/1	Reducer 2: 11(+1)/124	
+Map 1: 1/1	Reducer 2: 7(+1)/169	
+Map 1: 1/1	Reducer 2: 12(+1)/124	
+Map 1: 0/1	Map 2: 1/1	Reducer 3: 0/1	
+Map 1: 1/1	Reducer 2: 8(+0)/169	
+Map 1: 1/1	Reducer 2: 13(+0)/124	
+Map 1: 0(+1)/1	Map 2: 1/1	Reducer 3: 0(+1)/1	
+Map 1: 1/1	Reducer 2: 8(+1)/169	
+Map 1: 1/1	Reducer 2: 13(+1)/124	
+Map 1: 0(+1)/1	Map 2: 1/1	Reducer 3: 1/1	
+Map 1: 1/1	Reducer 2: 9(+0)/169	
+Map 1: 1/1	Reducer 2: 14(+0)/124	
+Map 1: 1/1	Reducer 2: 9(+1)/169	
+Map 1: 1/1	Reducer 2: 14(+1)/124	
+Map 1: 1/1	Reducer 2: 10(+1)/169	
+Map 1: 1/1	Reducer 2: 15(+1)/124	
+Map 1: 1/1	Reducer 2: 11(+1)/169	
+Map 1: 1/1	Reducer 2: 16(+1)/124	
+Map 1: 1/1	Reducer 2: 12(+0)/169	
+Map 1: 1/1	Reducer 2: 17(+0)/124	
+Map 1: 1/1	Reducer 2: 12(+1)/169	
+Map 1: 1/1	Reducer 2: 17(+1)/124	
+Map 1: 1/1	Reducer 2: 13(+1)/169	
+Map 1: 1/1	Reducer 2: 18(+1)/124	
+Map 1: 1/1	Reducer 2: 14(+0)/169	
+Map 1: 1/1	Reducer 2: 19(+0)/124	
+Map 1: 1/1	Map 2: 1/1	Reducer 3: 1/1	
+Loading data to table app.edu_app_ks_cjbj partition (xn=2014-2015, xqm=2)
+Map 1: 1/1	Reducer 2: 14(+1)/169	
+Map 1: 1/1	Reducer 2: 19(+1)/124	
+Map 1: 1/1	Reducer 2: 15(+1)/169	
+Map 1: 1/1	Reducer 2: 20(+1)/124	
+Map 1: 1/1	Reducer 2: 16(+0)/169	
+Map 1: 1/1	Reducer 2: 21(+0)/124	
+Map 1: 1/1	Reducer 2: 16(+1)/169	
+Map 1: 1/1	Reducer 2: 21(+1)/124	
+Map 1: 1/1	Reducer 2: 17(+1)/169	
+Map 1: 1/1	Reducer 2: 22(+1)/124	
+Partition app.edu_app_ks_cjbj{xn=2014-2015, xqm=2} stats: [numFiles=1, numRows=14649, totalSize=234223, rawDataSize=1595297]
+Map 1: 1/1	Reducer 2: 18(+1)/169	
+Map 1: 1/1	Reducer 2: 23(+1)/124	
+OK
+Time taken: 6.88 seconds
+Map 1: 1/1	Reducer 2: 19(+0)/169	
+Map 1: 1/1	Reducer 2: 24(+0)/124	
+Map 1: 1/1	Reducer 2: 19(+1)/169	
+Map 1: 1/1	Reducer 2: 24(+1)/124	
+('2014-2015', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2014-2015'
+           AND xqm = '2') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2014-2015',xqm='2')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+Map 1: 1/1	Reducer 2: 20(+1)/169	
+Map 1: 1/1	Reducer 2: 25(+1)/124	
+Map 1: 1/1	Reducer 2: 21(+0)/169	
+Map 1: 1/1	Reducer 2: 26(+0)/124	
+Map 1: 1/1	Reducer 2: 26(+1)/124	
+Map 1: 1/1	Reducer 2: 21(+1)/169	
+Map 1: 1/1	Reducer 2: 27(+0)/124	
+Map 1: 1/1	Reducer 2: 22(+0)/169	
+Map 1: 1/1	Reducer 2: 27(+1)/124	
+Map 1: 1/1	Reducer 2: 22(+1)/169	
+Map 1: 1/1	Reducer 2: 28(+1)/124	
+Map 1: 1/1	Reducer 2: 23(+1)/169	
+Map 1: 1/1	Reducer 2: 24(+0)/169	
+Map 1: 1/1	Reducer 2: 29(+0)/124	
+Map 1: 1/1	Reducer 2: 24(+1)/169	
+Map 1: 1/1	Reducer 2: 30(+0)/124	
+Map 1: 1/1	Reducer 2: 25(+1)/169	
+Map 1: 1/1	Reducer 2: 30(+1)/124	
+Map 1: 1/1	Reducer 2: 26(+1)/169	
+Map 1: 1/1	Reducer 2: 31(+1)/124	
+Map 1: 1/1	Reducer 2: 27(+0)/169	
+Map 1: 1/1	Reducer 2: 32(+0)/124	
+Map 1: 1/1	Reducer 2: 28(+1)/169	
+Map 1: 1/1	Reducer 2: 33(+0)/124	
+Map 1: 1/1	Reducer 2: 28(+3)/169	
+Map 1: 1/1	Reducer 2: 33(+1)/124	
+Map 1: 1/1	Reducer 2: 29(+3)/169	
+Map 1: 1/1	Reducer 2: 34(+1)/124	
+Map 1: 1/1	Reducer 2: 30(+2)/169	
+Map 1: 1/1	Reducer 2: 35(+0)/124	
+Map 1: 1/1	Reducer 2: 31(+2)/169	
+Map 1: 1/1	Reducer 2: 36(+0)/124	
+Map 1: 1/1	Reducer 2: 31(+3)/169	
+Map 1: 1/1	Reducer 2: 36(+1)/124	
+Map 1: 1/1	Reducer 2: 32(+4)/169	
+Map 1: 1/1	Reducer 2: 37(+1)/124	
+Map 1: 1/1	Reducer 2: 33(+3)/169	
+Map 1: 1/1	Reducer 2: 38(+0)/124	
+Map 1: 1/1	Reducer 2: 33(+4)/169	
+Map 1: 1/1	Reducer 2: 38(+1)/124	
+Map 1: 1/1	Reducer 2: 34(+4)/169	
+Map 1: 1/1	Reducer 2: 39(+1)/124	
+Map 1: 1/1	Reducer 2: 35(+4)/169	
+Map 1: 1/1	Reducer 2: 40(+1)/124	
+Map 1: 1/1	Reducer 2: 35(+5)/169	
+Map 1: 1/1	Reducer 2: 41(+0)/124	
+Map 1: 1/1	Reducer 2: 36(+6)/169	
+Map 1: 1/1	Reducer 2: 41(+1)/124	
+Map 1: 1/1	Reducer 2: 37(+6)/169	
+Map 1: 1/1	Reducer 2: 42(+1)/124	
+Map 1: 1/1	Reducer 2: 39(+4)/169	
+Map 1: 1/1	Reducer 2: 43(+1)/124	
+Map 1: 1/1	Reducer 2: 40(+6)/169	
+Map 1: 1/1	Reducer 2: 44(+0)/124	
+Map 1: 1/1	Reducer 2: 42(+6)/169	
+Map 1: 1/1	Reducer 2: 44(+1)/124	
+Map 1: 1/1	Reducer 2: 44(+6)/169	
+Map 1: 1/1	Reducer 2: 45(+1)/124	
+Map 1: 1/1	Reducer 2: 46(+5)/169	
+Map 1: 1/1	Reducer 2: 46(+0)/124	
+Map 1: 1/1	Reducer 2: 46(+7)/169	
+Map 1: 1/1	Reducer 2: 46(+1)/124	
+Map 1: 1/1	Reducer 2: 47(+7)/169	
+Map 1: 1/1	Reducer 2: 47(+1)/124	
+Map 1: 1/1	Reducer 2: 50(+10)/169	
+Map 1: 1/1	Reducer 2: 48(+0)/124	
+Map 1: 1/1	Reducer 2: 52(+8)/169	
+Map 1: 1/1	Reducer 2: 48(+1)/124	
+Map 1: 1/1	Reducer 2: 55(+8)/169	
+Map 1: 1/1	Reducer 2: 49(+0)/124	
+Map 1: 1/1	Reducer 2: 57(+9)/169	
+Map 1: 1/1	Reducer 2: 49(+1)/124	
+Map 1: 1/1	Reducer 2: 61(+7)/169	
+Map 1: 1/1	Reducer 2: 50(+1)/124	
+Map 1: 1/1	Reducer 2: 62(+12)/169	
+Map 1: 1/1	Reducer 2: 51(+0)/124	
+Map 1: 1/1	Reducer 2: 66(+10)/169	
+Map 1: 1/1	Reducer 2: 51(+1)/124	
+Map 1: 1/1	Reducer 2: 68(+13)/169	
+Map 1: 1/1	Reducer 2: 52(+0)/124	
+Map 1: 1/1	Reducer 2: 72(+11)/169	
+Map 1: 1/1	Reducer 2: 52(+1)/124	
+Map 1: 1/1	Reducer 2: 75(+13)/169	
+Map 1: 1/1	Reducer 2: 53(+0)/124	
+Map 1: 1/1	Reducer 2: 79(+12)/169	
+Map 1: 1/1	Reducer 2: 53(+1)/124	
+Map 1: 1/1	Reducer 2: 83(+15)/169	
+Map 1: 1/1	Reducer 2: 54(+0)/124	
+Map 1: 1/1	Reducer 2: 85(+15)/169	
+Map 1: 1/1	Reducer 2: 54(+1)/124	
+Map 1: 1/1	Reducer 2: 89(+15)/169	
+Map 1: 1/1	Reducer 2: 55(+0)/124	
+Map 1: 1/1	Reducer 2: 92(+14)/169	
+Map 1: 1/1	Reducer 2: 55(+1)/124	
+Map 1: 1/1	Reducer 2: 99(+15)/169	
+Map 1: 1/1	Reducer 2: 56(+0)/124	
+Map 1: 1/1	Reducer 2: 101(+18)/169	
+Map 1: 1/1	Reducer 2: 56(+1)/124	
+Map 1: 1/1	Reducer 2: 107(+15)/169	
+Map 1: 1/1	Reducer 2: 111(+17)/169	
+Map 1: 1/1	Reducer 2: 57(+1)/124	
+Map 1: 1/1	Reducer 2: 113(+18)/169	
+Map 1: 1/1	Reducer 2: 122(+15)/169	
+Map 1: 1/1	Reducer 2: 58(+0)/124	
+Map 1: 1/1	Reducer 2: 128(+18)/169	
+Map 1: 1/1	Reducer 2: 58(+1)/124	
+Map 1: 1/1	Reducer 2: 136(+18)/169	
+Map 1: 1/1	Reducer 2: 59(+1)/124	
+Map 1: 1/1	Reducer 2: 143(+17)/169	
+Map 1: 1/1	Reducer 2: 149(+19)/169	
+Map 1: 1/1	Reducer 2: 60(+1)/124	
+Map 1: 1/1	Reducer 2: 159(+9)/169	
+Map 1: 1/1	Reducer 2: 164(+5)/169	
+Map 1: 1/1	Reducer 2: 61(+1)/124	
+Map 1: 1/1	Reducer 2: 62(+0)/124	
+Map 1: 1/1	Reducer 2: 62(+1)/124	
+Map 1: 1/1	Reducer 2: 63(+1)/124	
+Map 1: 1/1	Reducer 2: 165(+4)/169	
+Map 1: 1/1	Reducer 2: 64(+0)/124	
+Map 1: 1/1	Reducer 2: 166(+3)/169	
+Map 1: 1/1	Reducer 2: 65(+0)/124	
+Map 1: 1/1	Reducer 2: 66(+0)/124	
+Map 1: 1/1	Reducer 2: 66(+1)/124	
+Map 1: 1/1	Reducer 2: 167(+2)/169	
+Map 1: 1/1	Reducer 2: 67(+1)/124	
+Map 1: 1/1	Reducer 2: 168(+1)/169	
+Map 1: 1/1	Reducer 2: 68(+0)/124	
+Map 1: 1/1	Reducer 2: 69(+0)/124	
+Map 1: 1/1	Reducer 2: 69(+1)/124	
+Map 1: 1/1	Reducer 2: 70(+1)/124	
+Map 1: 1/1	Reducer 2: 169/169	
+Map 1: 1/1	Reducer 2: 71(+1)/124	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+Map 1: 1/1	Reducer 2: 72(+0)/124	
+Map 1: 1/1	Reducer 2: 72(+1)/124	
+Map 1: 1/1	Reducer 2: 73(+1)/124	
+Map 1: 1/1	Reducer 2: 74(+0)/124	
+Map 1: 1/1	Reducer 2: 74(+1)/124	
+Map 1: 1/1	Reducer 2: 75(+1)/124	
+Map 1: 1/1	Reducer 2: 76(+0)/124	
+Map 1: 1/1	Reducer 2: 76(+1)/124	
+Map 1: 1/1	Reducer 2: 77(+1)/124	
+Map 1: 1/1	Reducer 2: 78(+0)/124	
+Map 1: 1/1	Reducer 2: 78(+1)/124	
+Map 1: 1/1	Reducer 2: 79(+1)/124	
+Map 1: 1/1	Reducer 2: 80(+1)/124	
+Map 1: 1/1	Reducer 2: 81(+0)/124	
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table tmp_ks_grcj already exists)
+Map 1: 1/1	Reducer 2: 81(+1)/124	
+Map 1: 1/1	Reducer 2: 82(+1)/124	
+('2013-2014', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2013-2014'
+           AND xqm = '1') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2013-2014',xqm='1')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+Map 1: 1/1	Reducer 2: 83(+1)/124	
+Map 1: 1/1	Reducer 2: 84(+0)/124	
+Map 1: 1/1	Reducer 2: 85(+0)/124	
+Map 1: 1/1	Reducer 2: 86(+0)/124	
+Map 1: 1/1	Reducer 2: 86(+1)/124	
+Map 1: 1/1	Reducer 2: 87(+1)/124	
+Map 1: 1/1	Reducer 2: 88(+1)/124	
+Map 1: 1/1	Reducer 2: 89(+1)/124	
+Map 1: 1/1	Reducer 2: 90(+0)/124	
+Map 1: 1/1	Reducer 2: 91(+0)/124	
+Map 1: 1/1	Reducer 2: 91(+1)/124	
+Map 1: 1/1	Reducer 2: 92(+1)/124	
+Map 1: 1/1	Reducer 2: 93(+0)/124	
+Map 1: 1/1	Reducer 2: 94(+0)/124	
+Map 1: 1/1	Reducer 2: 95(+0)/124	
+Map 1: 1/1	Reducer 2: 95(+1)/124	
+Map 1: 1/1	Reducer 2: 96(+1)/124	
+Map 1: 1/1	Reducer 2: 97(+1)/124	
+Map 1: 1/1	Reducer 2: 98(+1)/124	
+Map 1: 1/1	Reducer 2: 99(+1)/124	
+Map 1: 1/1	Reducer 2: 100(+1)/124	
+Map 1: 1/1	Reducer 2: 101(+1)/124	
+Map 1: 1/1	Reducer 2: 102(+1)/124	
+Map 1: 1/1	Reducer 2: 103(+1)/124	
+Map 1: 1/1	Reducer 2: 104(+0)/124	
+Map 1: 1/1	Reducer 2: 105(+0)/124	
+Map 1: 1/1	Reducer 2: 106(+0)/124	
+Map 1: 1/1	Reducer 2: 106(+1)/124	
+Map 1: 1/1	Reducer 2: 107(+1)/124	
+Map 1: 1/1	Reducer 2: 108(+1)/124	
+Map 1: 1/1	Reducer 2: 109(+1)/124	
+Map 1: 1/1	Reducer 2: 110(+3)/124	
+Map 1: 1/1	Reducer 2: 110(+4)/124	
+Map 1: 1/1	Reducer 2: 111(+4)/124	
+Map 1: 1/1	Reducer 2: 112(+4)/124	
+Map 1: 1/1	Reducer 2: 113(+4)/124	
+Map 1: 1/1	Reducer 2: 113(+7)/124	
+Map 1: 1/1	Reducer 2: 114(+7)/124	
+Map 1: 1/1	Reducer 2: 114(+9)/124	
+Map 1: 1/1	Reducer 2: 114(+10)/124	
+Map 1: 1/1	Reducer 2: 115(+9)/124	
+Map 1: 1/1	Reducer 2: 116(+8)/124	
+Map 1: 1/1	Reducer 2: 117(+7)/124	
+Map 1: 1/1	Reducer 2: 119(+5)/124	
+Map 1: 1/1	Reducer 2: 121(+3)/124	
+Map 1: 1/1	Reducer 2: 123(+1)/124	
+Map 1: 1/1	Reducer 2: 124/124	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table tmp_ks_grcj already exists)
+('2013-2014', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2013-2014'
+           AND xqm = '2') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2013-2014',xqm='2')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+OK
+Time taken: 1.984 seconds
+Query ID = hdfs_20180301170736_ba333246-77c2-4029-9b80-bcc68cc7f181
+Total jobs = 1
+Launching Job 1 out of 1
+OK
+Time taken: 3.928 seconds
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1625)
+
+Map 1: -/-	Reducer 2: 0/918	
+Map 1: 0/1	Reducer 2: 0/918	
+Query ID = hdfs_20180301170738_a172a801-e4f3-4fcf-bdab-3be00d47bb8a
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1624)
+
+Map 1: -/-	Reducer 2: 0/1009	
+Map 1: 0/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/918	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/918	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/918	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 0(+1)/1	Reducer 2: 0/918	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 0/918	
+Map 1: 1/1	Reducer 2: 0(+1)/115	
+Map 1: 1/1	Reducer 2: 1(+1)/115	
+Map 1: 1/1	Reducer 2: 2(+0)/115	
+Map 1: 1/1	Reducer 2: 2(+1)/115	
+Map 1: 1/1	Reducer 2: 3(+1)/115	
+Map 1: 1/1	Reducer 2: 4(+0)/115	
+Map 1: 1/1	Reducer 2: 4(+4)/115	
+Map 1: 0(+1)/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 5(+4)/115	
+Map 1: 1/1	Reducer 2: 6(+3)/115	
+Map 1: 1/1	Reducer 2: 6(+4)/115	
+Map 1: 1/1	Reducer 2: 7(+4)/115	
+Map 1: 1/1	Reducer 2: 8(+5)/115	
+Map 1: 1/1	Reducer 2: 0/1009	
+Map 1: 1/1	Reducer 2: 8(+7)/115	
+Map 1: 1/1	Reducer 2: 0(+1)/145	
+Map 1: 1/1	Reducer 2: 9(+7)/115	
+Map 1: 1/1	Reducer 2: 10(+6)/115	
+Map 1: 1/1	Reducer 2: 10(+7)/115	
+Map 1: 1/1	Reducer 2: 10(+8)/115	
+Map 1: 1/1	Reducer 2: 10(+10)/115	
+Map 1: 1/1	Reducer 2: 12(+9)/115	
+Map 1: 1/1	Reducer 2: 1(+0)/145	
+Map 1: 1/1	Reducer 2: 13(+10)/115	
+Map 1: 1/1	Reducer 2: 1(+1)/145	
+Map 1: 1/1	Reducer 2: 14(+10)/115	
+Map 1: 1/1	Reducer 2: 2(+0)/145	
+Map 1: 1/1	Reducer 2: 17(+10)/115	
+Map 1: 1/1	Reducer 2: 2(+1)/145	
+Map 1: 1/1	Reducer 2: 18(+13)/115	
+Map 1: 1/1	Reducer 2: 3(+0)/145	
+Map 1: 1/1	Reducer 2: 20(+11)/115	
+Map 1: 1/1	Reducer 2: 3(+1)/145	
+Map 1: 1/1	Reducer 2: 21(+13)/115	
+Map 1: 1/1	Reducer 2: 4(+0)/145	
+Map 1: 1/1	Reducer 2: 26(+9)/115	
+Map 1: 1/1	Reducer 2: 4(+1)/145	
+Map 1: 1/1	Reducer 2: 27(+13)/115	
+Map 1: 1/1	Reducer 2: 5(+2)/145	
+Map 1: 1/1	Reducer 2: 33(+9)/115	
+Map 1: 1/1	Reducer 2: 5(+3)/145	
+Map 1: 1/1	Reducer 2: 34(+12)/115	
+Map 1: 1/1	Reducer 2: 5(+4)/145	
+Map 1: 1/1	Reducer 2: 35(+11)/115	
+Map 1: 1/1	Reducer 2: 6(+4)/145	
+Map 1: 1/1	Reducer 2: 40(+11)/115	
+Map 1: 1/1	Reducer 2: 41(+12)/115	
+Map 1: 1/1	Reducer 2: 6(+5)/145	
+Map 1: 1/1	Reducer 2: 46(+12)/115	
+Map 1: 1/1	Reducer 2: 7(+7)/145	
+Map 1: 1/1	Reducer 2: 50(+11)/115	
+Map 1: 1/1	Reducer 2: 55(+11)/115	
+Map 1: 1/1	Reducer 2: 8(+7)/145	
+Map 1: 1/1	Reducer 2: 58(+11)/115	
+Map 1: 1/1	Reducer 2: 64(+13)/115	
+Map 1: 1/1	Reducer 2: 9(+7)/145	
+Map 1: 1/1	Reducer 2: 68(+10)/115	
+Map 1: 1/1	Reducer 2: 9(+10)/145	
+Map 1: 1/1	Reducer 2: 77(+6)/115	
+Map 1: 1/1	Reducer 2: 10(+9)/145	
+Map 1: 1/1	Reducer 2: 78(+12)/115	
+Map 1: 1/1	Reducer 2: 10(+10)/145	
+Map 1: 1/1	Reducer 2: 87(+8)/115	
+Map 1: 1/1	Reducer 2: 11(+9)/145	
+Map 1: 1/1	Reducer 2: 91(+10)/115	
+Map 1: 1/1	Reducer 2: 13(+8)/145	
+Map 1: 1/1	Reducer 2: 98(+10)/115	
+Map 1: 1/1	Reducer 2: 14(+9)/145	
+Map 1: 1/1	Reducer 2: 102(+10)/115	
+Map 1: 1/1	Reducer 2: 17(+7)/145	
+Map 1: 1/1	Reducer 2: 111(+4)/115	
+Map 1: 1/1	Reducer 2: 18(+10)/145	
+Map 1: 1/1	Reducer 2: 115/115	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+Map 1: 1/1	Reducer 2: 19(+8)/145	
+Map 1: 1/1	Reducer 2: 24(+8)/145	
+Map 1: 1/1	Reducer 2: 28(+7)/145	
+Map 1: 1/1	Reducer 2: 30(+10)/145	
+Map 1: 1/1	Reducer 2: 36(+8)/145	
+Map 1: 1/1	Reducer 2: 39(+8)/145	
+Map 1: 1/1	Reducer 2: 46(+4)/145	
+Map 1: 1/1	Reducer 2: 49(+8)/145	
+Map 1: 1/1	Reducer 2: 57(+5)/145	
+Map 1: 1/1	Reducer 2: 59(+8)/145	
+Map 1: 1/1	Reducer 2: 67(+8)/145	
+Map 1: 1/1	Reducer 2: 71(+7)/145	
+Map 1: 1/1	Reducer 2: 77(+10)/145	
+Map 1: 1/1	Reducer 2: 84(+6)/145	
+Map 1: 1/1	Reducer 2: 87(+10)/145	
+Table tmp.tmp_ks_grcj stats: [numFiles=115, numRows=14232, totalSize=388517, rawDataSize=673045]
+OK
+Time taken: 31.109 seconds
+Map 1: 1/1	Reducer 2: 91(+9)/145	
+Map 1: 1/1	Reducer 2: 100(+7)/145	
+Map 1: 1/1	Reducer 2: 102(+9)/145	
+Map 1: 1/1	Reducer 2: 111(+7)/145	
+Map 1: 1/1	Reducer 2: 116(+5)/145	
+Query ID = hdfs_20180301170807_ba54d024-f5d3-4d1b-abf1-750ae24bfa41
+Total jobs = 1
+Launching Job 1 out of 1
+Map 1: 1/1	Reducer 2: 121(+9)/145	
+Map 1: 1/1	Reducer 2: 128(+6)/145	
+Map 1: 1/1	Reducer 2: 132(+8)/145	
+Map 1: 1/1	Reducer 2: 139(+6)/145	
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1625)
+
+Map 1: -/-	Map 2: -/-	Reducer 3: 0/2	
+Map 1: 1/1	Reducer 2: 145/145	
+Map 1: 0/1	Map 2: 0(+1)/1	Reducer 3: 0/2	
+Moving data to: hdfs://node1.hde.h3c.com:8020/apps/hive/warehouse/tmp.db/tmp_ks_grcj
+Map 1: 0/1	Map 2: 1/1	Reducer 3: 0(+1)/1	
+Map 1: 0(+1)/1	Map 2: 1/1	Reducer 3: 1/1	
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table tmp_ks_grcj already exists)
+('2012-2013', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2012-2013'
+           AND xqm = '1') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2012-2013',xqm='1')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+Map 1: 1/1	Map 2: 1/1	Reducer 3: 1/1	
+Loading data to table app.edu_app_ks_cjbj partition (xn=2012-2013, xqm=2)
+Partition app.edu_app_ks_cjbj{xn=2012-2013, xqm=2} stats: [numFiles=1, numRows=10492, totalSize=165460, rawDataSize=1141560]
+OK
+Time taken: 6.37 seconds
+('2012-2013', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+
+DROP TABLE IF EXISTS  tmp.tmp_ks_grcj;
+CREATE TABLE tmp.tmp_ks_grcj
+AS 
+SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
+  FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2012-2013'
+           AND xqm = '2') tmp
+ GROUP BY xn, xqm_mc, szbh, xh
+
+;
+
+INSERT OVERWRITE TABLE app.edu_app_ks_cjbj PARTITION(xn='2012-2013',xqm='2')
+SELECT xh, xqm_mc, grcj.pjcj, bjcj.bjpjcj
+  FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+  LEFT OUTER JOIN (SELECT szbh, sum(pjcj) / count(1) AS bjpjcj
+                     FROM (SELECT * FROM tmp.tmp_ks_grcj) grcj
+                    GROUP BY szbh) bjcj
+    ON grcj.szbh = bjcj.szbh
+;
+\""
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+Query ID = hdfs_20180301185913_094189de-537f-4e69-904d-ab23c74c9851
+Total jobs = 1
+Launching Job 1 out of 1
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1647)
+
+Map 1: -/-	
+Map 1: 0/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Query ID = hdfs_20180301185923_e994bbff-56cb-4415-89ba-7921adde047e
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1648)
+
+Map 1: -/-	
+Map 1: 0/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Query ID = hdfs_20180301185930_3faf916d-a509-4e80-9d26-ff8d91209b16
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1649)
+
+Map 1: -/-	
+Map 1: 0/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 1/1	
+Loading data to table app.edu_app_ks_cjjl partition (xn=2016-2017, xqm=2)
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Partition app.edu_app_ks_cjjl{xn=2016-2017, xqm=2} stats: [numFiles=1, numRows=21382760, totalSize=21900485, rawDataSize=8530168806]
+OK
+Time taken: 87.194 seconds
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+('2016-2017', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+INSERT OVERWRITE TABLE app.edu_app_ks_cjjl PARTITION(xn='2016-2017',xqm='2')
+SELECT xh,
+       xqm_mc   as xq,
+       kch,
+       kcmc,
+       kcsxm_mc as kclx,
+       xf_hd    as xf,
+       kccj_jg  as kscj,
+       ksxzm_mc as cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2016-2017'
+           AND xqm = '2') tmp
+;
+\""
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 0(+1)/1	
+Map 1: 1/1	
+Loading data to table app.edu_app_ks_cjjl partition (xn=2016-2017, xqm=1)
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+Map 1: 1/1	
+Loading data to table app.edu_app_ks_cjjl partition (xn=2017-2018, xqm=1)
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Partition app.edu_app_ks_cjjl{xn=2016-2017, xqm=1} stats: [numFiles=1, numRows=25584211, totalSize=25907614, rawDataSize=10156908782]
+OK
+Time taken: 100.894 seconds
+Partition app.edu_app_ks_cjjl{xn=2017-2018, xqm=1} stats: [numFiles=1, numRows=27951128, totalSize=28055057, rawDataSize=11094915706]
+('2016-2017', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+INSERT OVERWRITE TABLE app.edu_app_ks_cjjl PARTITION(xn='2016-2017',xqm='1')
+SELECT xh,
+       xqm_mc   as xq,
+       kch,
+       kcmc,
+       kcsxm_mc as kclx,
+       xf_hd    as xf,
+       kccj_jg  as kscj,
+       ksxzm_mc as cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2016-2017'
+           AND xqm = '1') tmp
+;
+\""
+OK
+Time taken: 111.635 seconds
+('2017-2018', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+INSERT OVERWRITE TABLE app.edu_app_ks_cjjl PARTITION(xn='2017-2018',xqm='1')
+SELECT xh,
+       xqm_mc   as xq,
+       kch,
+       kcmc,
+       kcsxm_mc as kclx,
+       xf_hd    as xf,
+       kccj_jg  as kscj,
+       ksxzm_mc as cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2017-2018'
+           AND xqm = '1') tmp
+;
+\""
+WARNING: Use "yarn jar" to launch YARN applications.
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Query ID = hdfs_20180301190109_74e23d83-167e-4b28-9d2d-7ebfa30dec6d
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1650)
+
+Map 1: -/-	
+Map 1: 0/1	
+Map 1: 0(+1)/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 0(+1)/1	
+Query ID = hdfs_20180301190116_eb2f91b1-7822-4504-bc8a-73a912c394e5
+Total jobs = 1
+Launching Job 1 out of 1
+Query ID = hdfs_20180301190116_d7c43c92-2f8d-4f4b-971b-83de19530023
+Total jobs = 1
+Launching Job 1 out of 1
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1651)
+
+Map 1: -/-	
+Map 1: 0/1	
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1652)
+
+Map 1: -/-	
+Map 1: 0/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+Map 1: 0(+1)/1	
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+WARNING: Use "yarn jar" to launch YARN applications.
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+log4j:WARN No such property [datePattern] in org.apache.log4j.RollingFileAppender.
+
+Logging initialized using configuration in file:/etc/hive/2.3.4.0-3485/0/hive-log4j.properties
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 1/1	
+Loading data to table app.edu_app_ks_cjjl partition (xn=2015-2016, xqm=2)
+Partition app.edu_app_ks_cjjl{xn=2015-2016, xqm=2} stats: [numFiles=1, numRows=19693392, totalSize=20258295, rawDataSize=7857659039]
+OK
+Time taken: 82.377 seconds
+Map 1: 0(+1)/1	
+('2015-2016', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+INSERT OVERWRITE TABLE app.edu_app_ks_cjjl PARTITION(xn='2015-2016',xqm='2')
+SELECT xh,
+       xqm_mc   as xq,
+       kch,
+       kcmc,
+       kcsxm_mc as kclx,
+       xf_hd    as xf,
+       kccj_jg  as kscj,
+       ksxzm_mc as cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2015-2016'
+           AND xqm = '2') tmp
+;
+\""
+Map 1: 0(+1)/1	
+Map 1: 1/1	
+Loading data to table app.edu_app_ks_cjjl partition (xn=2014-2015, xqm=1)
+Map 1: 1/1	
+Loading data to table app.edu_app_ks_cjjl partition (xn=2015-2016, xqm=1)
+Partition app.edu_app_ks_cjjl{xn=2014-2015, xqm=1} stats: [numFiles=1, numRows=22526890, totalSize=22355387, rawDataSize=8965686548]
+Partition app.edu_app_ks_cjjl{xn=2015-2016, xqm=1} stats: [numFiles=1, numRows=25625459, totalSize=25371443, rawDataSize=10173303243]
+OK
+Time taken: 86.489 seconds
+OK
+Time taken: 94.173 seconds
+('2014-2015', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+INSERT OVERWRITE TABLE app.edu_app_ks_cjjl PARTITION(xn='2014-2015',xqm='1')
+SELECT xh,
+       xqm_mc   as xq,
+       kch,
+       kcmc,
+       kcsxm_mc as kclx,
+       xf_hd    as xf,
+       kccj_jg  as kscj,
+       ksxzm_mc as cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2014-2015'
+           AND xqm = '1') tmp
+;
+\""
+('2015-2016', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+INSERT OVERWRITE TABLE app.edu_app_ks_cjjl PARTITION(xn='2015-2016',xqm='1')
+SELECT xh,
+       xqm_mc   as xq,
+       kch,
+       kcmc,
+       kcsxm_mc as kclx,
+       xf_hd    as xf,
+       kccj_jg  as kscj,
+       ksxzm_mc as cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2015-2016'
+           AND xqm = '1') tmp
+;
+\""
+Query ID = hdfs_20180301190249_fd8bcf48-3f3f-4f55-b713-81fc841542db
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1653)
+
+Map 1: -/-	
+Map 1: 0/1	
+Map 1: 0(+1)/1	
+Query ID = hdfs_20180301190253_938e15f5-6654-4dd2-a769-7099c9ed6817
+Total jobs = 1
+Launching Job 1 out of 1
+Query ID = hdfs_20180301190254_2117a95a-2b26-4a72-ae67-62dec23b0fa2
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1654)
+
+Map 1: -/-	
+
+
+Map 1: 0/1	
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1655)
+
+Map 1: -/-	
+Map 1: 0/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 1/1	
+Loading data to table app.edu_app_ks_cjjl partition (xn=2013-2014, xqm=2)
+Map 1: 0(+1)/1	
+Map 1: 1/1	
+Loading data to table app.edu_app_ks_cjjl partition (xn=2014-2015, xqm=2)
+Partition app.edu_app_ks_cjjl{xn=2013-2014, xqm=2} stats: [numFiles=1, numRows=18566032, totalSize=18998362, rawDataSize=7407812464]
+OK
+Time taken: 76.418 seconds
+('2013-2014', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+INSERT OVERWRITE TABLE app.edu_app_ks_cjjl PARTITION(xn='2013-2014',xqm='2')
+SELECT xh,
+       xqm_mc   as xq,
+       kch,
+       kcmc,
+       kcsxm_mc as kclx,
+       xf_hd    as xf,
+       kccj_jg  as kscj,
+       ksxzm_mc as cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2013-2014'
+           AND xqm = '2') tmp
+;
+\""
+Partition app.edu_app_ks_cjjl{xn=2014-2015, xqm=2} stats: [numFiles=1, numRows=19951536, totalSize=20414161, rawDataSize=7960660376]
+OK
+Time taken: 81.895 seconds
+('2014-2015', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+INSERT OVERWRITE TABLE app.edu_app_ks_cjjl PARTITION(xn='2014-2015',xqm='2')
+SELECT xh,
+       xqm_mc   as xq,
+       kch,
+       kcmc,
+       kcsxm_mc as kclx,
+       xf_hd    as xf,
+       kccj_jg  as kscj,
+       ksxzm_mc as cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2014-2015'
+           AND xqm = '2') tmp
+;
+\""
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 1/1	
+Loading data to table app.edu_app_ks_cjjl partition (xn=2013-2014, xqm=1)
+Partition app.edu_app_ks_cjjl{xn=2013-2014, xqm=1} stats: [numFiles=1, numRows=22263825, totalSize=22156331, rawDataSize=8860996190]
+OK
+Time taken: 88.731 seconds
+('2013-2014', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+INSERT OVERWRITE TABLE app.edu_app_ks_cjjl PARTITION(xn='2013-2014',xqm='1')
+SELECT xh,
+       xqm_mc   as xq,
+       kch,
+       kcmc,
+       kcsxm_mc as kclx,
+       xf_hd    as xf,
+       kccj_jg  as kscj,
+       ksxzm_mc as cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2013-2014'
+           AND xqm = '1') tmp
+;
+\""
+Query ID = hdfs_20180301190421_1c9da848-cc6b-40b6-9626-0e0c1f14b947
+Total jobs = 1
+Launching Job 1 out of 1
+
+
+Query ID = hdfs_20180301190422_9cfd169b-38c0-4cce-9597-cfe0d4db2546
+Total jobs = 1
+Launching Job 1 out of 1
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1656)
+
+Map 1: -/-	
+Map 1: 0/1	
+
+
+Status: Running (Executing on YARN cluster with App id application_1518337358322_1657)
+
+Map 1: -/-	
+Map 1: 0/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 0(+1)/1	
+Map 1: 1/1	
+Loading data to table app.edu_app_ks_cjjl partition (xn=2012-2013, xqm=2)
+Map 1: 0(+1)/1	
+Partition app.edu_app_ks_cjjl{xn=2012-2013, xqm=2} stats: [numFiles=1, numRows=19312815, totalSize=19644832, rawDataSize=7686468194]
+OK
+Time taken: 78.428 seconds
+Map 1: 1/1	
+Loading data to table app.edu_app_ks_cjjl partition (xn=2012-2013, xqm=1)
+('2012-2013', '2')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+INSERT OVERWRITE TABLE app.edu_app_ks_cjjl PARTITION(xn='2012-2013',xqm='2')
+SELECT xh,
+       xqm_mc   as xq,
+       kch,
+       kcmc,
+       kcsxm_mc as kclx,
+       xf_hd    as xf,
+       kccj_jg  as kscj,
+       ksxzm_mc as cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2012-2013'
+           AND xqm = '2') tmp
+;
+\""
+Partition app.edu_app_ks_cjjl{xn=2012-2013, xqm=1} stats: [numFiles=1, numRows=20827473, totalSize=20359642, rawDataSize=8289302934]
+OK
+Time taken: 81.352 seconds
+('2012-2013', '1')
+su hdfs -c "hive -e \"
+set mapred.output.compress=true; 
+set hive.exec.compress.output=true; 
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
+set mapred.output.compression.type=block;
+INSERT OVERWRITE TABLE app.edu_app_ks_cjjl PARTITION(xn='2012-2013',xqm='1')
+SELECT xh,
+       xqm_mc   as xq,
+       kch,
+       kcmc,
+       kcsxm_mc as kclx,
+       xf_hd    as xf,
+       kccj_jg  as kscj,
+       ksxzm_mc as cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+          FROM gdm.gdm_kc_kccj_xq
+         WHERE xn = '2012-2013'
+           AND xqm = '1') tmp
+;
+\""
