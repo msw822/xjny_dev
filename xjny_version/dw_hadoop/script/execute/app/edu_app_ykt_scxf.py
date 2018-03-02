@@ -48,34 +48,34 @@ INSERT OVERWRITE TABLE app.edu_app_ykt_scxf PARTITION (dt='"""+data_day_str+"""'
 SELECT xh,
        xfrq,
        SUM(CASE
-             WHEN jysj_h >= '06:00:00' AND jysj_h < '10:00:00' THEN
+             WHEN jysj_h >= '07:00:00' AND jysj_h < '12:00:00' THEN
               jyje
              ELSE
               0
            END) AS zcxfje,
        MIN(CASE
-             WHEN jysj_h >= '06:00:00' AND jysj_h < '10:00:00' THEN
+             WHEN jysj_h >= '06:00:00' AND jysj_h < '12:00:00' THEN
               jysj_h
            END) as zxxfsj,
        SUM(CASE
-             WHEN jysj_h >= '10:00:00' AND jysj_h < '16:00:00' THEN
+             WHEN jysj_h >= '12:00:00' AND jysj_h < '16:00:00' THEN
               jyje
              ELSE
               0
            END) AS wcxfje,
        MIN(CASE
-             WHEN jysj_h >= '10:00:00' AND jysj_h < '16:00:00' THEN
+             WHEN jysj_h >= '12:00:00' AND jysj_h < '16:00:00' THEN
               jysj_h
            END) AS wcxfsj,
        
        SUM(CASE
-             WHEN jysj_h >= '16:00:00' AND jysj_h < '22:00:00' THEN
+             WHEN jysj_h >= '16:00:00' AND jysj_h < '24:00:00' THEN
               jyje
              ELSE
               0
            END) AS wacxfje,
        MIN(CASE
-             WHEN jysj_h >= '16:00:00' AND jysj_h < '22:00:00' THEN
+             WHEN jysj_h >= '16:00:00' AND jysj_h < '24:00:00' THEN
               jysj_h
            END) AS wacxfsj
   FROM (SELECT xh,
@@ -84,8 +84,7 @@ SELECT xh,
                xfjl.jyje
           FROM gdm.gdm_ykt_jy_log xfjl
          WHERE dt = '"""+data_day_str+"""'
-           AND jylx in ('消费')
-           AND SHLBDM in ('', '')) tmp
+           AND jylx in ('1')) tmp
  GROUP BY xh, xfrq;
 ;
 """
