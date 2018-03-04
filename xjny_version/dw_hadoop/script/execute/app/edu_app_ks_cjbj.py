@@ -58,7 +58,7 @@ SELECT xn, xqm_mc, szbh, xh, sum(xf_hd * kccj_jg) / sum(xf_hd) AS pjcj
   FROM (SELECT xn, xqm_mc, szbh, xh, xf_hd, kccj_jg
           FROM gdm.gdm_kc_kccj_xq
          WHERE xn = '"""+xn+"""'
-           AND xqm = '"""+xqm+"""') tmp
+           AND xqm = '"""+xqm+"""' AND xh  like '22%') tmp
  GROUP BY xn, xqm_mc, szbh, xh
 
 ;

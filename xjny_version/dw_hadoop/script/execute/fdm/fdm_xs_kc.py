@@ -38,7 +38,7 @@ INSERT OVERWRITE TABLE fdm.fdm_kc_jbxx PARTITION (dt = '"""+data_day_str+"""')  
     A.ZHXS,
     A.XS,
     NULL,
-    B.SYXS,
+    NULL,
     A.KCJJ,
     NULL,
     NULL,
@@ -60,49 +60,7 @@ FROM
             KCXZ
         FROM
             ODS.ods_usr_gxsj_t_bzks_kc WHERE dt = '"""+data_day_str+"""'
-    ) A
-LEFT JOIN (
-    SELECT
-        SYXS,
-        KCDM
-    FROM
-        ods.ods_usr_gxsj_T_BZKS_JXJH WHERE dt = '"""+data_day_str+"""' order by kkxn desc limit 1
-) B ON A.KCDM = B.KCDM;
-
-
---  DESCRIPTION: ods->fdm 选课信息表(fdm_kc_xsxkxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-10
--- 选课信息 暂不需要                    
-INSERT OVERWRITE TABLE fdm.fdm_kc_xsxkxx PARTITION (dt = '"""+data_day_str+"""')  SELECT
-    B.kcdm,
-    NULL,
-    NULL,
-    B.KKXN,
-    B.jszgh,
-    A.xh,
-    NULL,
-    NULL,
-    B.KKXQ,
-    NULL
-FROM
-    (
-        SELECT
-            xh,
-            jxbh
-        FROM
-            ods.ods_usr_gxsj_t_bzks_xsxk WHERE dt = '"""+data_day_str+"""'
-    ) A
-LEFT JOIN (
-    SELECT
-        kcdm,
-        jxbh,
-        kkxn,
-        KKXQ,
-        jszgh  
-    FROM
-        ods.ods_usr_gxsj_T_JX_KCAP WHERE dt = '"""+data_day_str+"""'
-) B ON A.jxbh = B.jxbh;
-
-
+    ) A ;
 
 """
 #hiveShell = 'hive -e "' + sql + '"'
