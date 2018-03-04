@@ -58,11 +58,11 @@ SELECT xh,
        kcsxm_mc as kclx,
        xf_hd    as xf,
        kccj_jg  as kscj,
-       ksxzm_mc as cjlx
-  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj_jg, ksxzm_mc,kcmc,kch
+       cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf_hd, kccj,kccj_jg, ksxzm_mc,kcmc,kch,  CASE WHEN  zscj <> kccj_jg THEN '补考' END AS cjlx
           FROM gdm.gdm_kc_kccj_xq
          WHERE xn = '"""+xn+"""'
-           AND xqm = '"""+xqm+"""') tmp
+           AND xqm = '"""+xqm+"""' AND  xh like '22%' ) tmp
 ;
 """
 hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""

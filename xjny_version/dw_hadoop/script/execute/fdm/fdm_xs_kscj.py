@@ -46,8 +46,8 @@ INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
     NULL,
     A.BFZKSCJ,
     A.DJZKSCJ,
-    A.BFZKSCJ,
-    A.KCCJ_JG,
+    A.KCCJ,
+    A.ZSCJ,
     A.KCCJ_JG,
     NULL,
     NULL,
@@ -77,12 +77,53 @@ FROM
             XH,
             KCDM,
             BFZKSCJ,
-            CASE
+            
+        CASE WHEN  BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
+        WHEN DJZKSCJ IS NOT NULL THEN
+            DJZKSCJ 
+        END AS KCCJ,
+        
+        CASE
         WHEN BFZKSCJ <= '99.9'
         OR BFZKSCJ IN ('100', '100.0') THEN
             BFZKSCJ
-        WHEN BKCJ IS NOT NULL THEN
-            BKCJ
+        WHEN DJZKSCJ IN ('优秀', 'A') THEN
+            '95'
+        WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN DJZKSCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN DJZKSCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN DJZKSCJ IN ('E','不合格') THEN
+            '50'
+        ELSE
+            '0'
+        END AS  ZSCJ, 
+
+        
+            CASE
+        WHEN BKCJ <= '99.9' OR BKCJ IN ('100', '100.0') THEN
+            BKCJ 
+        WHEN  
+        BKCJ IN ('优秀', 'A') THEN
+            '95'  
+        WHEN   
+        BKCJ IN ('良好', '良', 'B') THEN
+            '85'
+        WHEN BKCJ IN ('中等', 'C') THEN
+            '75'
+        WHEN BKCJ IN ('合格', 'D') THEN
+            '65'
+        WHEN BKCJ IN ('E','不合格') THEN
+            '50'
+        WHEN BKCJ IN ('缺考') THEN
+            BFZKSCJ   
+        WHEN BFZKSCJ <= '99.9'
+        OR BFZKSCJ IN ('100', '100.0') THEN
+            BFZKSCJ
         WHEN DJZKSCJ IN ('优秀', 'A') THEN
             '95'
         WHEN DJZKSCJ IN ('良好', '良', 'B') THEN
