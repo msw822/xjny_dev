@@ -47,7 +47,7 @@ set mapred.output.compression.type=block;
 
 INSERT OVERWRITE TABLE app.edu_app_ykt_xfjl PARTITION (dt='"""+data_day_str+"""')
 SELECT XH,
-       '1',
+       '学生',
        XM,
        XBM_MC,
        JYSJ,
@@ -55,9 +55,9 @@ SELECT XH,
        ZDJH,
        CASE
          WHEN JYJE < 0 THEN
-          '1'
+          '消费'
          ELSE
-          '0'
+          '充值'
        END AS JYLX,
        JYJE,
        JYYE
