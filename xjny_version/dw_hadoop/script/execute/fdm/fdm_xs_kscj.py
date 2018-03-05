@@ -32,6 +32,45 @@ set hive.exec.compress.output=true;
 set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec; 
 set mapred.output.compression.type=block;
 
+
+
+--  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
+INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '"""+xn+"""', xqm= '"""+xqm+"""')
+SELECT
+    A.JXBH,
+    A.KCDM,
+    B.KCKSDWH,
+    A.XF,
+    A.XS,
+    A.KCLBDM,
+    A.KCLBDM,
+    B.KCXZ,
+    B.KCXZ
+FROM
+    (
+        SELECT
+            KKXN,
+            KKXQ,
+            JXBH,
+            KCDM,
+            XF,
+            XS,
+            KCLBDM
+        FROM
+            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='"""+xn+"""' AND kkxq='"""+xqm+"""'
+    ) A
+LEFT JOIN (
+    SELECT
+        KCDM,
+        KCKSDWH,
+        KCXZ
+    FROM
+        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '"""+data_newest_str+"""'
+) B ON A.KCDM = B.KCDM;
+
+
+
+
 --  DESCRIPTION: ods->fdm 成绩基本信息表(fdm_kc_cjjbxx)    MODIFIED BY: mashaowei@h3c.com  2018-02-28                  
 INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
     xn = '"""+xn+"""',
@@ -39,7 +78,7 @@ INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
 ) SELECT
     NULL,
     A.xh,
-    A.KCDM,
+    A.xkkch,
     NULL,
     NULL,
     NULL,
@@ -145,7 +184,7 @@ FROM
     ELSE
         '0'
     END AS XF_HD,
-    JD
+    JD,xkkch
 FROM
     ODS.ods_usr_gxsj_t_bzks_kscj
 WHERE
@@ -163,43 +202,6 @@ LEFT JOIN (
     WHERE
         dt = '"""+data_newest_str+"""'
 ) B ON A.xh = B.xh;
-
---  DESCRIPTION: ods->fdm 课程安排信息表(fdm_jw_pkap )    MODIFIED BY: mashaowei@h3c.com  2018-02-25
-INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '"""+xn+"""', xqm= '"""+xqm+"""')
-SELECT
-    A.JXBH,
-    A.KCDM,
-    B.KCKSDWH,
-    A.XF,
-    A.XS,
-    A.KCLBDM,
-    A.KCLBDM,
-    B.KCXZ,
-    B.KCXZ
-FROM
-    (
-        SELECT
-            KKXN,
-            KKXQ,
-            JXBH,
-            KCDM,
-            XF,
-            XS,
-            KCLBDM
-        FROM
-            ods.ods_usr_gxsj_T_JX_KCAP WHERE kkxn='"""+xn+"""' AND kkxq='"""+xqm+"""'
-    ) A
-LEFT JOIN (
-    SELECT
-        KCDM,
-        KCKSDWH,
-        KCXZ
-    FROM
-        ods.ods_usr_gxsj_T_BZKS_KC WHERE dt = '"""+data_newest_str+"""'
-) B ON A.KCDM = B.KCDM;
-
-
-
 
 """
 #hiveShell = 'hive -e "' + sql + '"'
