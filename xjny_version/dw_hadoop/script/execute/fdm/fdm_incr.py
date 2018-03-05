@@ -47,7 +47,7 @@ NULL,
 a.xfye 
 FROM
 ( SELECT XFMXID,kh,xfje,xfrq,regexp_replace(xfrqsj, '/', '-') as xfsj ,xfsbbh,xfye,xfdwid,
-CASE WHEN xfje<0 THEN '1' ELSE '2'  END AS JYLX  
+CASE WHEN xfje<0 THEN '消费' ELSE '充值'  END AS JYLX  
  FROM ods.ods_usr_gxsj_t_ykt_xfjl  WHERE dt = '"""+data_day_str+"""' ) A
 LEFT JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH WHERE dt = '2999-12-31'  ) B ON A.KH = B.kh
 LEFT JOIN ( SELECT shmc,shid,xfsbid,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfsbbh WHERE dt = '2999-12-31') c ON (
@@ -94,7 +94,7 @@ SELECT
    b.bh,
    a.inoutdate,
    NULL,
-   (case when a.direction=='入' or a.direction=='无入'  or a.direction=='反入' then '进' else '出' end),
+   (case when a.direction=='入' or a.direction=='无入'  or a.direction=='反入'  or a.direction=='潜入' then '进' else '出' end),
    NULL,
    NULL FROM (
       SELECT

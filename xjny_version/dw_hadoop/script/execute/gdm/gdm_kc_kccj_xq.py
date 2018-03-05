@@ -69,7 +69,7 @@ SELECT /*+ mapjoin(ksxs,ksxz,ksfs,kcsx,xq)*/
  kccj.XF_HD,
  COALESCE(KCCJ.XS, kcjb.ZXS) XS,
  kccj.KCSXM,
- kcjb.KCZX AS KCSXM_MC,
+ kcjb.KCSXM_MC AS KCSXM_MC,
  kccj.PM,
  kccj.JD,
  xsjb.XBM,
@@ -147,10 +147,9 @@ SELECT /*+ mapjoin(ksxs,ksxz,ksfs,kcsx,xq)*/
                      FROM gdm.gdm_xs_jbxx_da
                     WHERE dt = '"""+data_newest_str+"""') xsjb
     ON kccj.XH = xsjb.XH
-  LEFT OUTER JOIN (SELECT KCH, KCMC, XF, ZXS,KCZX
-                     FROM fdm.fdm_kc_jbxx
-                    WHERE dt = '"""+data_newest_str+"""') kcjb
-    ON kccj.KCH = kcjb.KCH
+  LEFT OUTER JOIN    (SELECT JXBH,KCMC,XF,ZXS,KCSXM_MC FROM fdm.fdm_jw_pkap ) kcjb
+
+    ON kccj.KCH = kcjb.JXBH
   LEFT OUTER JOIN (select * from dim.hb_ksxs) ksxs
     ON kccj.KSXSM = ksxs.DM
   LEFT OUTER JOIN (select * from dim.hb_ksxz) ksxz

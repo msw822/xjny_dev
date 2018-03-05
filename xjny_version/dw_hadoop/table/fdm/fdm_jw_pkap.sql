@@ -13,7 +13,8 @@
 DROP TABLE IF EXISTS fdm.fdm_jw_pkap;
 CREATE EXTERNAL TABLE IF NOT EXISTS fdm.fdm_jw_pkap(
   JXBH string COMMENT '教学班号,例如2012-2013(学年)-2(学期)-D12D0A27(课程号)-2',
-  KCDM string COMMENT '课程代码',                   
+  KCDM string COMMENT '课程代码', 
+  KCMC string COMMENT '课程名称', 
   KCKSDWH string COMMENT '课程开设单位号-院系代码',
   XF double COMMENT '学分',
   ZXS double COMMENT '总学时',

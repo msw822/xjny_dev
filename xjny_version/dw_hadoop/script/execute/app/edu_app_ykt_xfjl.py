@@ -53,12 +53,7 @@ SELECT XH,
        JYSJ,
        JYDD,
        ZDJH,
-       CASE
-         WHEN JYJE < 0 THEN
-          '消费'
-         ELSE
-          '充值'
-       END AS JYLX,
+       JYLX,
        JYJE,
        JYYE
   FROM gdm.gdm_ykt_jy_log

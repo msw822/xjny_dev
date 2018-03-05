@@ -51,7 +51,7 @@ set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 set mapred.output.compression.type=block;
 INSERT OVERWRITE TABLE app.edu_app_kc_kcap PARTITION(xn = '"""+xn+"""', xqm= '"""+xqm+"""')
 SELECT xn as KKXN,
-       xq.DM KKXQ,
+       xq.mc KKXQ,
        JXBH as KCH,
        kcjb.KCMC aS KCMC,
        coalesce(kcap.KCSXM_MC, kcsx.MC) as KCLX,

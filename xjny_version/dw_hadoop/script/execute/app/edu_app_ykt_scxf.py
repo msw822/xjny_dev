@@ -48,7 +48,7 @@ INSERT OVERWRITE TABLE app.edu_app_ykt_scxf PARTITION (dt='"""+data_day_str+"""'
 SELECT xh,
        xfrq,
        SUM(CASE
-             WHEN jysj_h >= '07:00:00' AND jysj_h < '12:00:00' THEN
+             WHEN jysj_h >= '06:00:00' AND jysj_h < '12:00:00' THEN
               jyje
              ELSE
               0

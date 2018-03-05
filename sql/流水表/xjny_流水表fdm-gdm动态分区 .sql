@@ -18,7 +18,7 @@ SET mapred.output.compression.type = block;
 
 set hive.exec.dynamic.partition.mode=nonstrict;
 
---  DESCRIPTION: fdm->gdm 一卡通交易信息表(gdm_ykt_jy_log) 动态分区     
+--  DESCRIPTION: fdm->gdm 一卡通交易信息表(gdm_ykt_jy_log) 动态分区   20160101开始 
 INSERT  overwrite table gdm.gdm_ykt_jy_log PARTITION (dt)
 SELECT 
   E.XH,
@@ -57,7 +57,7 @@ SELECT
   B.JGM,
   NVL(B.JGM_SM,'其他'),
   A.dt
-FROM (SELECT KH,KXL,JYLX,JYJE,JYLSH,JYRQ,JYSJ,JYDD,SHDM,ZDJH,LJYKCS,JYYE,dt FROM fdm.fdm_ykt_jy_log  WHERE dt>='2018-01-01'  AND dt<='2018-04-01') A 
+FROM (SELECT KH,KXL,JYLX,JYJE,JYLSH,JYRQ,JYSJ,JYDD,SHDM,ZDJH,LJYKCS,JYYE,dt FROM fdm.fdm_ykt_jy_log  WHERE dt>='2016-01-01'  AND dt<='2017-01-01') A 
 LEFT OUTER JOIN (SELECT XH,KH FROM fdm.fdm_ykt_xx WHERE dt='2999-12-31') E ON A.KH = E.KH
 LEFT OUTER JOIN (SELECT XH,XM,XBM,XBM_MC,RXNY,SZNJ,SZBH,BJMC,ZYM,ZYM_MC,SSYXM,SSYXM_MC,PYCCM,PYCCM_MC,SFZJH,CSRQ,LYDQM,LYDQM_SM,JGM,JGM_SM FROM gdm.gdm_xs_jbxx_da WHERE dt='2999-12-31') B ON E.XH = B.XH
 LEFT OUTER JOIN (SELECT SHMC,SHLBDM,SHDM,SHLBMC FROM fdm.fdm_ykt_shxx WHERE dt='2999-12-31') C ON A.SHDM = C.SHDM;

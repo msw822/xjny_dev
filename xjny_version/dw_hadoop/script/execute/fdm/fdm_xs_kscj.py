@@ -39,6 +39,7 @@ INSERT OVERWRITE TABLE fdm.fdm_jw_pkap  PARTITION (xn = '"""+xn+"""', xqm= '"""+
 SELECT
     A.JXBH,
     A.KCDM,
+    A.KCMC,
     B.KCKSDWH,
     A.XF,
     A.XS,
@@ -53,6 +54,7 @@ FROM
             KKXQ,
             JXBH,
             KCDM,
+            KCMC,
             XF,
             XS,
             KCLBDM
