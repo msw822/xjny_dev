@@ -44,7 +44,7 @@ set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 set mapred.output.compression.type=block;
 
 INSERT OVERWRITE TABLE app.edu_app_mj_mjjl PARTITION (dt='"""+data_day_str+"""')
-SELECT XH, SKSJ, NULL, CASE WHEN ACT = '1' THEN '进' ELSE '出' END AS  ACT
+SELECT XH, SKSJ, NULL, ACT
   FROM fdm.fdm_xs_mj_log
  WHERE dt = '"""+data_day_str+"""'   and  xh like '22%'
  ;

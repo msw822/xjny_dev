@@ -94,7 +94,7 @@ SELECT
    b.bh,
    a.inoutdate,
    NULL,
-   (case when a.direction=='入' or a.direction=='无入'  or a.direction=='反入' then '1' else '2' end),
+   (case when a.direction=='入' or a.direction=='无入'  or a.direction=='反入' then '进' else '出' end),
    NULL,
    NULL FROM (
       SELECT
