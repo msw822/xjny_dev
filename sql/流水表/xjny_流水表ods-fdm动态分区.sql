@@ -38,13 +38,17 @@ a.xfye,
 dt
 FROM
 ( SELECT XFMXID,kh,xfje,xfrq,regexp_replace(xfrqsj, '/', '-') as xfsj ,xfsbbh,xfye,xfdwid,
-CASE WHEN xfje<0 THEN '消费' ELSE '充值'  END AS JYLX,
-dt FROM ods.ods_usr_gxsj_t_ykt_xfjl  WHERE dt>='2016-01-01'  AND dt<='2017-01-01' ) A
-LEFT JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH WHERE dt = '2999-12-31'  ) B ON A.KH = B.kh
-LEFT JOIN ( SELECT shmc,shid,xfsbid,xfdwid FROM ods.ods_usr_gxsj_t_ykt_xfsbbh WHERE dt = '2999-12-31') c ON (
-CAST ( CAST ( C.xfsbid AS int ) AS string )) = a.xfsbbh 
-AND (
-CAST ( CAST ( c.xfdwid AS int ) AS string )) = a.xfdwid;
+CASE WHEN xfje<0 THEN "消费" ELSE "充值"  END AS JYLX,
+dt FROM ods.ods_usr_gxsj_t_ykt_xfjl  WHERE dt>='2018-01-01'  AND dt<='2018-06-01' ) A
+LEFT OUTER JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH WHERE dt = '2999-12-31'  ) B ON A.KH = B.kh
+LEFT OUTER JOIN 
+
+( SELECT (
+CAST ( CAST (xfsbid AS int ) AS string )) as xfsbid, 
+(CAST ( CAST (xfdwid AS int ) AS string )) as xfdwid,
+MAX(shmc) AS shmc,MAX(shid) AS shid FROM ods.ods_usr_gxsj_t_ykt_xfsbbh WHERE dt = '2999-12-31'  group by xfdwid,xfsbid ) c ON 
+ c.xfsbid = a.xfsbbh 
+AND  c.xfdwid = a.xfdwid;
 
 
 

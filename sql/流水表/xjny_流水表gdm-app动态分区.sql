@@ -13,7 +13,7 @@ SELECT XH,
        JYYE,
        dt
   FROM gdm.gdm_ykt_jy_log
- WHERE  dt>='2016-01-01'  AND dt<='2017-01-01'  and  xh like '22%'
+ WHERE  dt>='2017-06-01'  AND dt<='2018-04-01'  and  xh like '22%'
  
  
  
@@ -61,7 +61,7 @@ SELECT xh,
                jysj,
                xfjl.jyje,dt
           FROM gdm.gdm_ykt_jy_log xfjl
-         WHERE dt>='2017-01-01'  AND dt<='2018-04-01'
+         WHERE dt>='2016-06-01'  AND dt<='2017-01-01'
            AND jylx in ('消费')) tmp
  GROUP BY xh, xfrq;
  
