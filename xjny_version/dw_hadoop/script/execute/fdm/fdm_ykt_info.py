@@ -73,8 +73,8 @@ ods.ods_usr_gxsj_t_ykt_kh WHERE dt = '"""+data_day_str+"""';
 --  DESCRIPTION: ods->fdm 一卡通商户信息表(fdm_ykt_shxx)
 INSERT OVERWRITE TABLE fdm.fdm_ykt_shxx PARTITION (dt = '"""+data_day_str+"""') 
 SELECT
-shid,
-shmc,
+A.shid,
+A.shmc,
 NULL,
 NULL,
 NULL,
@@ -82,7 +82,10 @@ NULL,
 NULL,
 NULL 
 FROM
-ods.ods_usr_gxsj_t_ykt_shxx WHERE dt = '"""+data_day_str+"""';
+
+(SELECT shid,MAX(shmc) AS shmc FROM
+ods.ods_usr_gxsj_t_ykt_shxx  WHERE dt = '"""+data_day_str+"""' group by shid) A
+;
 
 """
 #hiveShell = 'hive -e "' + sql + '"'
