@@ -85,7 +85,7 @@ SELECT xh,
                xfjl.jyje
           FROM gdm.gdm_ykt_jy_log xfjl
          WHERE dt = '"""+data_day_str+"""' and  xh like '22%'
-           AND jylx in ('1')) tmp
+           AND jylx in ('消费')) tmp
  GROUP BY xh, xfrq;
 ;
 """
