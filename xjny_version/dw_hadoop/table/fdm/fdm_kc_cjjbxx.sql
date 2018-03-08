@@ -17,7 +17,7 @@ CREATE EXTERNAL TABLE fdm.fdm_kc_cjjbxx(
   KCH string comment '课程号',
   PSCJ string comment '平时成绩',
   KSFSM string comment '考试方式码',
-  KSXZM double comment '考试性质码',
+  KSXZM string comment '考试性质码',
   KSXSM string comment '考试形式码',
   FSLKSCJ string comment '分数类考试成绩',
   DJLKSCJ string comment '等级类考试成绩',
