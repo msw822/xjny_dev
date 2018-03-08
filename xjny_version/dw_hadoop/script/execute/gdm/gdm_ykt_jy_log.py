@@ -98,7 +98,7 @@ SELECT E.XH,
          WHERE dt = '"""+data_day_str+"""') A
   LEFT OUTER JOIN (SELECT XH, KH
                      FROM fdm.fdm_ykt_xx
-                    WHERE dt = '"""+data_day_str+"""') E
+                    WHERE dt = '"""+data_newest_str+"""') E
     ON A.KH = E.KH
   LEFT OUTER JOIN (SELECT XH,
                           XM,
