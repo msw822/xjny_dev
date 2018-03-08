@@ -59,7 +59,7 @@ SELECT xh,
        xf    as xf,
        kccj_jg  as kscj,
        cjlx
-  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf,xf_hd, kccj,kccj_jg, ksxzm_mc,kcmc,kch,  KSXZM AS cjlx
+  FROM (SELECT xn, xqm_mc, szbh, xh, kcsxm_mc, xf,xf_hd, kccj,kccj_jg, ksxzm_mc,kcmc,kch,  ksxzm_mc AS cjlx
           FROM gdm.gdm_kc_kccj_xq
          WHERE xn = '"""+xn+"""'
            AND xqm = '"""+xqm+"""' AND  xh like '22%' ) tmp
