@@ -53,7 +53,7 @@ set mapred.output.compression.type=block;
 INSERT OVERWRITE TABLE app.edu_app_ks_cjxq PARTITION(xn='"""+xn+"""',xqm='"""+xqm+"""')
 SELECT COALESCE(zgdf.xh, bxq_gk.xh, bxq_bk.xh,bxq_jq.xh) as xh,
        COALESCE(zgdf.xqm_mc, bxq_gk.xqm_mc, bxq_bk.xqm_mc,bxq_jq.xqm_mc) as xq,
-       COALESCE(zgdf.xqm_mc, bxq_gk.kcsxm_mc, bxq_bk.xqm_kcsx,bxq_jq.kcsxm_mc) as kclx,
+       COALESCE(bxq_gk.kcsxm_mc, bxq_jq.kcsxm_mc) as kclx,
        bxq_gk.gksl,
        bxq_gk.bxq_gkxf,
        bxq_jq.bxq_jqpjf,
@@ -70,7 +70,7 @@ SELECT COALESCE(zgdf.xh, bxq_gk.xh, bxq_bk.xh,bxq_jq.xh) as xh,
                        row_number() over(partition by xh, xn, xqm order by kccj_jg desc) as rank
                   FROM gdm.gdm_kc_kccj_xq
                  WHERE xn = '"""+xn+"""'
-                   AND xqm = '"""+xqm+"""') tmp
+                   AND xqm = '"""+xqm+"""' and  xh like '22%') tmp
          where rank = 1) zgdf
 
   FULL OUTER JOIN (SELECT xh,
@@ -86,7 +86,7 @@ SELECT COALESCE(zgdf.xh, bxq_gk.xh, bxq_bk.xh,bxq_jq.xh) as xh,
                                   row_number() over(partition by xh, xn, xqm, kch order by xh, xn, xqm, kch, kccj_jg desc) as rank
                              FROM gdm.gdm_kc_kccj_xq
                             WHERE xn = '"""+xn+"""'
-                              AND xqm = '"""+xqm+"""') tmp
+                              AND xqm = '"""+xqm+"""' and  xh like '22%') tmp
                     where rank = 1
                       AND kccj_jg < 60
                     GROUP by xh,xqm_mc,kcsxm_mc) bxq_gk
@@ -101,7 +101,7 @@ SELECT COALESCE(zgdf.xh, bxq_gk.xh, bxq_bk.xh,bxq_jq.xh) as xh,
                      FROM (SELECT xqm_mc, xh, kcsxm_mc, xf
                              FROM gdm.gdm_kc_kccj_xq
                             WHERE xn = '"""+xn+"""'
-                              AND xqm = '"""+xqm+"""'
+                              AND xqm = '"""+xqm+"""' and  xh like '22%'
                               AND ksxzm in ('11', '12')) tmp
                     GROUP by xh, xqm_mc, kcsxm_mc) bxq_bk
     ON (bxq_bk.xh = zgdf.xh AND bxq_bk.xqm_mc = zgdf.xqm_mc AND
@@ -113,8 +113,7 @@ SELECT COALESCE(zgdf.xh, bxq_gk.xh, bxq_bk.xh,bxq_jq.xh) as xh,
                      FROM (SELECT xqm_mc, xh, kcsxm_mc, xf_hd,kccj_jg
                              FROM gdm.gdm_kc_kccj_xq
                             WHERE xn = '"""+xn+"""'
-                              AND xqm = '"""+xqm+"""'
-                              AND kcsxm_mc = '必修') tmp
+                              AND xqm = '"""+xqm+"""'  and  xh like '22%' ) tmp
                     GROUP by xh, xqm_mc, kcsxm_mc) bxq_jq 
      ON (bxq_jq.xh = zgdf.xh AND bxq_jq.xqm_mc = zgdf.xqm_mc AND
        bxq_jq.kcsxm_mc = zgdf.kcsxm_mc)
