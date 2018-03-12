@@ -56,37 +56,37 @@ SELECT rxf.xh as xh,
        rxf.sznj as XZNJ,
        substr(rxf.dt, 1, 10) as rq,
        count(case
-               when rxf.jysj_h >= '06:00:00' and rxf.jysj_h < '10:00:00' then
+               when rxf.jysj_h >= '06:00:00' and rxf.jysj_h < '12:00:00' then
                 1
                else
                 0
              end) as SFZC,
        count(case
-               when rxf.jysj_h >= '10:00:00' and rxf.jysj_h < '16:00:00' then
+               when rxf.jysj_h >= '12:00:00' and rxf.jysj_h < '16:00:00' then
                 1
                else
                 0
              end) as SFZHC,
        count(case
-               when rxf.jysj_h >= '16:00:00' and rxf.jysj_h < '22:00:00' then
+               when rxf.jysj_h >= '16:00:00' and rxf.jysj_h < '24:00:00' then
                 1
                else
                 0
              end) as SFWC,
        sum(case
-             when rxf.jysj_h >= '06:00:00' and rxf.jysj_h < '10:00:00' then
+             when rxf.jysj_h >= '06:00:00' and rxf.jysj_h < '12:00:00' then
               rxf.jyje
              else
               0
            end) as ZCXF,
        sum(case
-             when rxf.jysj_h >= '10:00:00' and rxf.jysj_h < '16:00:00' then
+             when rxf.jysj_h >= '12:00:00' and rxf.jysj_h < '16:00:00' then
               rxf.jyje
              else
               0
            end) as ZHCXF,
        sum(case
-             when rxf.jysj_h >= '16:00:00' and rxf.jysj_h < '22:00:00' then
+             when rxf.jysj_h >= '16:00:00' and rxf.jysj_h < '24:00:00' then
               rxf.jyje
              else
               0
