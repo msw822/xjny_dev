@@ -92,21 +92,21 @@ SELECT rxf.xh as xh,
               0
            end) as WCXF,
        min(case
-             when rxf.jysj_h >= '06:00:00' and rxf.jysj_h < '10:00:00' and
+             when rxf.jysj_h >= '06:00:00' and rxf.jysj_h < '12:00:00' and
                   rxf.shlbmc in ('食堂') then
               rxf.shmc
              else
               null
            end) as ZCST,
        min(case
-             when rxf.jysj_h >= '10:00:00' and rxf.jysj_h < '16:00:00' and
+             when rxf.jysj_h >= '12:00:00' and rxf.jysj_h < '16:00:00' and
                   rxf.shlbmc in ('食堂') then
               rxf.shmc
              else
               null
            end) as ZHCST,
        min(case
-             when rxf.jysj_h >= '16:00:00' and rxf.jysj_h < '22:00:00' and
+             when rxf.jysj_h >= '16:00:00' and rxf.jysj_h < '24:00:00' and
                   rxf.shlbmc in ('食堂') then
               rxf.shmc
              else
@@ -119,7 +119,7 @@ SELECT rxf.xh as xh,
                ssyxm,
                ssyxm_mc,
                zym,
-               zym_mc,
+               zym_mc, 
                szbh,
                bjmc,
                sznj,
