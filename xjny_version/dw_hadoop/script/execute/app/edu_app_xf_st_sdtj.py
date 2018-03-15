@@ -49,25 +49,25 @@ select a.shdm as stbh,
        a.shmc as stmc,
        a.xfrq as yyrq,
        sum(case
-             when a.jysj_h >= '06:00:00' and a.jysj_h < '10:00:00' then
+             when a.jysj_h >= '06:00:00' and a.jysj_h < '12:00:00' then
               a.jyje
              else
               0
            end) as zcyyje,
        sum(case
-             when a.jysj_h >= '10:00:00' and a.jysj_h < '16:00:00' then
+             when a.jysj_h >= '12:00:00' and a.jysj_h < '16:00:00' then
               a.jyje
              else
               0
            end) as wcyyje,
        sum(case
-             when a.jysj_h >= '16:00:00' and a.jysj_h < '22:00:00' then
+             when a.jysj_h >= '16:00:00' and a.jysj_h < '24:00:00' then
               a.jyje
              else
               0
            end) as wacyyje,
        sum(case
-             when a.jysj_h >= '22:00:00' and a.jysj_h < '06:00:00' then
+             when a.jysj_h >= '24:00:00' and a.jysj_h < '06:00:00' then
               a.jyje
              else
               0
