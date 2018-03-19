@@ -47,8 +47,16 @@ set mapred.output.compress=true;
 set hive.exec.compress.output=true;
 set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 set mapred.output.compression.type=block;
-INSERT OVERWRITE TABLE app.edu_app_yskns_lhb PARTITION(dt='"""+data_day_str+"""')
+INSERT OVERWRITE TABLE app.edu_app_yskns_lhb PARTITION(dt='"""+data_newest_str+"""')
 select xsxx.xh        as xh,
+       xsxx.xm        as xm,
+       xsxx.ssyxm     as yxdm,
+	   xsxx.ssyxm_mc  as yxmc,
+	   zym            as zydm,
+       zym_mc         as zymc,
+       szbh           as bjdm,
+       bjmc           as bjmc,
+       sznj           as xznj,	   
        null           as FQSFCJ,
        null           as FQSFSW,
        null           as MQSFCJ,
@@ -58,38 +66,66 @@ select xsxx.xh        as xh,
        null           as QJXFJE,
        null           as SFPK_ZP,
        null           as SFPK_FDY,
-       qxxf.qx_yjxfcs as QX_YJJCCS,
-       grxf.yjxfcs    as YJJCCS,
-       qxxf.qx_yjxfje as QX_YJXF,
-       grxf.yjxfje    as YJXF,
-       qxxf.qx_cjxf   as QX_CJXF,
-       grxf.cjxf      as CJXF,
+       qxxf.qx_jccs as QX_YJJCCS,
+       grxf.grjccs    as YJJCCS,
+       qxxf.qx_xf as QX_YJXF,
+       grxf.grxf    as YJXF,
+       qxxf.qx_jcxf   as QX_CJXF,
+       grxf.grjcxf      as CJXF,
        null           as QGJXCS
-  from gdm.gdm_xs_jbxx_da xsxx
-  full outer join (select qx_tmp.qxxfcs / zrs_tmp.zrs as qx_yjxfcs,
-                          qx_tmp.qxzxfje / zrs_tmp.zrs as qx_yjxfje,
-                          qx_tmp.qxzxfje / qx_tmp.qxxfcs as qx_cjxf
-                     from (select count(1) AS qxxfcs, SUM(jyje) AS qxzxfje
-                             from gdm.gdm_ykt_jy_log
-                            WHERE substr(jyrq, 1, 7) =
-                                  substr(add_months(to_date(substr('"""+data_day_str+"""',1,10)),-1),1,7)
-                              AND jylx in ('消费')) qx_tmp
-                     left join (select count(1) as zrs
-                                 from gdm.gdm_ykt_jy_log
-                                group by xh) zrs_tmp
-                       on 1 = 1) qxxf
-    on 1 = 1
-  left join (select xh,
-                    count(1) AS yjxfcs,
-                    SUM(jyje) AS yjxfje,
-                    sum(jyje) / count(1) as cjxf
-               from gdm.gdm_ykt_jy_log
-              WHERE substr(jyrq, 1, 7) =
-                    substr(add_months(to_date(substr('"""+data_day_str+"""',1,10)),-1),1,7)
-                 AND jylx in ('消费')
-              group by xh) grxf
-    on xsxx.xh = grxf.xh
-;
+  from (select * from gdm.gdm_xs_jbxx_da where xh='220141128') xsxx
+  left join
+  (select xh,sum(xfje)/(count(distinct jyje_day)/30) grxf,sum(jcje)/sum(jccs) grjcxf,sum(jccs)/count(distinct jyje_day)*30/count(distinct xh) grjccs from
+  (select xh,
+	   sum(jyje) xfje,
+       sum(case when shlbmc in ('餐厅消费') then jyje else 0 end) jcje,
+	   case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
+	     then 'ZC'
+	    when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
+	     then 'ZWC'
+	    when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
+	     then 'WC'
+	   end as jclx,
+	   sum(case when shlbmc in ('餐厅消费') then 1 else 0 end) jccs,
+	   dt as jyje_day
+          from gdm.gdm_ykt_jy_log
+         WHERE jylx in ('消费')
+	   and xh like '22%'
+	   group by xh,dt,
+	   case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
+	     then 'ZC'
+	    when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
+	     then 'ZWC'
+	    when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
+	     then 'WC'
+	   end) abc
+	   group by xh) grxf
+      on (xsxx.xh=grxf.xh)	   
+	   full outer join
+	 (select sum(xfje)/(count(distinct jyje_day)/30) qx_xf,sum(jcje)/sum(jccs) qx_jcxf,sum(jccs)/count(distinct jyje_day)*30/count(distinct xh) qx_jccs from
+     (select xh,
+	   sum(jyje) xfje,
+       sum(case when shlbmc in ('餐厅消费') then jyje else 0 end) jcje,
+	   case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
+	     then 'ZC'
+	    when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
+	     then 'ZWC'
+	    when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
+	     then 'WC'
+	   end as jclx,
+	   sum(case when shlbmc in ('餐厅消费') then 1 else 0 end) jccs,
+	   dt as jyje_day
+          from gdm.gdm_ykt_jy_log
+         WHERE jylx in ('消费')
+	   and xh like '22%'
+	   group by xh,dt,case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
+	     then 'ZC'
+	    when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
+	     then 'ZWC'
+	    when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
+	     then 'WC'
+	   end) abcd) qxxf
+	 on 1=1;
 """
 hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
 print(hiveShell)
