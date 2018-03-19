@@ -75,7 +75,7 @@ select xsxx.xh        as xh,
        null           as QGJXCS
   from (select * from gdm.gdm_xs_jbxx_da where xh='220141128') xsxx
   left join
-  (select xh,sum(xfje)/(count(distinct jyje_day)/30) grxf,sum(jcje)/sum(jccs) grjcxf,sum(jccs)/count(distinct jyje_day)*30/count(distinct xh) grjccs from
+  (select xh,sum(xfje)/(count(distinct jyje_day)/30) grxf,sum(jcje)/sum(jccs) grjcxf,sum(jccs)/count(distinct jyje_day)*30 grjccs from
   (select xh,
 	   sum(jyje) xfje,
        sum(case when shlbmc in ('餐厅消费') then jyje else 0 end) jcje,
