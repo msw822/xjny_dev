@@ -72,6 +72,11 @@ nohup python  edu_app_ks_cjbj.py  2018-01-01 &
 nohup python  edu_app_ks_cjbj.py  2017-01-01 & 
 nohup python  edu_app_ks_cjbj.py  2017-04-01 & 
 nohup python  edu_app_ks_cjbj.py  2016-04-01 & 
+nohup python  edu_app_ks_cjbj.py  2016-01-01 & 
+nohup python  edu_app_ks_cjbj.py  2015-04-01 & 
+nohup python  edu_app_ks_cjbj.py  2015-01-01 &
+nohup python  edu_app_ks_cjbj.py  2014-04-01 &
+nohup python  edu_app_ks_cjbj.py  2014-01-01 &
 
 
 

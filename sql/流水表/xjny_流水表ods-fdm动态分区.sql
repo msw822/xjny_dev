@@ -34,11 +34,10 @@ c.shid,
 c.shmc,
 a.xfsbbh,
 NULL,
-a.xfye,
-dt
+a.xfye 
 FROM
-( SELECT XFMXID,kh,xfje,xfrq,regexp_replace(xfrqsj, '/', '-') as xfsj ,xfsbbh,xfye,xfdwid,
-CASE WHEN xfje<0 THEN "消费" ELSE "充值"  END AS JYLX,
+( SELECT XFMXID,kh,xfje,SUBSTR(XFRQ, 1, 10) AS XFRQ ,regexp_replace(xfrqsj, '/', '-') as xfsj ,xfsbbh,xfye,xfdwid,
+CASE WHEN xfje<0 THEN '消费' ELSE '充值'  END AS JYLX  
 dt FROM ods.ods_usr_gxsj_t_ykt_xfjl  WHERE dt>='2018-01-01'  AND dt<='2018-06-01' ) A
 LEFT OUTER JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH WHERE dt = '2999-12-31'  ) B ON A.KH = B.kh
 LEFT OUTER JOIN 

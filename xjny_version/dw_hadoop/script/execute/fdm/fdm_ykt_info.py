@@ -76,15 +76,16 @@ SELECT
 A.shid,
 A.shmc,
 NULL,
-NULL,
+B.shlbmc,
 NULL,
 NULL,
 NULL,
 NULL 
 FROM
-
 (SELECT shid,MAX(shmc) AS shmc FROM
 ods.ods_usr_gxsj_t_ykt_shxx  WHERE dt = '"""+data_day_str+"""' group by shid) A
+LEFT OUTER JOIN    (SELECT shid,MAX(shlb) AS shlbmc FROM ods.ods_usr_gxsj_t_ykt_xfsbbh WHERE   dt = '"""+data_day_str+"""' GROUP BY shid ) B
+ON A.shid=b.shid
 ;
 
 """

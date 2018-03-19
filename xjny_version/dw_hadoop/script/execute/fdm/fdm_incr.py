@@ -46,7 +46,7 @@ a.xfsbbh,
 NULL,
 a.xfye 
 FROM
-( SELECT XFMXID,kh,xfje,xfrq,regexp_replace(xfrqsj, '/', '-') as xfsj ,xfsbbh,xfye,xfdwid,
+( SELECT XFMXID,kh,xfje,SUBSTR(XFRQ, 1, 10) AS XFRQ ,regexp_replace(xfrqsj, '/', '-') as xfsj ,xfsbbh,xfye,xfdwid,
 CASE WHEN xfje<0 THEN '消费' ELSE '充值'  END AS JYLX  
  FROM ods.ods_usr_gxsj_t_ykt_xfjl  WHERE dt = '"""+data_day_str+"""' ) A
 LEFT OUTER JOIN ( SELECT kh,xh FROM ods.ods_usr_gxsj_t_ykt_KH WHERE dt = '2999-12-31'  ) B ON A.KH = B.kh
