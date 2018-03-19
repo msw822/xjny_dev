@@ -44,105 +44,51 @@ set hive.exec.compress.output=true;
 set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 set mapred.output.compression.type=block;
 
-INSERT OVERWRITE TABLE app.edu_app_dxf_yj PARTITION (dt='"""+data_day_str+"""')
-SELECT rxf.xh as xh,
-       rxf.xm as xm,
-       rxf.ssyxm as YXDM,
-       rxf.ssyxm_mc as YXMC,
-       rxf.zym as ZYDM,
-       rxf.zym_mc as ZYMC,
-       rxf.szbh as BJDM,
-       rxf.bjmc as BJMC,
-       rxf.sznj as XZNJ,
-       substr(rxf.dt, 1, 10) as rq,
-       count(case
-               when rxf.jysj_h >= '06:00:00' and rxf.jysj_h < '12:00:00' then
-                1
-               else
-                0
-             end) as SFZC,
-       count(case
-               when rxf.jysj_h >= '12:00:00' and rxf.jysj_h < '16:00:00' then
-                1
-               else
-                0
-             end) as SFZHC,
-       count(case
-               when rxf.jysj_h >= '16:00:00' and rxf.jysj_h < '24:00:00' then
-                1
-               else
-                0
-             end) as SFWC,
-       sum(case
-             when rxf.jysj_h >= '06:00:00' and rxf.jysj_h < '12:00:00' then
-              rxf.jyje
-             else
-              0
-           end) as ZCXF,
-       sum(case
-             when rxf.jysj_h >= '12:00:00' and rxf.jysj_h < '16:00:00' then
-              rxf.jyje
-             else
-              0
-           end) as ZHCXF,
-       sum(case
-             when rxf.jysj_h >= '16:00:00' and rxf.jysj_h < '24:00:00' then
-              rxf.jyje
-             else
-              0
-           end) as WCXF,
-       min(case
-             when rxf.jysj_h >= '06:00:00' and rxf.jysj_h < '12:00:00' and
-                  rxf.shlbmc in ('食堂') then
-              rxf.shmc
-             else
-              null
-           end) as ZCST,
-       min(case
-             when rxf.jysj_h >= '12:00:00' and rxf.jysj_h < '16:00:00' and
-                  rxf.shlbmc in ('食堂') then
-              rxf.shmc
-             else
-              null
-           end) as ZHCST,
-       min(case
-             when rxf.jysj_h >= '16:00:00' and rxf.jysj_h < '24:00:00' and
-                  rxf.shlbmc in ('食堂') then
-              rxf.shmc
-             else
-              null
-           end) as WCST,
-       sum(rxf.jyje) as JRZXF
-
-  from (select xh,
-               xm,
-               ssyxm,
-               ssyxm_mc,
-               zym,
-               zym_mc, 
-               szbh,
-               bjmc,
-               sznj,
-               dt,
-               SUBSTR(jysj, 1, 10) AS xfrq,
-               SUBSTR(jysj, 12, 8) AS jysj_h,
-               jyje,
-               shmc,
-               shlbmc
+INSERT OVERWRITE TABLE app.edu_app_dxf_yj PARTITION (dt='"""+data_newest_str+"""')
+select xh,xm,ssyxm,ssyxm_mc,zym,zym_mc,szbh,bjmc,sznj,sum(jyje)/(count(distinct jyje_day)/30),sum(jyje)/count(1)
+from
+(select xh,
+       xm,
+       ssyxm,
+       ssyxm_mc,
+       zym,
+       zym_mc,
+       szbh,
+       bjmc,
+       sznj,
+       sum(jyje) jyje,
+	   case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
+	     then 'ZC'
+	    when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
+	     then 'ZWC'
+	    when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
+	     then 'WC'
+	   end as jclx,
+	   dt as jyje_day
           from gdm.gdm_ykt_jy_log
-         WHERE dt = '"""+data_day_str+"""'
-           AND jylx in ('消费')) rxf
- group by rxf.xh,
-          rxf.xm,
-          rxf.ssyxm,
-          rxf.ssyxm_mc,
-          rxf.zym,
-          rxf.zym_mc,
-          rxf.szbh,
-          rxf.bjmc,
-          rxf.sznj,
-          rxf.dt
-;
+         WHERE shlbmc in ('餐厅消费')
+	   and dt >='2017-08-01'
+	   and dt <='2018-01-31'
+	   and xh like '22%'
+	   group by
+	   xh,
+       xm,
+       ssyxm,
+       ssyxm_mc,
+       zym,
+       zym_mc,
+       szbh,
+       bjmc,
+       sznj,
+	   case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
+	     then 'ZC'
+	    when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
+	     then 'ZWC'
+	    when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
+	     then 'WC'
+	   end,
+	   dt) ykt
+	group by xh,xm,ssyxm,ssyxm_mc,zym,zym_mc,szbh,bjmc,sznj
 """
 hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
 print(hiveShell)
