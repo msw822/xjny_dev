@@ -90,6 +90,7 @@ from
          WHERE shlbmc in ('餐厅消费')
 	   and dt >='"""+data_day_str_from+"""'
 	   and dt <='"""+data_day_str_to+"""'
+		 and jylx in ('消费')
 	   and xh like '22%'
 	   group by
 	   xh,

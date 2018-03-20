@@ -51,12 +51,14 @@ INSERT OVERWRITE TABLE app.edu_app_yskns_lhb PARTITION(dt='"""+data_newest_str+"
 select xsxx.xh        as xh,
        xsxx.xm        as xm,
        xsxx.ssyxm     as yxdm,
-	   xsxx.ssyxm_mc  as yxmc,
-	   zym            as zydm,
-       zym_mc         as zymc,
-       szbh           as bjdm,
-       bjmc           as bjmc,
-       sznj           as xznj,	   
+       xsxx.ssyxm_mc  as yxmc,
+       xsxx.zym       as zydm,
+       xsxx.zym_mc    as zymc,
+       xsxx.szbh      as bjdm,
+       xsxx.bjmc      as bjmc,
+       xsxx.sznj      as xznj,
+       xsxx.xz        as xz,
+       xsxx.syd_sf    as syd_sf,	   
        null           as FQSFCJ,
        null           as FQSFSW,
        null           as MQSFCJ,
@@ -73,59 +75,63 @@ select xsxx.xh        as xh,
        qxxf.qx_jcxf   as QX_CJXF,
        grxf.grjcxf      as CJXF,
        null           as QGJXCS
-  from (select * from gdm.gdm_xs_jbxx_da where xh='220141128') xsxx
+  from (select xh,xm,ssyxm,ssyxm_mc,zym,zym_mc,szbh,bjmc,sznj,xz,
+  coalesce(sydm_sm,lydqm_sm,jgm_sm) syd_sf from gdm.gdm_xs_jbxx_da where xh like '22%') xsxx
   left join
-  (select xh,sum(xfje)/(count(distinct jyje_day)/30) grxf,sum(jcje)/sum(jccs) grjcxf,sum(jccs)/count(distinct jyje_day)*30 grjccs from
+  (select xh,sum(xfje)/(count(distinct jyje_day)/30) grxf,sum(jcje)/count(1) grjcxf,count(1)/count(distinct jyje_day)*30 grjccs from
   (select xh,
-	   sum(jyje) xfje,
+       sum(jyje) xfje,
        sum(case when shlbmc in ('餐厅消费') then jyje else 0 end) jcje,
-	   case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
-	     then 'ZC'
-	    when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
-	     then 'ZWC'
-	    when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
-	     then 'WC'
-	   end as jclx,
-	   sum(case when shlbmc in ('餐厅消费') then 1 else 0 end) jccs,
-	   dt as jyje_day
+       case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
+         then 'ZC'
+        when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
+         then 'ZWC'
+        when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
+         then 'WC'
+       end as jclx,
+       dt as jyje_day
           from gdm.gdm_ykt_jy_log
          WHERE jylx in ('消费')
-	   and xh like '22%'
-	   group by xh,dt,
-	   case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
-	     then 'ZC'
-	    when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
-	     then 'ZWC'
-	    when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
-	     then 'WC'
-	   end) abc
-	   group by xh) grxf
-      on (xsxx.xh=grxf.xh)	   
-	   full outer join
-	 (select sum(xfje)/(count(distinct jyje_day)/30) qx_xf,sum(jcje)/sum(jccs) qx_jcxf,sum(jccs)/count(distinct jyje_day)*30/count(distinct xh) qx_jccs from
+       and xh like '22%'
+       group by xh,dt,
+       case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
+         then 'ZC'
+        when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
+         then 'ZWC'
+        when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
+         then 'WC'
+       end) abc
+       group by xh) grxf
+      on (xsxx.xh=grxf.xh)     
+       full outer join
+      (select sum(qx_xf)/count(distinct xh) qx_xf,sum(qx_jcxf)/count(distinct xh) qx_jcxf,sum(gr_jccs)/count(distinct xh) qx_jccs from
+	 (select xh,sum(xfje)/(count(distinct jyje_day)/30) qx_xf,sum(jcje)/count(1) qx_jcxf,
+	  count(1)/count(distinct jyje_day)*30 gr_jccs 
+	  from
      (select xh,
-	   sum(jyje) xfje,
+       sum(jyje) xfje,
        sum(case when shlbmc in ('餐厅消费') then jyje else 0 end) jcje,
-	   case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
-	     then 'ZC'
-	    when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
-	     then 'ZWC'
-	    when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
-	     then 'WC'
-	   end as jclx,
-	   sum(case when shlbmc in ('餐厅消费') then 1 else 0 end) jccs,
-	   dt as jyje_day
+       case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
+         then 'ZC'
+        when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
+         then 'ZWC'
+        when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
+         then 'WC'
+       end as jclx,
+       dt as jyje_day
           from gdm.gdm_ykt_jy_log
          WHERE jylx in ('消费')
-	   and xh like '22%'
-	   group by xh,dt,case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
-	     then 'ZC'
-	    when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
-	     then 'ZWC'
-	    when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
-	     then 'WC'
-	   end) abcd) qxxf
-	 on 1=1;
+       and xh like '22%'
+       group by xh,dt,case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
+         then 'ZC'
+        when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
+         then 'ZWC'
+        when SUBSTR(jysj, 12, 2) >= '16' and SUBSTR(jysj, 12, 2) < '24'
+         then 'WC'
+       end) abcd
+	   group by xh) tmp
+       )	qxxf
+     on 1=1;
 """
 hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
 print(hiveShell)
