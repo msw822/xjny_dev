@@ -42,19 +42,19 @@ else:
     if len(data_day_str) == 8:
         data_day_str = yesterday[0:4]+'-'+yesterday[4:6]+'-'+yesterday[6:8]
         
-year = int(date_str[0:4])
-month = int(date_str[5:7])
+year = int(data_day_str[0:4])
+month = int(data_day_str[5:7])
 
 if month>=2 and month<8:
     data_day_str_from= str(year-1)+"-08-01"
     data_day_str_to= str(year)+"-01-31"
     
     
-    elif month>=8:
+elif month>=8:
     data_day_str_from= str(year)+"-02-01"
     data_day_str_to= str(year)+"-07-31"
 
-    else:
+else:
     data_day_str_from= str(year-1)+"-08-01"
     data_day_str_to= str(year)+"-01-31"
 
