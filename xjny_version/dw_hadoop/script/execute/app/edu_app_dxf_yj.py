@@ -19,10 +19,14 @@
 #     REVISION: ---
 #    SRC_TABLE:gdm_ykt_jy_log
 #    TGT_TABLE: edu_app_dxf_yj
+#
+# 9,10,11,12,1 第一学期;2，3，4，5，6，7 第二学期
+# 其中8月份放假，暂且放入第一学期。因为大部分学校都选在8月底开学
 #===============================================================================
 import sys
 import os
 import datetime
+
 
 if(len(sys.argv)>1):
     data_day_str = sys.argv[1]
@@ -37,6 +41,23 @@ else:
     data_day_str=str(yesterday)
     if len(data_day_str) == 8:
         data_day_str = yesterday[0:4]+'-'+yesterday[4:6]+'-'+yesterday[6:8]
+        
+year = int(date_str[0:4])
+month = int(date_str[5:7])
+
+if month>=2 and month<8:
+    data_day_str_from= str(year-1)+"-08-01"
+    data_day_str_to= str(year)+"-01-31"
+    
+    
+    elif month>=8:
+    data_day_str_from= str(year)+"-02-01"
+    data_day_str_to= str(year)+"-07-31"
+
+    else:
+    data_day_str_from= str(year-1)+"-08-01"
+    data_day_str_to= str(year)+"-01-31"
+
 data_newest_str="2999-12-31"
 sql = """
 set mapred.output.compress=true;
@@ -67,8 +88,8 @@ from
 	   dt as jyje_day
           from gdm.gdm_ykt_jy_log
          WHERE shlbmc in ('餐厅消费')
-	   and dt >='2017-08-01'
-	   and dt <='2018-01-31'
+	   and dt >='"""+data_day_str_from+"""'
+	   and dt <='"""+data_day_str_to+"""'
 	   and xh like '22%'
 	   group by
 	   xh,
