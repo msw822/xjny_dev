@@ -67,7 +67,7 @@ select a.shdm as stbh,
               0
            end) as wacyyje,
        sum(case
-             when a.jysj_h >= '24:00:00' and a.jysj_h < '06:00:00' then
+             when a.jysj_h >= '00:00:00' and a.jysj_h < '06:00:00' then
               a.jyje
              else
               0
@@ -80,7 +80,7 @@ select a.shdm as stbh,
                SUBSTR(jysj, 12, 8) AS jysj_h
           from gdm.gdm_ykt_jy_log
          where jylx in ('消费')
-           and shlbmc in ('食堂')
+           and shlbmc in ('餐厅消费')
            and dt = '"""+data_day_str+"""') a
  group by a.shdm, a.shmc, a.xfrq
 ;
