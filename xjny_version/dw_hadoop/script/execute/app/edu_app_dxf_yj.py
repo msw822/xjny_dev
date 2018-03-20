@@ -67,6 +67,7 @@ from
 	   dt as jyje_day
           from gdm.gdm_ykt_jy_log
          WHERE shlbmc in ('餐厅消费')
+		 and jylx in ('消费')
 	   and dt >='2017-08-01'
 	   and dt <='2018-01-31'
 	   and xh like '22%'
