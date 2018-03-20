@@ -52,11 +52,13 @@ select xsxx.xh        as xh,
        xsxx.xm        as xm,
        xsxx.ssyxm     as yxdm,
        xsxx.ssyxm_mc  as yxmc,
-       zym            as zydm,
-       zym_mc         as zymc,
-       szbh           as bjdm,
-       bjmc           as bjmc,
-       sznj           as xznj,     
+       xsxx.zym       as zydm,
+       xsxx.zym_mc    as zymc,
+       xsxx.szbh      as bjdm,
+       xsxx.bjmc      as bjmc,
+       xsxx.sznj      as xznj,
+       xsxx.xz        as xz,
+       xsxx.syd_sf    as syd_sf,	   
        null           as FQSFCJ,
        null           as FQSFSW,
        null           as MQSFCJ,
@@ -73,7 +75,8 @@ select xsxx.xh        as xh,
        qxxf.qx_jcxf   as QX_CJXF,
        grxf.grjcxf      as CJXF,
        null           as QGJXCS
-  from (select * from gdm.gdm_xs_jbxx_da where xh like '22%') xsxx
+  from (select xh,xm,ssyxm,ssyxm_mc,zym,zym_mc,szbh,bjmc,sznj,xz,
+  coalesce(sydm_sm,lydqm_sm,jgm_sm) syd_sf from gdm.gdm_xs_jbxx_da where xh like '22%') xsxx
   left join
   (select xh,sum(xfje)/(count(distinct jyje_day)/30) grxf,sum(jcje)/count(1) grjcxf,count(1)/count(distinct jyje_day)*30 grjccs from
   (select xh,
