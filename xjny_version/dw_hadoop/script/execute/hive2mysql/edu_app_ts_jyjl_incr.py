@@ -54,7 +54,7 @@ hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
 print(hiveShell)
 os.system(hiveShell)
 if os.path.exists(filePath+"/000000_0") and os.path.getsize(filePath+"/000000_0") > 0:
-    deleteShell = """mysql -h10.5.1.21  -P3306 -uroot -p123456 -e "delete from app.edu_app_ts_jyjl where dt="""+data_day_str+""" " """
+    deleteShell = """mysql -h10.5.1.21  -P3306 -uroot -p123456 -e "delete from app.edu_app_ts_jyjl where dt="""+data_day_str1+""" " """
     mysqlShell = """  mysql -h10.5.1.21  -P3306 -uroot -p123456 --local-infile=1 -e " SET NAMES utf8; LOAD DATA LOCAL INFILE '"""+filePath+"""/000000_0' into table app.edu_app_ts_jyjl(xh,jssj,tsmc,tslx,gjz,sfyq,yqts,jsdd,dt)  " """
     monitorShell = """mysql -h10.5.1.21 -P3306 -uroot -p123456 -e "insert into app.daily_report_data_monitor(date,table_name,complete_flag,create_time) values("""+data_day_int+""",'edu_app_ts_jyjl',1,now()) " """
     os.system(deleteShell)
