@@ -45,7 +45,7 @@ set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 set mapred.output.compression.type=block;
 
 INSERT OVERWRITE TABLE app.edu_app_xf_st_mrtj PARTITION (dt='"""+data_day_str+"""')
-select SUBSTR(jyrq, 1, 10) , sum(jyje) as xfze, sum(jyje) / count(xh) as rjxfe
+select SUBSTR(jyrq, 1, 10) , sum(jyje) as xfze, sum(jyje) / count(DISTINCT(kh)) as rjxfe
   from gdm.gdm_ykt_jy_log
  where jylx in ('消费')
    and shlbmc in ('餐厅消费')
