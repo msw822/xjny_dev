@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #===============================================================================
 #
-#         FILE: hive2local_jd_zw_gdt_zhitou.py
+#         FILE: edu_app_xf_st_mrtj_incr.py
 #
 #        USAGE: ./hive2local_jd_zw_gdt_zhitou.py
 #
