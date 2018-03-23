@@ -66,7 +66,7 @@ set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 set mapred.output.compression.type=block;
 
 INSERT OVERWRITE TABLE app.edu_app_dxf_yj PARTITION (dt='"""+data_newest_str+"""')
-select xh,xm,ssyxm,ssyxm_mc,zym,zym_mc,szbh,bjmc,sznj,sum(jyje)/(count(distinct jyje_day)/30),sum(jyje)/count(1)
+select xh,xm,ssyxm,ssyxm_mc,zym,zym_mc,szbh,bjmc,sznj,sum(jyje)/count(distinct substr(jyje_day,6,2)),sum(jyje)/count(1)
 from
 (select xh,
        xm,
