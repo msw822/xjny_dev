@@ -78,10 +78,9 @@ select xsxx.xh        as xh,
   from (select xh,xm,ssyxm,ssyxm_mc,zym,zym_mc,szbh,bjmc,sznj,xz,
   coalesce(sydm_sm,lydqm_sm,jgm_sm) syd_sf from gdm.gdm_xs_jbxx_da where xh like '22%') xsxx
   left join
-  (select xh,sum(xfje)/(count(distinct jyje_day)/30) grxf,sum(jcje)/count(1) grjcxf,count(1)/count(distinct jyje_day)*30 grjccs from
+  (select xh,sum(xfje)/count(distinct substr(jyje_day,6,2)) grxf,sum(xfje)/count(1) grjcxf,count(1)/count(distinct substr(jyje_day,6,2)) grjccs from
   (select xh,
        sum(jyje) xfje,
-       sum(case when shlbmc in ('餐厅消费') then jyje else 0 end) jcje,
        case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
          then 'ZC'
         when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
@@ -92,6 +91,7 @@ select xsxx.xh        as xh,
        dt as jyje_day
           from gdm.gdm_ykt_jy_log
          WHERE jylx in ('消费')
+		 and shlbmc in ('餐厅消费')
        and xh like '22%'
        group by xh,dt,
        case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
@@ -105,12 +105,11 @@ select xsxx.xh        as xh,
       on (xsxx.xh=grxf.xh)     
        full outer join
       (select sum(qx_xf)/count(distinct xh) qx_xf,sum(qx_jcxf)/count(distinct xh) qx_jcxf,sum(gr_jccs)/count(distinct xh) qx_jccs from
-	 (select xh,sum(xfje)/(count(distinct jyje_day)/30) qx_xf,sum(jcje)/count(1) qx_jcxf,
-	  count(1)/count(distinct jyje_day)*30 gr_jccs 
+	 (select xh,sum(xfje)/count(distinct substr(jyje_day,6,2)) qx_xf,sum(xfje)/count(1) qx_jcxf,
+	  count(1)/count(distinct substr(jyje_day,6,2)) gr_jccs 
 	  from
      (select xh,
        sum(jyje) xfje,
-       sum(case when shlbmc in ('餐厅消费') then jyje else 0 end) jcje,
        case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
          then 'ZC'
         when SUBSTR(jysj, 12, 2) >= '12' and SUBSTR(jysj, 12, 2) < '16'
@@ -121,6 +120,7 @@ select xsxx.xh        as xh,
        dt as jyje_day
           from gdm.gdm_ykt_jy_log
          WHERE jylx in ('消费')
+		 and shlbmc in ('餐厅消费')
        and xh like '22%'
        group by xh,dt,case when SUBSTR(jysj, 12, 2) >= '06' and SUBSTR(jysj, 12, 2) < '12'
          then 'ZC'
