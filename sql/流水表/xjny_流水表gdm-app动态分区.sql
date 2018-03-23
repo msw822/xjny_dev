@@ -100,3 +100,61 @@ SELECT XH, JSRQ, TSMC, TSLB_MC, NULL, NULL, NULL, NULL,dt
  WHERE dt>='2017-01-01'  AND dt<='2017-06-01' and  xh like '22%'
 
  
+ 
+ 
+ 
+ --食堂每日消费统计
+  set hive.exec.dynamic.partition.mode=nonstrict;
+ INSERT OVERWRITE TABLE app.edu_app_xf_st_mrtj PARTITION (dt)
+select dt, sum(jyje) as xfze, sum(jyje) / count(DISTINCT(kh)) as rjxfe,dt
+  from gdm.gdm_ykt_jy_log
+ where jylx in ('消费')
+   and shlbmc in ('餐厅消费')
+   and dt>='2018-03-01'  AND dt<='2018-03-22'
+ group by dt
+ 
+ 
+ 
+ --食堂各个时间段消费统计
+ set hive.exec.dynamic.partition.mode=nonstrict;
+ INSERT OVERWRITE TABLE app.edu_app_xf_st_sdtj PARTITION (dt)
+select a.shdm as stbh,
+       a.shmc as stmc,
+       a.xfrq as yyrq,
+       sum(case
+             when a.jysj_h >= '06:00:00' and a.jysj_h < '12:00:00' then
+              a.jyje
+             else
+              0
+           end) as zcyyje,
+       sum(case
+             when a.jysj_h >= '12:00:00' and a.jysj_h < '16:00:00' then
+              a.jyje
+             else
+              0
+           end) as wcyyje,
+       sum(case
+             when a.jysj_h >= '16:00:00' and a.jysj_h < '24:00:00' then
+              a.jyje
+             else
+              0
+           end) as wacyyje,
+       sum(case
+             when a.jysj_h >= '00:00:00' and a.jysj_h < '06:00:00' then
+              a.jyje
+             else
+              0
+           end) as qtsdyyje,
+           
+        a.xfrq as dt 
+  from (select shmc,
+               shdm,
+               jyje,
+               dt,
+               SUBSTR(jysj, 1, 10) AS xfrq,
+               SUBSTR(jysj, 12, 8) AS jysj_h
+          from gdm.gdm_ykt_jy_log
+         where jylx in ('消费')
+           and shlbmc in ('餐厅消费')
+           and  dt>='2018-03-01'  AND dt<='2018-03-22') a
+ group by a.shdm, a.shmc, a.xfrq
