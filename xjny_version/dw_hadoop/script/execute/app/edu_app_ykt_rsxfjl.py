@@ -48,7 +48,7 @@ set hive.exec.compress.output=true;
 set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 set mapred.output.compression.type=block;
 
-INSERT OVERWRITE TABLE app.edu_app_ykt_rsxfjl PARTITION(dt='"""+data_newest_str+"""')
+INSERT OVERWRITE TABLE app.edu_app_ykt_rsxfjl PARTITION(dt='"""+data_day_str+"""')
 select sfzjh    as sfrzm,
        '学生'   as sflx,
 	   xm       as xm,
@@ -59,7 +59,9 @@ select sfzjh    as sfrzm,
 	   null     as yssc,
 	   jyje     as xfje 
 from gdm.gdm_ykt_jy_log
-where shlbmc in ('热水消费') 
+where 
+dt = '"""+data_day_str+"""'  and
+shlbmc in ('热水消费') 
 and jylx in ('消费');
 """
 hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
