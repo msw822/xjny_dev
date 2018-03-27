@@ -49,7 +49,7 @@ set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 set mapred.output.compression.type=block;
 
 INSERT OVERWRITE TABLE app.edu_app_ykt_rsxfjl PARTITION(dt='"""+data_day_str+"""')
-select sfzjh    as sfrzm,
+select xh    as sfrzm,
        '学生'   as sflx,
 	   xm       as xm,
 	   xbm_mc   as xb,
