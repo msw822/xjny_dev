@@ -64,17 +64,23 @@ SELECT
    b.bh,
    a.inoutdate,
    NULL,
-   (case when a.direction=='入' or a.direction=='无入'  or a.direction=='反入' or a.direction=='潜入'  then '进' else '出' end),
-   NULL,
-   NULL,a.dt FROM (
+   (case when a.direction=='入' or a.direction=='无入'  or a.direction=='反入'  or a.direction=='潜入' then '进' else '出' end),
+   a.ssldm,
+   c.SSLMC,a.dt FROM (
       SELECT
         num,
         inoutdate,
         direction,
+        ssldm,
         dt
       FROM ods.ods_usr_gxsj_t_xscrxx WHERE  dt>='2017-06-01'  AND dt<='2018-04-01'
    ) a
-LEFT JOIN (SELECT xh, xm,bh FROM ods.ods_usr_gxsj_t_bzks WHERE dt = '2999-12-31') b ON a.num = b.xh;
+LEFT JOIN (SELECT xh, xm,bh FROM ods.ods_usr_gxsj_t_bzks WHERE dt = '2999-12-31') b ON a.num = b.xh
+LEFT JOIN (SELECT SSLH, MAX(SSLMC) AS SSLMC FROM ods.ods_usr_gxsj_t_ssl WHERE dt = '2999-12-31'  group by sslh) c ON trim(a.ssldm)=trim(c.sslh)
+
+
+
+
 
 
 

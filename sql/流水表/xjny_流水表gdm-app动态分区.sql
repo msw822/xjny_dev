@@ -80,10 +80,10 @@ SELECT xh,
  --门禁记录
  set hive.exec.dynamic.partition.mode=nonstrict;
  INSERT OVERWRITE TABLE app.edu_app_mj_mjjl PARTITION (dt)
-SELECT XH, SKSJ, NULL,
+SELECT XH, SKSJ, wzbh,
  ACT,dt
   FROM fdm.fdm_xs_mj_log
- WHERE dt>='2017-06-01'  AND dt<='2018-06-01'   and  xh like '22%'
+ WHERE dt>='2018-03-15'  AND dt<='2018-03-26'   and  xh like '22%'
  
  
  
