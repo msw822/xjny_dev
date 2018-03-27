@@ -22,6 +22,7 @@
 #
 # 9,10,11,12,1 第一学期;2，3，4，5，6，7 第二学期
 # 其中8月份放假，暂且放入第一学期。因为大部分学校都选在8月底开学
+# 经和校方沟通：第一学期一般九月初开学，一月中旬放假，第二学期二月底开学，七月中旬放假
 #===============================================================================
 import sys
 import os
@@ -46,16 +47,16 @@ year = int(data_day_str[0:4])
 month = int(data_day_str[5:7])
 
 if month>=2 and month<8:
-    data_day_str_from= str(year-1)+"-08-01"
+    data_day_str_from= str(year-1)+"-09-01"
     data_day_str_to= str(year)+"-01-31"
     
     
 elif month>=8:
-    data_day_str_from= str(year)+"-02-01"
+    data_day_str_from= str(year)+"-03-01"
     data_day_str_to= str(year)+"-07-31"
 
 else:
-    data_day_str_from= str(year-1)+"-08-01"
+    data_day_str_from= str(year-1)+"-09-01"
     data_day_str_to= str(year)+"-01-31"
 
 data_newest_str="2999-12-31"
