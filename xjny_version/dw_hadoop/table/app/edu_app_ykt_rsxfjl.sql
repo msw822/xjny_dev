@@ -6,9 +6,9 @@ drop TABLE IF EXISTS edu_app_ykt_rsxfjl;
 CREATE EXTERNAL TABLE edu_app_ykt_rsxfjl(
 sfrzm               string       comment '身份认证码'
 ,sflx               string       comment '身份类型'
-,xm                 double       comment '姓名'
+,xm                 string       comment '姓名'
 ,xb                 string       comment '性别'
-,rsxfsj             double       comment '热水消费时间 消费日期.格式：YYYY-MM-DD'
+,rsxfsj             string       comment '热水消费时间 消费日期.格式2018-03-09 08:13:17 '
 ,rsxfdd             string       comment '热水消费地点'
 ,ysl                double       comment '用水量'
 ,yssc               string       comment '用水时长'
