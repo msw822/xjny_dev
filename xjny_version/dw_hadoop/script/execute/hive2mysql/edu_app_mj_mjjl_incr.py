@@ -11,7 +11,7 @@
 # REQUIREMENTS: ---
 #         BUGS: ---
 #        NOTES: ---
-#       AUTHOR: li.zhanlei@h3c.com
+#       AUTHOR: mashaowei@h3c.comm
 #      COMPANY:  bigdata.h3c.com
 #      VERSION: 1.0
 #      CREATED: 2018/03/05
