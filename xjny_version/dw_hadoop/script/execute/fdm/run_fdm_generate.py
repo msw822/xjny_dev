@@ -88,7 +88,7 @@ insert overwrite table fdm.edu_fdm_jzg_jxcgj PARTITION (dt = '2017-08-11')
   select * from bdm.edu_fdm_ykt_xx;
 
 """
-hiveShell ='hive -e "'+sql+'"'
+#hiveShell ='hive -e "'+sql+'"'
 print(hiveShell)
-os.system(hiveShell)
+#os.system(hiveShell)
 print('finish--')
