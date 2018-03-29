@@ -53,18 +53,15 @@ INSERT OVERWRITE TABLE app.edu_app_kc_kcap PARTITION(xn = '"""+xn+"""', xqm= '""
 SELECT xn as KKXN,
        xq.mc KKXQ,
        JXBH as KCH,
-       kcjb.KCMC aS KCMC,
+       kcap.KCMC aS KCMC,
        coalesce(kcap.KCSXM_MC, kcsx.MC) as KCLX,
-       kcjb.XF,
-       kcjb.ZXS as XS
-  FROM (SELECT JXBH, KCDM, KCKSDWH, XF, ZXS, KCSXM, KCSXM_MC,XQM,xn
+       kcap.XF,
+       kcap.ZXS as XS
+  FROM (SELECT JXBH, KCDM,KCMC, KCKSDWH, XF, ZXS, KCSXM, KCSXM_MC,XQM,xn
           FROM fdm.fdm_jw_pkap
          WHERE xn = '"""+xn+"""'
            AND xqm = '"""+xqm+"""') kcap
-  LEFT OUTER JOIN (SELECT KCH, KCMC, XF, ZXS
-                     FROM fdm.fdm_kc_jbxx
-                    WHERE dt = '"""+data_newest_str+"""') kcjb
-    ON kcap.KCDM = kcjb.KCH
+           
   LEFT OUTER JOIN (select /*+ mapjoin(kcsx)*/
                     *
                      from dim.hb_kcsx) kcsx
