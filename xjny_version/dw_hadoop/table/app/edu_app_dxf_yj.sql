@@ -14,7 +14,8 @@ xh               string       comment '学号'
 ,bjmc            string       comment '班级名称，根据班级代码与字典表进行联查'
 ,xznj            string       comment '现在年级，格式：YYYY'
 ,sxqyjzxf        double       comment '上学期月均消费额'
-,sxqcjxf        double       comment '上学期餐均消费额'
+,sxqcjxf         double       comment '上学期餐均消费额'
+,xz              double       comment '学制'
 )comment '[低消费预警]'
 PARTITIONED BY (
   dt string)
