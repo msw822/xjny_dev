@@ -47,7 +47,7 @@ data_newest_str="2999-12-31"
 
 now=datetime.datetime.now()
 year=int(now.strftime("%Y"))
-xn="%d-%d"%(year-5,year-4)
+xn="%d-%d"%(year-3,year-2)
 sql = """
 INSERT OVERWRITE LOCAL DIRECTORY '""" + filePath + """'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
