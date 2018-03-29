@@ -67,6 +67,7 @@ set mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 set mapred.output.compression.type=block;
 
 INSERT OVERWRITE TABLE app.edu_app_dxf_yj PARTITION (dt='"""+data_newest_str+"""')
+select a.* , b.xz from (
 select xh,xm,ssyxm,ssyxm_mc,zym,zym_mc,szbh,bjmc,sznj,sum(jyje)/count(distinct substr(jyje_day,6,2)),sum(jyje)/count(1)
 from
 (select xh,
@@ -111,7 +112,7 @@ from
 	     then 'WC'
 	   end,
 	   dt) ykt
-	group by xh,xm,ssyxm,ssyxm_mc,zym,zym_mc,szbh,bjmc,sznj
+	group by xh,xm,ssyxm,ssyxm_mc,zym,zym_mc,szbh,bjmc,sznj ) a left join (select XH,XZ from GDM.GDM_XS_JBXX_DA) b ON a.xh=b.xh
 """
 hiveShell = """su hdfs -c \"hive -e \\\"""" + sql + """\\\"\""""
 print(hiveShell)
