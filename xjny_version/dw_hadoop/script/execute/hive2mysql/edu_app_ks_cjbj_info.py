@@ -51,7 +51,7 @@ xn="%d-%d"%(year-5,year-4)
 sql = """
 INSERT OVERWRITE LOCAL DIRECTORY '""" + filePath + """'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
-SELECT xh,xn,xq,pjcj,bjpjcj FROM app.edu_app_ks_cjbj WHERE xn>='"""+xn+"""' and xn<'"""+data_newest_str+"""'
+SELECT xh,xn,xq,pjcj,bjpjcj FROM app.edu_app_ks_cjbj WHERE xn>='"""+xn+"""'
 ;
 """
 
