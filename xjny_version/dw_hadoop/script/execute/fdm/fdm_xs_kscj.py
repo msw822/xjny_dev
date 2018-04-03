@@ -80,7 +80,7 @@ INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
 ) SELECT
     NULL,
     A.xh,
-    A.xkkch,
+    A.kcdm,
     NULL,
     NULL,
     KSXZM,
@@ -98,7 +98,7 @@ INSERT OVERWRITE TABLE fdm.fdm_kc_cjjbxx PARTITION (
     NULL,
     NULL,
     B.BH,
-    NULL,
+    A.xkkch,
     B.ZYDM,
     B.YXDM,
     NULL,
@@ -186,7 +186,7 @@ FROM
     ELSE
         '0'
     END AS XF_HD,
-    JD,xkkch,            
+    JD,xkkch,           
     CASE WHEN BKCJ IS NOT NULL THEN '11' 
     ELSE '01'  END AS KSXZM
 FROM

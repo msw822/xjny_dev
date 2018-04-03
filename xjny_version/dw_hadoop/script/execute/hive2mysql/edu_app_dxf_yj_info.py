@@ -47,7 +47,7 @@ data_newest_str="2999-12-31"
 sql = """
 INSERT OVERWRITE LOCAL DIRECTORY '""" + filePath + """'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
-SELECT xh,xm,yxdm,yxmc,zydm,zymc,bjdm,bjmc,xznj,sxqyjzxf,sxqcjxf FROM app.edu_app_dxf_yj WHERE dt='"""+data_newest_str+"""'
+SELECT xh,xm,yxdm,yxmc,zydm,zymc,bjdm,bjmc,xznj,sxqyjzxf,sxqcjxf,xz FROM app.edu_app_dxf_yj WHERE dt='"""+data_newest_str+"""'
 ;
 """
 
@@ -56,7 +56,7 @@ print(hiveShell)
 os.system(hiveShell)
 if os.path.exists(filePath+"/000000_0") and os.path.getsize(filePath+"/000000_0") > 0:
     deleteShell = """mysql -h10.5.1.21  -P3306 -uroot -p123456 -e "TRUNCATE  app.edu_app_dxf_yj" """
-    mysqlShell = """  mysql -h10.5.1.21  -P3306 -uroot -p123456 --local-infile=1 -e " SET NAMES utf8; LOAD DATA LOCAL INFILE '"""+filePath+"""/000000_0' into table app.edu_app_dxf_yj(xh,xm,yxdm,yxmc,zydm,zymc,bjdm,bjmc,xznj,sxqyjzxf,sxqcjxf)  " """
+    mysqlShell = """  mysql -h10.5.1.21  -P3306 -uroot -p123456 --local-infile=1 -e " SET NAMES utf8; LOAD DATA LOCAL INFILE '"""+filePath+"""/000000_0' into table app.edu_app_dxf_yj(xh,xm,yxdm,yxmc,zydm,zymc,bjdm,bjmc,xznj,sxqyjzxf,sxqcjxf,xz)  " """
     monitorShell = """mysql -h10.5.1.21 -P3306 -uroot -p123456 -e "insert into app.daily_report_data_monitor(date,table_name,complete_flag,create_time) values("""+data_day_int+""",'edu_app_dxf_yj',1,now()) " """
     os.system(deleteShell)
     os.system(mysqlShell)

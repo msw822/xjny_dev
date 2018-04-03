@@ -17,7 +17,7 @@ SELECT XH,
  
  
  
--- 三餐消费 2016年开始
+-- 三餐消费 
 
 set hive.exec.dynamic.partition.mode=nonstrict;
  INSERT OVERWRITE TABLE app.edu_app_ykt_scxf PARTITION (dt)
@@ -61,7 +61,7 @@ SELECT xh,
                jysj,
                xfjl.jyje,dt
           FROM gdm.gdm_ykt_jy_log xfjl
-         WHERE dt>='2018-01-01'  AND dt<='2018-04-01'
+         WHERE dt>='2017-01-01'  AND dt<='2017-06-01' and  xh like '22%'
            AND jylx in ('消费')) tmp
  GROUP BY xh, xfrq;
  
