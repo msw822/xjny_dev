@@ -56,7 +56,7 @@ xxdm,
 NULL,
 NULL,
 NULL,
-NULL,
+sfzx,
 NULL,
 from_unixtime(
 unix_timestamp(),
